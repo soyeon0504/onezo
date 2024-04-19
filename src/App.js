@@ -1,15 +1,27 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, RouterProvider, Routes } from "react-router-dom";
+import Header from "./components/header/Header";
+import MainPage from "./pages/MainPage";
+import MenuPage from "./pages/MenuPage";
+import Layout from "./layouts/Layout";
+import router from "./routes/root";
 // import { Wrap } from "./styles/basic";
 
+
+// const App = () => {
+//   return (
+//     <>
+//     <Layout />
+//     <MainPage />
+//     <MenuPage />
+//     </>
+//   );
+// };
+
 const App = () => {
-  return (
-    // <Wrap maxw={1980}>
-      <Routes>
-        <Route path="*" element={<h1>반가워요</h1>}></Route>
-      </Routes>
-    // </Wrap>
-  );
-};
+	return <>
+		<RouterProvider router={router} />
+	</>
+}
 
 export default App;

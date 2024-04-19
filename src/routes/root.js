@@ -4,12 +4,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import Loading from "../components/loading/Loading";
 import { Suspense, lazy } from "react";
-import todoRouter from "./todoRouter";
-import productRouter from "./productRouter";
-import memberRouter from "./memberRouter";
+// import todoRouter from "./todoRouter";
+// import productRouter from "./productRouter";
+// import memberRouter from "./memberRouter";
 
 // 메인패스 컴포넌트
 const LazyMainPage = lazy(() => import("../pages/MainPage"));
+const LazyMenuPage = lazy(() => import("../pages/MenuPage"));
 const LazyMyPage = lazy(() => import("../pages/MyPage"));
 const LazyLoginPage = lazy(() => import("../pages/LoginPage"));
 const LazyJoinPage = lazy(() => import("../pages/JoinPage"));
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loading />}>
         <LazyMainPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/menu",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyMenuPage />
       </Suspense>
     ),
   },
