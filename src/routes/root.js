@@ -1,23 +1,18 @@
-// 라우터를 별도 파일 관리하겠다.
-// 패스가 주 경로 일때
-// 패스가 중첩일때는 또 별도로 파일 생성
+import React, { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import Loading from "../components/loading/Loading";
-import { Suspense, lazy } from "react";
-// import todoRouter from "./todoRouter";
-// import productRouter from "./productRouter";
-// import memberRouter from "./memberRouter";
 
-// 메인패스 컴포넌트
-const LazyMainPage = lazy(() => import("../pages/MainPage"));
-const LazyMenuPage = lazy(() => import("../pages/MenuPage"));
-const LazyMyPage = lazy(() => import("../pages/MyPage"));
-const LazyLoginPage = lazy(() => import("../pages/LoginPage"));
-const LazyJoinPage = lazy(() => import("../pages/JoinPage"));
-const LazyPaymentPage = lazy(() => import("../pages/PaymentPage"));
+import myRouter from "./myRouter";
+import shopRouter from "./shopRouter";
+
+const LazyMainPage = lazy(() => import("../pages/main/MainPage"));
+const LazyMenuPage = lazy(() => import("../pages/menu/MenuPage"));
+const LazyMyPage = lazy(() => import("../pages/my/MyPage"));
+const LazyLoginPage = lazy(() => import("../pages/login/LoginPage"));
+const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
+const LazyPaymentPage = lazy(() => import("../pages/pay/PaymentPage"));
 const LazyShopPage = lazy(() => import("../pages/shop/ShopPage"));
-const LazyDetailPage = lazy(() => import("../pages/shop/DetailPage"));
-const LazyCartPage = lazy(() => import("../pages/CartPage"));
+const LazyCartPage = lazy(() => import("../pages/cart/CartPage"));
 
 const router = createBrowserRouter([
   {
@@ -36,6 +31,7 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
+  // My Area
   {
     path: "/my",
     element: (
@@ -43,6 +39,7 @@ const router = createBrowserRouter([
         <LazyMyPage />
       </Suspense>
     ),
+    children:myRouter(),
   },
   {
     path: "/login",
@@ -51,7 +48,6 @@ const router = createBrowserRouter([
         <LazyLoginPage />
       </Suspense>
     ),
-    // children: todoRouter(),
   },
   {
     path: "/join",
@@ -60,7 +56,6 @@ const router = createBrowserRouter([
         <LazyJoinPage />
       </Suspense>
     ),
-    // children: productRouter(),
   },
   {
     path: "/payment/",
@@ -69,8 +64,9 @@ const router = createBrowserRouter([
         <LazyPaymentPage />
       </Suspense>
     ),
-    // children: memberRouter(),
   },
+
+  // shop Area
   {
     path: "/shop/",
     element: (
@@ -78,14 +74,7 @@ const router = createBrowserRouter([
         <LazyShopPage />
       </Suspense>
     ),
-  },
-  {
-    path: "/shop/detail",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LazyDetailPage />
-      </Suspense>
-    ),
+    children:shopRouter(),
   },
   {
     path: "/cart",
