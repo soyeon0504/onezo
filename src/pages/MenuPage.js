@@ -1,11 +1,13 @@
 import React from 'react'
 import Layout from '../layouts/Layout'
 
-const MainPage = () => {
+const MenuPage = () => {
   return (
     <div>
+        <Layout />
+        <div>sfkldsjflkdsjkl</div>
     </div>
   )
 }
 
-export default MainPage
+export default MenuPage

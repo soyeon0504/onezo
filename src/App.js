@@ -1,34 +1,27 @@
-import React, { Suspense, lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import React from "react";
+import { Route, RouterProvider, Routes } from "react-router-dom";
+import Header from "./components/header/Header";
+import MainPage from "./pages/MainPage";
+import MenuPage from "./pages/MenuPage";
+import Layout from "./layouts/Layout";
+import router from "./routes/root";
 // import { Wrap } from "./styles/basic";
 
-const LazyMyPage = lazy(() => import("./pages/my/MyPage"));
-const LazyCartPage = lazy(() => import("./pages/CartPage"));
+
+// const App = () => {
+//   return (
+//     <>
+//     <Layout />
+//     <MainPage />
+//     <MenuPage />
+//     </>
+//   );
+// };
 
 const App = () => {
-  return (
-    // <Wrap maxw={1980}>
-      <Routes>
-        {/* <Route path="*" element={<h1>반가워요</h1>}></Route> */}
-        <Route
-          path="/my"
-          element={
-            <Suspense>
-              <LazyMyPage />
-            </Suspense>
-          }
-        ></Route>
-        <Route
-          path="/cart"
-          element={
-            <Suspense>
-              <LazyCartPage />
-            </Suspense>
-          }
-        ></Route>
-      </Routes>
-    // </Wrap>
-  );
-};
+	return <>
+		<RouterProvider router={router} />
+	</>
+}
 
 export default App;
