@@ -3,10 +3,11 @@ import { createBrowserRouter } from "react-router-dom";
 import Loading from "../components/loading/Loading";
 
 import myRouter from "./myRouter";
-import shopRouter from "./shopRouter";
+// import menuRouter from "./menuRouter";
 
 const LazyMainPage = lazy(() => import("../pages/main/MainPage"));
 const LazyMenuPage = lazy(() => import("../pages/menu/MenuPage"));
+const LazyDetailPage = lazy(() => import("../pages/menu/DetailPage"));
 const LazyMyPage = lazy(() => import("../pages/my/MyPage"));
 const LazyLoginPage = lazy(() => import("../pages/login/LoginPage"));
 const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
@@ -23,13 +24,24 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
+  // Menu Area
   {
-    path: "/menu",
+    path: "/menu/",
     element: (
       <Suspense fallback={<Loading />}>
         <LazyMenuPage />
       </Suspense>
     ),
+    // children:menuRouter(),
+  },
+  {
+    path: "/menu/detail",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyDetailPage />
+      </Suspense>
+    ),
+    // children:menuRouter(),
   },
   // My Area
   {
@@ -74,7 +86,6 @@ const router = createBrowserRouter([
         <LazyShopPage />
       </Suspense>
     ),
-    children:shopRouter(),
   },
   {
     path: "/cart",

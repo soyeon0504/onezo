@@ -57,9 +57,11 @@ export const HeaderRightBottom = styled.div`
   width: 285px;
   justify-content: space-between;
   img {
-    position: absolute;
-    right: 77px;
-    bottom: 12px;
+    /* position: absolute; */
+    width: 25px;
+    height: 25px;
+    /* right: 77px; */
+    /* bottom: 12px; */
   }
   a {
     font-size: 22px;
@@ -71,7 +73,11 @@ export const HeaderRightBottom = styled.div`
     font-weight: 500;
 }
 .cart {
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
+    
+    /* background: url("/images/header/shopping_cart.png") no-repeat;
+    background-size: 25px;
+    background-position: 0px; */
   }
 `;
 export const Login = styled.a`
