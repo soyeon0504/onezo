@@ -7,13 +7,15 @@ export const Wrap = styled.div`
 export const InnerWrap = styled.div`
   width: 1300px;
   margin: 0 auto;
+  padding-top: 140px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
   .join-title {
     font-size: 24px;
     color: #572a01;
     font-weight: 700;
+    padding-bottom: 100px;
   }
 `;
 export const InfoBox = styled.div`
@@ -21,44 +23,59 @@ export const InfoBox = styled.div`
   height: 800px;
   border: 1px solid #d9d9d9;
   border-radius: 15px;
+  padding-top: 100px;
   .bundle {
-    width: 1000px;
+    position: relative;
+    margin: 0 auto;
+    width: 850px;
     display: flex;
     justify-content: space-evenly;
     justify-content: flex-start;
-    padding: 30px 100px 30px 70px;
+    padding: 0 33px 70px;
   }
   p {
+    left: 0;
     font-size: 16px;
     font-weight: 700;
   }
   input {
+    position: absolute;
+    right: 0;
     width: 700px;
     height: 35px;
     border: 1px solid #572a01;
     border-radius: 10px;
     font-size: 16px;
+    padding-left: 10px;
   }
   .input1,
   .input5,
   .input6 {
+    position: absolute;
+    left: 150px;
     width: 500px;
     height: 35px;
     border: 1px solid #572a01;
     border-radius: 10px;
   }
-  button {
-    width: 150px;
-    height: 35px;
-    border: 1px solid #572a01;
-    border-radius: 10px;
-    background-color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    color: #555;
-    cursor: pointer;
+  .join-button {
+    padding-top: 50px;
   }
-  button:hover {
+`;
+
+export const CheckButton = styled.button`
+position: absolute;
+  width: 150px;
+  height: 35px;
+  border: 1px solid #572a01;
+  border-radius: 10px;
+  background-color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  right: 0;
+  color: #555;
+  cursor: pointer;
+  &:hover {
     background-color: #ff8b38;
     border: #ff8b38;
     color: #fff;
@@ -74,4 +91,8 @@ export const JoinButton = styled.button`
   color: #fff;
   font-size: 22px;
   cursor: pointer;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
