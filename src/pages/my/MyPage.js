@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MyOrderListPage from "./MyOrderListPage";
-import MyOrderStatePage from "./MyOrderStatePage";
+import MyOrderStatusPage from "./MyOrderStatusPage";
 import MyInterestPage from "./MyInterestPage";
 import MyInfoPage from "./MyInfoPage";
 import MyWithdrawPage from "./MyWithdrawPage";
@@ -108,7 +108,7 @@ const MyPage = () => {
           />
           <div style={{paddingTop:"30px"}}>
             {activeBtn === "주문 내역" && <MyOrderListPage />}
-            {activeBtn === "주문 현황" && <MyOrderStatePage />}
+            {activeBtn === "주문 현황" && <MyOrderStatusPage />}
             {activeBtn === "관심 매장" && <MyInterestPage />}
             {activeBtn === "내 정보 수정" && <MyInfoPage />}
             {activeBtn === "회원 탈퇴" && <MyWithdrawPage />}
