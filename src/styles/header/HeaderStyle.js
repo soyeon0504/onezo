@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Wrap = styled.div`
+margin: 0 auto;
   width: 1980px;
   box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.1);
 `;
@@ -11,7 +12,6 @@ export const InnerWrap = styled.div`
   width: 1300px;
   height: 200px;
   margin: 0 auto;
-  /* background-color: hotpink; */
 `;
 
 export const Logo = styled.div`
@@ -28,18 +28,18 @@ export const HeaderRight = styled.div`
   display: block;
   align-items: center;
   right: 0;
-  /* top: 60px; */
+  padding-top: 5px;
 `;
 
 export const HeaderRightTop = styled.div`
-position: relative;
+  position: relative;
   .header-right-top-inner {
     position: absolute;
-    font-weight: 500;
-    width: 100px;
+    font-weight: 400;
+    width: 130px;
     display: flex;
     justify-content: space-between;
-    font-size: 13px;
+    font-size: 14px;
     top: 50px;
     right: 4px;
     a {
@@ -54,14 +54,17 @@ export const HeaderRightBottom = styled.div`
   display: flex;
   top: 90px;
   right: 0;
-  width: 285px;
+  width: 350px;
   justify-content: space-between;
   img {
-    /* position: absolute; */
     width: 25px;
     height: 25px;
-    /* right: 77px; */
-    /* bottom: 12px; */
+  }
+  .menu {
+    padding-right: 20px;
+  }
+  .order {
+    padding-right: 10px;
   }
   a {
     font-size: 22px;
@@ -69,15 +72,10 @@ export const HeaderRightBottom = styled.div`
     color: black;
   }
   a:hover {
-    color: #FF8B38;
+    color: #ff8b38;
     font-weight: 500;
-}
-.cart {
-    /* margin-bottom: 10px; */
-    
-    /* background: url("/images/header/shopping_cart.png") no-repeat;
-    background-size: 25px;
-    background-position: 0px; */
+  }
+  .cart {
   }
 `;
 export const Login = styled.a`

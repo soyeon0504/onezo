@@ -29,8 +29,8 @@ export const Header = () => {
             </div>
           </HeaderRightTop>
           <HeaderRightBottom>
-            <a href="/menu">메뉴</a>
-            <a href="/order">주문하기</a>
+            <a href="/menu" className="menu">메뉴</a>
+            <a href="/order" className="order">주문하기</a>
             <div className="cart">
               <img src="../../images/header/shopping_cart.png" style={{marginBottom: "11px"}}/>
               <a href="/cart" className="cart-a">장바구니</a>
