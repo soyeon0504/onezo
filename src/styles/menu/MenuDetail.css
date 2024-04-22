@@ -1,0 +1,134 @@
+.menuItem {
+  display: flex;
+  align-items: center;
+}
+.menuItem_info {
+  text-align: left;
+}
+
+.menuItem_name {
+  font-family: "";
+  font-size: 50px;
+  color: #572a01;
+  font-weight: bold;
+}
+
+.menuItem_price {
+  font-family: "";
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.menuItem_note {
+  opacity: 0.5;
+}
+
+.menuItem_controls {
+  border: 2px solid #ccc;
+  padding: 1px;
+  border-radius: 15px;
+  width: 326px;
+  margin: 100px 0;
+  display: flex;
+  gap: 118px;
+  align-items: center;
+}
+
+.menuItem_controlButton {
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.menuItem_quantity {
+  font-size: 20px;
+  vertical-align: middle;
+  display: inline-block;
+  text-align: center;
+}
+.menuItem_orderButton {
+  background-color: #ff8b38;
+  color: white;
+  width: 326px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.imageContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.dashedLine {
+  border-top: 1px dashed #572a01;
+  width: 1300px;
+  margin: 0 auto;
+}
+.foodOrigin {
+  text-align: left;
+  margin: 100px;
+}
+.MenuButtonWrap {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 40px;
+  font-size: 23px;
+  width: 665px;
+}
+
+.MenuButtonWrap button {
+  width: 100px;
+  height: 47px;
+  border: 1px solid #572a01;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #572a01;
+  text-align: center;
+  cursor: pointer;
+}
+
+.MenuButtonWrap button:hover {
+  background-color: #ffd15a;
+  border: 1px solid #ffd15a;
+  color: #fff;
+}
+
+.nutritionInfo {
+  text-align: right;
+  margin-right: 200px;
+}
+.borderBox {
+  position: relative;
+  width: 553px;
+  height: 586px;
+  border: 2px solid #572a01;
+  box-sizing: border-box;
+  border-radius: 15px;
+  float: right;
+  margin-bottom: 100px;
+  margin-right: 100px;
+}
+.menuItem_image {
+  margin: 100px;
+}
+.MenuTitle {
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
+  /* background-color: yellowgreen; */
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.MenuTitle p {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 37px;
+}
+
