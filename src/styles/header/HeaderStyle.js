@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Wrap = styled.div`
-margin: 0 auto;
+  margin: 0 auto;
   width: 1980px;
   box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.1);
 `;
@@ -46,6 +46,22 @@ export const HeaderRightTop = styled.div`
       text-decoration-line: none;
       color: black;
     }
+  }
+`;
+
+export const LoginState = styled.div`
+  position: absolute;
+  font-weight: 400;
+  width: 130px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  top: 50px;
+  right: 4px;
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
   }
 `;
 
