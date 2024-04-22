@@ -8,6 +8,7 @@ export const InnerWrap = styled.div`
   width: 1300px;
   margin: 0 auto;
   padding-top: 140px;
+  padding-bottom: 230px;
   display: flex;
   flex-direction: column;
   align-items: center;

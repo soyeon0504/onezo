@@ -64,32 +64,17 @@ const menuData = [
     title: "원조 후라이드",
     price: "18,000원",
   },
-  {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
-    price: "18,000원",
-  },
-  {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
-    price: "18,000원",
-  },
-  {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
-    price: "18,000원",
-  },
 ];
 
 const MainPage = () => {
-  const navigate = useNavigate(`/menu/detail`);
+  const navigate = useNavigate(`/`);
 
   const handlePageChange = () => {
     navigate(url);
   }
   return (
     <>
-      <Layout />
+      <Layout>
       <MainWrap>
         <MainWrapInner>
           <MenuWrap>
@@ -132,6 +117,7 @@ const MainPage = () => {
           </MenuWrap>
         </MainWrapInner>
       </MainWrap>
+      </Layout>
     </>
   );
 };

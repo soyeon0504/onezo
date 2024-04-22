@@ -5,7 +5,7 @@ import { CheckButton, InfoBox, InnerWrap, JoinButton, Wrap } from "../../styles/
 const JoinPage = () => {
   return (
     <>
-      <Layout />
+      <Layout>
       <Wrap>
         <InnerWrap>
           <div className="join-title">회원가입</div>
@@ -43,6 +43,7 @@ const JoinPage = () => {
           </InfoBox>
         </InnerWrap>
       </Wrap>
+      </Layout>
     </>
   );
 };
