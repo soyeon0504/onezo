@@ -25,6 +25,15 @@ import { useEffect, useRef, useState } from "react";
 import "swiper/css";
 import { useNavigate } from "react-router-dom";
 
+const btList = [
+    { title: "전체" },
+    { title: "세트" },
+    { title: "치킨" },
+    { title: "사이드" },
+    { title: "소스" },
+    { title: "음료" },
+  ]
+
 const menuData = [
   {
     image: "../../images/main/chicken.svg",
@@ -61,8 +70,6 @@ const menuData = [
 const MainPage = () => {
   const swiperRef = useRef();
   const navigate = useNavigate(`/menu/detail`);
-  // 현재 선택된 버튼을 나타내는 상태
-  // const [selectedButton, setSelectedButton] = useState('전체');
 
   // 전달 받은 목록데이터
   const [productData, setProductData] = useState();
@@ -96,7 +103,7 @@ const MainPage = () => {
 
   return (
     <>
-      <Layout />
+      <Layout>
       <MainWrap>
         <MainWrapInner>
           <Banner>
@@ -154,12 +161,25 @@ const MainPage = () => {
                 <p>메뉴보기</p>
               </MenuTitle>
               <MenuButtonWrap>
-                <button onClick={() => handleCategoryClick("전체")}>전체</button>
-                <button onClick={() => handleCategoryClick("세트")}>세트</button>
-                <button onClick={() => handleCategoryClick("치킨")}>치킨</button>
-                <button onClick={() => handleCategoryClick("사이드")}>사이드</button>
-                <button onClick={() => handleCategoryClick("소스")}>소스</button>
-                <button onClick={() => handleCategoryClick("음료")}>음료</button>
+              {btList.map((item, index) => {
+            return (
+              <button
+                key={`product-slide-bt-${index}`}
+                className={"ㅗㅗ"}
+                onClick={() => {
+                  handleCategoryClick(item);
+                }}
+              >
+                {item.title}
+              </button>
+            );
+          })}
+              {/* <button onClick={() => handleCategoryClick("전체")}>전체</button>
+              <button onClick={() => handleCategoryClick("세트")}>세트</button>
+              <button onClick={() => handleCategoryClick("치킨")}>치킨</button>
+              <button onClick={() => handleCategoryClick("사이드")}>사이드</button>
+              <button onClick={() => handleCategoryClick("소스")}>소스</button>
+              <button onClick={() => handleCategoryClick("음료")}>음료</button> */}
               </MenuButtonWrap>
             </MenuTop>
             <MenuMainWrap>
@@ -192,6 +212,7 @@ const MainPage = () => {
           </MenuWrap>
         </MainWrapInner>
       </MainWrap>
+      </Layout>
     </>
   );
 };

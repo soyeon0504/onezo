@@ -13,7 +13,7 @@ import Layout from "../../layouts/Layout";
 const LoginPage = () => {
   return (
     <>
-      <Layout />
+      <Layout>
       <Wrap>
         <LoginWrap>
           <LoginInnerWrap>
@@ -47,6 +47,7 @@ const LoginPage = () => {
           </LoginInnerWrap>
         </LoginWrap>
       </Wrap>
+      </Layout>
     </>
   );
 };

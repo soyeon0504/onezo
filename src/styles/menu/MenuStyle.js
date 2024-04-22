@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
 
 export const MainWrap = styled.div`
-  width: 1980px;
-  /* height: 5000px; */
+  width: 100vw;
+  height: auto;
   background-color: #fff7e1;
   margin: 0 auto;
-  min-height: 100vh;
-  /* padding-bottom: 100px; */
 `;
 
 export const MainWrapInner = styled.div`
@@ -24,7 +22,6 @@ export const MenuTitle = styled.div`
   display: flex;
   justify-content: space-between;
   width: 360px;
-  /* background-color: yellowgreen; */
   margin: 0 auto;
   margin-top: 100px;
   p {
