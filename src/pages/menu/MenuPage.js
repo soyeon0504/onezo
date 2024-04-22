@@ -70,6 +70,7 @@ const MainPage = () => {
   const navigate = useNavigate(`/`);
 
   const handlePageChange = () => {
+    const url = `/menu/detail`;
     navigate(url);
   }
   return (

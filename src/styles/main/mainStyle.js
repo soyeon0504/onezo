@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 
 export const MainWrap = styled.div`
-  width: 1980px;
-  min-height: 100vh;
+  width: 100vw;
+  height: auto;
   background-color: #fff7e1;
   margin: 0 auto;
 `;

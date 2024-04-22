@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const Wrap = styled.div`
   width: 1980px;
   min-height: 100vh;
+  margin: 0 auto;
 `;
 
 export const LoginWrap = styled.div`
@@ -103,3 +104,12 @@ a {
     color: #A9A7A7;
 }
 `
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+`;

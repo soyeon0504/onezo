@@ -111,6 +111,5 @@ export const MenuDesc = styled.div`
       font-size: 18px;
       background-color: #ffd15a;
       font-weight: 500;
-      /* right: 0; */
   }
 `;

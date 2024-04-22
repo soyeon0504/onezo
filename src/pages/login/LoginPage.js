@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   InputWrap,
   LoginBottomWrap,
@@ -7,10 +7,21 @@ import {
   LoginInnerWrap,
   LoginWrap,
   Wrap,
+  ModalBackground
 } from "../../styles/login/LoginStyle";
+import IdFind from "../../components/login/IdFind";
 import Layout from "../../layouts/Layout";
 
 const LoginPage = () => {
+   // 아이디 찾기 버튼 클릭
+   const [idFindModal, setIdFindModal] = useState(false);
+   const handleIdFind = () => {
+     setIdFindModal(true);
+   };
+   const closeIdFindModal = () => {
+     setIdFindModal(false);
+   };
+
   return (
     <>
       <Layout>
@@ -37,7 +48,13 @@ const LoginPage = () => {
             <LoginFooter>
             <LoginButton>로그인</LoginButton>
             <LoginBottomWrap>
-              <div>아이디 찾기</div>
+              <div onClick={handleIdFind}>아이디 찾기</div>
+              {idFindModal && (
+              <>
+                <IdFind closeModal={closeIdFindModal} />
+                <ModalBackground></ModalBackground>
+              </>
+            )}
               <hr/>
               <div>비밀번호 찾기</div>
               <hr/>

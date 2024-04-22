@@ -39,6 +39,10 @@ export const InfoBox = styled.div`
     font-size: 16px;
     font-weight: 700;
   }
+  .nec {
+    font-size: 18px;
+    color: red;
+  }
   input {
     position: absolute;
     right: 0;
