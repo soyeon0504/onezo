@@ -44,7 +44,7 @@ const cartData = [
 const CartPage = () => {
   return (
     <>
-    <Layout />
+    <Layout>
       <CartStyle>
         <CartHeader>
           <p>장바구니</p>
@@ -104,6 +104,7 @@ const CartPage = () => {
           </CartTotalPrice>
         </CartMain>
       </CartStyle>
+    </Layout>
     </>
   );
 };

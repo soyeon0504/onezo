@@ -97,7 +97,7 @@ const MyPage = () => {
 
   return (
     <>
-    <Layout />
+    <Layout>
       <AllWidth>
         <div>
           <MyTitle>
@@ -119,6 +119,7 @@ const MyPage = () => {
           </Flex>
         </div>
       </AllWidth>
+      </Layout>
     </>
   );
 };
