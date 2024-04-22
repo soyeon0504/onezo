@@ -75,13 +75,14 @@ export const MenuMain = styled.div`
 export const MenuImage = styled.div`
   width: 370px;
   height: 300px;
-  border: 1.5px solid #ab9480;
-  border-radius: 15px;
   img {
     width: 370px;
-    height: auto;
-    /* border: 1.5px solid #ab9480;
-    border-radius: 15px; */
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 1.5px solid #ab9480;
+    border-radius: 15px;
+    box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.2);
   }
 `;
 

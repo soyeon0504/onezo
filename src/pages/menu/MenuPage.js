@@ -20,62 +20,62 @@ import "swiper/css";
 
 const menuData = [
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },

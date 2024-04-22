@@ -27,32 +27,32 @@ import { useNavigate } from "react-router-dom";
 
 const menuData = [
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
   {
-    image: "/public/images/main/chicken.svg",
+    image: "../../images/main/chicken.svg",
     title: "원조 후라이드",
     price: "18,000원",
   },
@@ -61,9 +61,30 @@ const menuData = [
 const MainPage = () => {
   const swiperRef = useRef();
   const navigate = useNavigate(`/menu/detail`);
+  // 현재 선택된 버튼을 나타내는 상태
+  // const [selectedButton, setSelectedButton] = useState('전체');
+
+  // 전달 받은 목록데이터
+  const [productData, setProductData] = useState();
+
+  // 버튼 클릭 이벤트 처리 함수
+  const handleCategoryClick = async () => {
+    try {
+      const res = await getProduct();
+      // setSelectedButton(buttonName);
+      setProductData(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handlePageChange = () => {
     const url = `/menu/detail`;
+    navigate(url);
+  };
+  
+  const handleClickMenu = () => {
+    const url = `/menu`;
     navigate(url);
   }
 
@@ -72,6 +93,7 @@ const MainPage = () => {
     color: #572a01;
     font-weight: 500;
   `;
+
   return (
     <>
       <Layout />
@@ -132,15 +154,14 @@ const MainPage = () => {
                 <p>메뉴보기</p>
               </MenuTitle>
               <MenuButtonWrap>
-                <button>전체</button>
-                <button>세트</button>
-                <button>치킨</button>
-                <button>사이드</button>
-                <button>소스</button>
-                <button>음료</button>
+                <button onClick={() => handleCategoryClick("전체")}>전체</button>
+                <button onClick={() => handleCategoryClick("세트")}>세트</button>
+                <button onClick={() => handleCategoryClick("치킨")}>치킨</button>
+                <button onClick={() => handleCategoryClick("사이드")}>사이드</button>
+                <button onClick={() => handleCategoryClick("소스")}>소스</button>
+                <button onClick={() => handleCategoryClick("음료")}>음료</button>
               </MenuButtonWrap>
             </MenuTop>
-            {/* 메뉴.map */}
             <MenuMainWrap>
               {menuData.map((item, index) => (
                 <MenuMain key={index}>
@@ -165,7 +186,7 @@ const MainPage = () => {
             <MenuMoreButton>
               <StyledButton 
               className="menu-more-button"
-              // onClick={handleClickDetail}
+              onClick={handleClickMenu}
               >더보기</StyledButton>
             </MenuMoreButton>
           </MenuWrap>

@@ -23,8 +23,7 @@ export const BannerSlide = styled.div`
   justify-content: center;
 `;
 
-export const MenuWrap = styled.div`
-`;
+export const MenuWrap = styled.div``;
 
 export const MenuTop = styled.div``;
 
@@ -69,7 +68,6 @@ export const MenuMainWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-row-gap: 100px;
-  
 `;
 
 export const MenuMain = styled.div`
@@ -84,15 +82,14 @@ export const MenuMain = styled.div`
 export const MenuImage = styled.div`
   width: 370px;
   height: 300px;
-  border: 1.5px solid #ab9480;
-  border-radius: 15px;
-  box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.2);
-;
   img {
     width: 370px;
-    height: auto;
-    /* border: 1.5px solid #ab9480;
-    border-radius: 15px; */
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 1.5px solid #ab9480;
+    border-radius: 15px;
+    box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -118,13 +115,13 @@ export const MenuDesc = styled.div`
     color: #fff;
     cursor: pointer;
     width: 95px;
-      height: 40px;
-      border-radius: 10px;
-      border: none;
-      font-size: 18px;
-      background-color: #ffd15a;
-      font-weight: 500;
-      /* right: 0; */
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    background-color: #ffd15a;
+    font-weight: 500;
+    /* right: 0; */
   }
 `;
 
@@ -144,11 +141,11 @@ export const MenuMoreButton = styled.div`
     text-align: center;
     font-size: 30px;
     &:hover {
-        color: #fff;
-        font-weight: 500;
-        background-color: #ffd15a;
-    border: 1px solid #ffd15a;
-    cursor: pointer;
+      color: #fff;
+      font-weight: 500;
+      background-color: #ffd15a;
+      border: 1px solid #ffd15a;
+      cursor: pointer;
     }
   }
 `;
