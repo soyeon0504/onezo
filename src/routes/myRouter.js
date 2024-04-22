@@ -6,7 +6,7 @@ const LazyMyInfoPage = lazy(() => import("../pages/my/MyInfoPage"));
 const LazyMyInterestPage = lazy(() => import("../pages/my/MyInterestPage"));
 const LazyMyOrderDetailPage = lazy(() => import("../pages/my/MyOrderDetailPage"));
 const LazyMyOrderListPage = lazy(() => import("../pages/my/MyOrderListPage"));
-const LazyMyOrderStatePage = lazy(() => import("../pages/my/MyOrderStatePage"));
+const LazyMyOrderStatusPage = lazy(() => import("../pages/my/MyOrderStatusPage"));
 const LazMyWithdrawPage = lazy(() => import("../pages/my/MyWithdrawPage"));
 
 
@@ -46,10 +46,10 @@ const myRouter = () => {
         ),
       },
       {
-        path: "/my/orderState",
+        path: "/my/orderStatus",
         element: (
           <Suspense fallback={<Loading />}>
-            <LazyMyOrderStatePage />
+            <LazyMyOrderStatusPage />
           </Suspense>
         ),
       },
