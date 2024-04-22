@@ -1,5 +1,10 @@
 import React from "react";
-import { OrderListContent, OrderListItem, OrderListTitle } from "../../styles/my/MyOrderListStyle";
+import {
+  OrderListContent,
+  OrderListItem,
+  OrderListTitle,
+} from "../../styles/my/MyOrderListStyle";
+import { PaginationOrange } from "../../styles/Pagination";
 
 const orderListData = [
   {
@@ -48,7 +53,7 @@ const MyOrderListPage = () => {
           </OrderListTitle>
           <OrderListContent>
             <img src={item.pic} />
-            <div style={{width:"740px"}}>
+            <div style={{ width: "740px" }}>
               <span>
                 [{item.store}] {item.menu}
               </span>
@@ -63,6 +68,9 @@ const MyOrderListPage = () => {
           </OrderListContent>
         </OrderListItem>
       ))}
+      <div style={{ margin: "0 auto" }}>
+        <PaginationOrange />
+      </div>
     </div>
   );
 };

@@ -46,7 +46,7 @@ const myRouter = () => {
         ),
       },
       {
-        path: "/my/orderState",
+        path: "/my/orderStatus",
         element: (
           <Suspense fallback={<Loading />}>
             <LazyMyOrderStatusPage />
