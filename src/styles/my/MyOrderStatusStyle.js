@@ -13,7 +13,17 @@ export const OrderStatusStyle = styled.div`
   }
 `;
 export const OrderStatusGraph = styled.div`
-  padding-top: 10px;
+  padding-top: 20px;
+  h2 {
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+`;
+export const OrderStatusList = styled.div`
+  margin-top: 50px;
   h2 {
     color: #000;
     font-family: "Noto Sans";
@@ -21,18 +31,50 @@ export const OrderStatusGraph = styled.div`
     font-weight: 700;
     margin-bottom: 15px;
   }
-  div{
-    /* margin: 0 auto;
-    text-align: center; */
+`;
+export const OrderStatusItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 939px;
+  border: 1px solid #D9D9D9;
+  padding: 15px 30px;
+  margin-bottom: 20px;
+  img {
+    width: 80px;
+    height: 80px;
   }
+  div {
+    display: block;
+    margin-left: 10px;
+  }
+
+`;
+export const OrderStatusMenu = styled.div`
+  width: 770px;
+  display: flex !important;
+  justify-content: start;
+  align-items: center;
+  border-bottom: 1px solid #D9D9D9;
+  padding-bottom: 10px;
   span {
-    margin-left: 100px;
     color: #000;
     font-family: "Noto Sans";
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 600;
   }
-  span:nth-of-type(1){
-    margin-left: 0;
+`;
+export const OrderStatusCount = styled.div`
+  width: 770px;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+
+  span {
+    color: #000;
+    font-family: "Noto Sans";
+    font-size: 20px;
+    font-weight: 600;
   }
 `;
