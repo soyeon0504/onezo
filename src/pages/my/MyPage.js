@@ -7,6 +7,7 @@ import MyWithdrawPage from "./MyWithdrawPage";
 import styled from "@emotion/styled";
 import MyCategory from "../../components/my/MyCategory";
 import { useNavigate } from "react-router-dom";
+import Layout from "../../layouts/Layout";
 
 const AllWidth = styled.div`
   width: 1300px;
@@ -95,27 +96,31 @@ const MyPage = () => {
   };
 
   return (
-    <AllWidth>
-      <div>
-        <MyTitle>
-          <h1>마이페이지</h1>
-        </MyTitle>
-        <Flex>
-          <MyCategory
-            myCate={myCate}
-            selectedItem={selectedItem}
-            onSubItemClick={handleSubItemClick}
-          />
-          <div style={{paddingTop:"30px"}}>
-            {activeBtn === "주문 내역" && <MyOrderListPage />}
-            {activeBtn === "주문 현황" && <MyOrderStatusPage />}
-            {activeBtn === "관심 매장" && <MyInterestPage />}
-            {activeBtn === "내 정보 수정" && <MyInfoPage />}
-            {activeBtn === "회원 탈퇴" && <MyWithdrawPage />}
-          </div>
-        </Flex>
-      </div>
-    </AllWidth>
+    <>
+    <Layout>
+      <AllWidth>
+        <div>
+          <MyTitle>
+            <h1>마이페이지</h1>
+          </MyTitle>
+          <Flex>
+            <MyCategory
+              myCate={myCate}
+              selectedItem={selectedItem}
+              onSubItemClick={handleSubItemClick}
+            />
+            <div style={{ paddingTop: "30px" }}>
+              {activeBtn === "주문 내역" && <MyOrderListPage />}
+              {activeBtn === "주문 현황" && <MyOrderStatusPage />}
+              {activeBtn === "관심 매장" && <MyInterestPage />}
+              {activeBtn === "내 정보 수정" && <MyInfoPage />}
+              {activeBtn === "회원 탈퇴" && <MyWithdrawPage />}
+            </div>
+          </Flex>
+        </div>
+      </AllWidth>
+      </Layout>
+    </>
   );
 };
 

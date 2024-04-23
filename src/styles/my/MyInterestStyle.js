@@ -2,10 +2,11 @@ import styled from "@emotion/styled";
 
 export const InterestPageStyle = styled.div`
   width: 1000px;
-  /* height: 500px; */
   border: 1px solid #d9d9d9;
-  padding: 10px 30px;
+  padding: 10px 50px 20px;
   h1 {
+    margin-bottom: 20px;
+
     color: #000;
     font-family: "Noto Sans";
     font-size: 20px;
@@ -14,6 +15,7 @@ export const InterestPageStyle = styled.div`
 `;
 export const InterestItem = styled.div`
   display: flex;
+  width: 900px;
   justify-content: space-between;
   align-items: center;
   border: 1px solid #d9d9d9;
@@ -24,7 +26,7 @@ export const InterestItem = styled.div`
     height: 70px;
   }
   div {
-    width: 740px;
+    width: 700px;
   }
   span {
     color: #000;
@@ -46,6 +48,7 @@ export const InterestItem = styled.div`
     background: #ff8b38;
     border: none;
     margin-right: 10px;
+    cursor: pointer;
 
     color: #fff;
     font-family: "Noto Sans";
@@ -58,6 +61,7 @@ export const InterestMoreBt = styled.button`
   height: 50px;
   border: 1px solid #d9d9d9;
   background: #fff;
+    cursor: pointer;
 
   color: #000;
   font-family: "Noto Sans";

@@ -1,9 +1,13 @@
 import React from "react";
 import {
+  OrderStatusCount,
   OrderStatusGraph,
+  OrderStatusItem,
+  OrderStatusList,
+  OrderStatusMenu,
   OrderStatusStyle,
 } from "../../styles/my/MyOrderStatusStyle";
-import { Steps } from "antd";
+import { ConfigProvider, Steps } from "antd";
 
 const orderStatusData = [
   {
@@ -41,16 +45,21 @@ const MyOrderStatusPage = () => {
       <h1>주문 현황</h1>
       <OrderStatusGraph>
         <h2>주문을 확인하고 있습니다.</h2>
-        {/* <div>
-          <span>주문 확인 중</span>
-          <span>음식 제조 중</span>
-          <span>음식 제조 완료</span>
-          <span>픽업 완료</span>
-        </div> */}
-        <Steps
+
+        <ConfigProvider
+          theme={{
+            token: {
+              // Seed Token
+              colorPrimary: "#FF8B38",
+              borderRadius: 2,
+            },
+          }}
+        >
+          <Steps
           progressDot
-          current={0}
+          current={1}
           // direction="vertical"
+          finishIconBorderColor="FF8B38"
           items={[
             {
               title: "주문 확인 중",
@@ -70,7 +79,26 @@ const MyOrderStatusPage = () => {
             },
           ]}
         />
+        </ConfigProvider>
+
       </OrderStatusGraph>
+      <OrderStatusList>
+        <h2>주문내역({orderStatusData.length})</h2>
+        {orderStatusData.map(item => (
+          <OrderStatusItem key={item.id}>
+            <img src={item.pic} />
+            <div>
+              <OrderStatusMenu>
+                <span>{item.menu}</span>
+              </OrderStatusMenu>
+              <OrderStatusCount>
+                <h2>수량 : {item.count}</h2>
+                <span>{new Intl.NumberFormat().format(item.price)}원</span>
+              </OrderStatusCount>
+            </div>
+          </OrderStatusItem>
+        ))}
+      </OrderStatusList>
     </OrderStatusStyle>
   );
 };
