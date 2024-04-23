@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/OrderDetailPage.css'; // import 키워드를 사용하여 CSS 파일을 import
+import '../../styles/my/MyOrderDetail.css'; // import 키워드를 사용하여 CSS 파일을 import
 
 function OrderDetailPage() {
   return (
