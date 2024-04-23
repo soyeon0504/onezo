@@ -2,15 +2,13 @@ import styled from "@emotion/styled";
 
 export const InfoStyle = styled.div`
   width: 1000px;
-  /* height: 500px; */
   border: 1px solid #d9d9d9;
   padding: 10px 50px 20px;
   h1 {
     margin-bottom: 20px;
 
     color: #000;
-    font-family: "Noto Sans";
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
   }
 `;
@@ -75,7 +73,7 @@ export const ShowPasswordImg = styled.img`
   height: 25px;
   border: none;
   position: absolute;
-  right: 25px;
+  right: 15px;
   top: 20px;
   /* transform: translate(-0%, 0%); */
   cursor: pointer;

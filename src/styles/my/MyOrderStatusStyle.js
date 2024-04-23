@@ -2,13 +2,11 @@ import styled from "@emotion/styled";
 
 export const OrderStatusStyle = styled.div`
   width: 1000px;
-  /* height: 500px; */
   border: 1px solid #d9d9d9;
-  padding: 10px 30px;
+  padding: 10px 50px 20px;
   h1 {
     color: #000;
-    font-family: "Noto Sans";
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
   }
 `;
@@ -16,9 +14,8 @@ export const OrderStatusGraph = styled.div`
   padding-top: 20px;
   h2 {
     color: #000;
-    font-family: "Noto Sans";
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 500;
     margin-bottom: 30px;
   }
 `;
@@ -36,7 +33,7 @@ export const OrderStatusItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 939px;
+  width: 900px;
   border: 1px solid #D9D9D9;
   padding: 15px 30px;
   margin-bottom: 20px;
@@ -51,7 +48,8 @@ export const OrderStatusItem = styled.div`
 
 `;
 export const OrderStatusMenu = styled.div`
-  width: 770px;
+  width: 740px;
+  height: 50px;
   display: flex !important;
   justify-content: start;
   align-items: center;
@@ -65,7 +63,7 @@ export const OrderStatusMenu = styled.div`
   }
 `;
 export const OrderStatusCount = styled.div`
-  width: 770px;
+  width: 740px;
   display: flex !important;
   justify-content: space-between;
   align-items: center;
