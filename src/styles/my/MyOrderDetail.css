@@ -1,0 +1,70 @@
+.app {
+    margin: 0 auto;
+    max-width: 800px; 
+  }
+  .header {
+    background-color: #959e12;
+    color: white;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .order-detail-page {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .order-section {
+    margin-bottom: 40px; 
+  }
+  
+  .order-section h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    font-size: 20px; 
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .order-info p,
+  .order-options p,
+  .payment-info p,
+  .payment-method p {
+    margin: 10px 0; 
+    font-size: 15px; 
+    line-height: 1.6; 
+  }
+  
+  .order-info .branch-name {
+    font-weight: bold;
+  }
+  
+  .order-status {
+    color: #007bff;
+  }
+  
+  
+  .button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
