@@ -1,8 +1,10 @@
 import React from 'react';
 import '../../styles/my/MyOrderDetail.css'; // import 키워드를 사용하여 CSS 파일을 import
+import Layout from '../../layouts/Layout';
 
-function OrderDetailPage() {
+function MyOrderDetailPage() {
   return (
+    <Layout>
     <div className="app">
     <div className="order-detail-page">
       <header>
@@ -59,6 +61,7 @@ function OrderDetailPage() {
       {/* 추가 정보나 링크 */}
     </footer>
   </div>
+  </Layout>
 );
 }
-export default OrderDetailPage;
+export default MyOrderDetailPage;

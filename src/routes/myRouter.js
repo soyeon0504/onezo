@@ -4,7 +4,6 @@ import {Navigate} from 'react-router-dom'
 
 const LazyMyInfoPage = lazy(() => import("../pages/my/MyInfoPage"));
 const LazyMyInterestPage = lazy(() => import("../pages/my/MyInterestPage"));
-const LazyMyOrderDetailPage = lazy(() => import("../pages/my/MyOrderDetailPage"));
 const LazyMyOrderListPage = lazy(() => import("../pages/my/MyOrderListPage"));
 const LazyMyOrderStatusPage = lazy(() => import("../pages/my/MyOrderStatusPage"));
 const LazMyWithdrawPage = lazy(() => import("../pages/my/MyWithdrawPage"));
@@ -29,14 +28,7 @@ const myRouter = () => {
           </Suspense>
         ),
       },
-      {
-        path: "/my/orderDetail",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <LazyMyOrderDetailPage />
-          </Suspense>
-        ),
-      },
+      
       {
         path: "/my/orderList",
         element: (
