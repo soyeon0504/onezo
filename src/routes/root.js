@@ -35,14 +35,6 @@ const router = createBrowserRouter([
     // children:menuRouter(),
   },
   {
-  path: "/order-detail/:id", // 주문 내역 페이지 경로
-  element: (
-    <Suspense fallback={<Loading />}>
-      <LazyMyOrderDetailPage />
-    </Suspense>
-  ),
-},
-  {
     path: "/menu/detail",
     element: (
       <Suspense fallback={<Loading />}>
