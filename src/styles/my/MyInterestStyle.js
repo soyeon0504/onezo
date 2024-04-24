@@ -8,8 +8,7 @@ export const InterestPageStyle = styled.div`
     margin-bottom: 20px;
 
     color: #000;
-    font-family: "Noto Sans";
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 700;
   }
 `;
@@ -30,14 +29,12 @@ export const InterestItem = styled.div`
   }
   span {
     color: #000;
-    font-family: "Noto Sans";
     font-size: 20px;
     font-weight: 600;
   }
   p {
     color: #555;
-    font-family: "Noto Sans";
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     margin-top: 15px;
   }
@@ -51,9 +48,7 @@ export const InterestItem = styled.div`
     cursor: pointer;
 
     color: #fff;
-    font-family: "Noto Sans";
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 20px;
   }
 `;
 export const InterestMoreBt = styled.button`
@@ -61,13 +56,12 @@ export const InterestMoreBt = styled.button`
   height: 50px;
   border: 1px solid #d9d9d9;
   background: #fff;
-    cursor: pointer;
+  cursor: pointer;
 
   color: #000;
-  font-family: "Noto Sans";
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
-  img{
+  img {
     width: 15px;
     margin-right: 20px;
     margin-bottom: 5px;

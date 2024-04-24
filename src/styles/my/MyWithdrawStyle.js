@@ -39,8 +39,7 @@ export const WithdrawForm = styled.form`
   }
   h3 {
     color: #000;
-    font-family: "Noto Sans";
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     margin-bottom: 5px;
   }

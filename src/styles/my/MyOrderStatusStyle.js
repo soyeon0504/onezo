@@ -23,9 +23,8 @@ export const OrderStatusList = styled.div`
   margin-top: 50px;
   h2 {
     color: #000;
-    font-family: "Noto Sans";
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 600;
     margin-bottom: 15px;
   }
 `;
@@ -57,7 +56,6 @@ export const OrderStatusMenu = styled.div`
   padding-bottom: 10px;
   span {
     color: #000;
-    font-family: "Noto Sans";
     font-size: 20px;
     font-weight: 600;
   }
@@ -71,7 +69,6 @@ export const OrderStatusCount = styled.div`
 
   span {
     color: #000;
-    font-family: "Noto Sans";
     font-size: 20px;
     font-weight: 600;
   }

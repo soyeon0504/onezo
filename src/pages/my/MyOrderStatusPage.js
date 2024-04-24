@@ -44,14 +44,13 @@ const MyOrderStatusPage = () => {
     <OrderStatusStyle>
       <h1>주문 현황</h1>
       <OrderStatusGraph>
-        <h2>주문을 확인하고 있습니다.</h2>
+        <h2>음식이 맛있게 만들어지고 있습니다.</h2>
 
         <ConfigProvider
           theme={{
             token: {
-              // Seed Token
               colorPrimary: "#FF8B38",
-              borderRadius: 2,
+              fontFamily: "Noto Sans KR"
             },
           }}
         >
@@ -59,7 +58,7 @@ const MyOrderStatusPage = () => {
           progressDot
           current={1}
           // direction="vertical"
-          finishIconBorderColor="FF8B38"
+          finishIconBorderColor="#FF8B38"
           items={[
             {
               title: "주문 확인 중",
