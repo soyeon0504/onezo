@@ -1,0 +1,242 @@
+.menuItem {
+  display: flex;
+  align-items: center;
+}
+.menuItem_info {
+  text-align: left;
+}
+
+.menuItem_image_border {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 727px;
+  height: 531px;
+  left: 340px;
+  top: 539px;
+
+  border: 1.5px solid rgba(87, 42, 1, 0.5);
+  filter: drop-shadow(0px 7px 4px rgba(0, 0, 0, 0.05));
+  border-radius: 15px;
+}
+
+.menuItem_name {
+  position: absolute;
+  width: 283px;
+  height: 81px;
+  left: 1148px;
+  top: 571px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 54px;
+  text-align: center;
+
+  color: #572a01;
+}
+
+.menuItem_price {
+  position: absolute;
+  width: 275px;
+  height: 50px;
+  left: 1104px;
+  top: 652px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 41px;
+  text-align: center;
+
+  color: #555555;
+}
+
+.menuItem_note {
+  position: absolute;
+  width: 413px;
+  height: 83px;
+  left: 1169px;
+  top: 735px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+
+  color: #9a9898;
+}
+
+.menuItem_controls {
+  box-sizing: border-box;
+  position: absolute;
+  width: 326px;
+  height: 51px;
+  left: 1180px;
+  top: 854px;
+  background: transparent;
+  border: 1px solid #572a01;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.menuItem_controlButton {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 48px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  color: #572a01;
+}
+
+.menuItem_quantity {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 41px;
+  text-align: center;
+
+  color: #572a01;
+}
+
+.menuItem_orderButton {
+  position: absolute;
+  width: 326px;
+  height: 65px;
+  left: 1180px;
+  top: 960px;
+
+  background: #ff8b38;
+  border-radius: 15px;  
+  border: none;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 27px;
+  line-height: 37px;
+  text-align: center;
+  cursor: pointer;
+
+  color: #ffffff;
+}
+
+.imageContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.dashedLine {
+  position: absolute;
+  width: 1300px;
+  height: 0px;
+  left: 340px;
+  top: 1136px;
+
+  border: 2px dashed rgba(87, 42, 1, 0.32);
+  transform: rotate(-0.09deg);
+}
+.foodOrigin {
+  position: absolute;
+  width: 355px;
+  height: 212px;
+  left: 379px;
+  top: 1179px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 34px;
+
+  color: #572a01;
+}
+
+nav button {
+  background-color: transparent;
+  border: 1px solid black;
+  outline: none;
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 30px;
+}
+.nutritionInfo {
+  position: absolute;
+  width: 190px;
+  height: 48px;
+  left: 1286px;
+  top: 1179px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 34px;
+
+  color: #572a01;
+}
+.borderBox {
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 553px;
+  height: 586px;
+  left: 1088px;
+  top: 1250px;
+
+  background: #ffffff;
+  border: 1px solid rgba(87, 42, 1, 0.48);
+  border-radius: 15px;
+}
+
+.MenuButtonWrap {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 40px;
+  font-size: 23px;
+  width: 665px;
+}
+
+.MenuButtonWrap button {
+  width: 100px;
+  height: 47px;
+  border: 1px solid #572a01;
+  border-radius: 30px;
+  background-color: #fff;
+  color: #572a01;
+  text-align: center;
+  cursor: pointer;
+}
+
+.MenuButtonWrap button:hover {
+  background-color: #ffd15a;
+  border: 1px solid #ffd15a;
+  color: #fff;
+}
+.MenuTitle {
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
+  /* background-color: yellowgreen; */
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.MenuTitle p {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 37px;
+}
