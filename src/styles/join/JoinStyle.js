@@ -25,23 +25,31 @@ export const InfoBox = styled.div`
   border: 1px solid #d9d9d9;
   border-radius: 15px;
   padding-top: 100px;
-  .bundle {
+  form {
     position: relative;
-    margin: 0 auto;
-    width: 850px;
-    display: flex;
-    justify-content: space-evenly;
-    justify-content: flex-start;
-    padding: 0 33px 70px;
+    .message {
+    padding-top: 40px;
+    padding-left: 125px;
+    position: absolute;
+    color: red;
+    font-size: 14px;
   }
-  p {
+  }
+  
+`;
+
+export const FormGroup = styled.div`
+  position: relative;
+  margin: 0 auto;
+  width: 850px;
+  display: flex;
+  justify-content: space-evenly;
+  justify-content: flex-start;
+  padding: 0 33px 70px;
+  label {
     left: 0;
     font-size: 16px;
     font-weight: 700;
-  }
-  .nec {
-    font-size: 18px;
-    color: red;
   }
   input {
     position: absolute;
@@ -68,8 +76,13 @@ export const InfoBox = styled.div`
   }
 `;
 
+export const Essential = styled.p`
+font-size: 18px;
+    color: red;
+`
+
 export const CheckButton = styled.button`
-position: absolute;
+  position: absolute;
   width: 150px;
   height: 35px;
   border: 1px solid #572a01;

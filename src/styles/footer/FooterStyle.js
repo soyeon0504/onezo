@@ -1,11 +1,18 @@
 import styled from "@emotion/styled";
 
 export const FooterStyle = styled.div`
-  width: 100vw;
+  /* position: fixed; */
+  /* width: 100vw; */
   text-align: center;
   margin: 0 auto;
   border-top: 1px solid #D9D9D9;
   background-color: #fff;
+  z-index: 9999;
+  /* bottom: 0; */
+  /* margin-top: auto;  */
+  /* 나머지 공간을 차지하기 위해 사용 */
+
+  /* width: 100%; */
 `;
 export const FooterTop = styled.div`
 text-align: start;
