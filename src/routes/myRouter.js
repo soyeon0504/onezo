@@ -7,13 +7,14 @@ const LazyMyInterestPage = lazy(() => import("../pages/my/MyInterestPage"));
 const LazyMyOrderListPage = lazy(() => import("../pages/my/MyOrderListPage"));
 const LazyMyOrderStatusPage = lazy(() => import("../pages/my/MyOrderStatusPage"));
 const LazMyWithdrawPage = lazy(() => import("../pages/my/MyWithdrawPage"));
+const LazyMyOrderDetailPage = lazy(() => import("../pages/my/MyOrderDetailPage"));
 
 
 const myRouter = () => {
   return [
-    {path:"",element:<Navigate to="list" />},
+    {path:"",element:<Navigate to="orderList" />},
     {
-        path: "/my/info",
+        path: "info",
         element: (
           <Suspense fallback={<Loading />}>
             <LazyMyInfoPage />
@@ -21,16 +22,15 @@ const myRouter = () => {
         ),
       },
       {
-        path: "/my/interest",
+        path: "interest",
         element: (
           <Suspense fallback={<Loading />}>
             <LazyMyInterestPage />
           </Suspense>
         ),
       },
-      
       {
-        path: "/my/orderList",
+        path: "orderList",
         element: (
           <Suspense fallback={<Loading />}>
             <LazyMyOrderListPage />
@@ -38,7 +38,7 @@ const myRouter = () => {
         ),
       },
       {
-        path: "/my/orderStatus",
+        path: "orderStatus",
         element: (
           <Suspense fallback={<Loading />}>
             <LazyMyOrderStatusPage />
@@ -46,10 +46,18 @@ const myRouter = () => {
         ),
       },
       {
-        path: "/my/withdraw",
+        path: "withdraw",
         element: (
           <Suspense fallback={<Loading />}>
             <LazMyWithdrawPage />
+          </Suspense>
+        ),
+      },
+      {
+        path:"orderDetail",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LazyMyOrderDetailPage />
           </Suspense>
         ),
       },

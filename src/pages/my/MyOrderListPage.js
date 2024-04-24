@@ -5,6 +5,7 @@ import {
   OrderListTitle,
 } from "../../styles/my/MyOrderListStyle";
 import { PaginationOrange } from "../../styles/Pagination";
+import { useNavigate } from "react-router-dom";
 
 const orderListData = [
   {
@@ -37,6 +38,11 @@ const orderListData = [
 ];
 
 const MyOrderListPage = () => {
+  const navigate = useNavigate();
+
+  const moveToOrderDetail = () => {
+    navigate(`/my/orderDetail`);
+  };
   return (
     <div>
       {orderListData.map(item => (
@@ -60,7 +66,7 @@ const MyOrderListPage = () => {
               <p>
                 [{item.howto}] {item.menu}
               </p>
-              <button>주문 상세</button>
+              <button onClick={moveToOrderDetail}>주문 상세</button>
             </div>
             <div>
               <h1>{item.price}원</h1>
