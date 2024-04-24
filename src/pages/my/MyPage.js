@@ -101,7 +101,7 @@ const MyPage = () => {
       <AllWidth>
         <div>
           <MyTitle>
-            <h1>마이페이지</h1>
+            <h1>마이페이지ㅎㅎ</h1>
           </MyTitle>
           <Flex>
             <MyCategory
