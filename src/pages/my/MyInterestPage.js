@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { InterestItem, InterestMoreBt, InterestPageStyle } from "../../styles/my/MyInterestStyle";
+import {
+  InterestItem,
+  InterestMoreBt,
+  InterestPageStyle,
+} from "../../styles/my/MyInterestStyle";
 
 const interestData = [
   {
@@ -13,6 +17,11 @@ const interestData = [
     store: "대구경북대점",
     address: "대구 북구 대학로80길 8",
   },
+  // {
+  //   id: 3,
+  //   store: "대구경북대점",
+  //   address: "대구 북구 대학로80길 8",
+  // },
 ];
 
 const MyInterestPage = () => {
@@ -29,10 +38,12 @@ const MyInterestPage = () => {
           <button>삭제</button>
         </InterestItem>
       ))}
-      <InterestMoreBt>
-        <img src="images/my/bt_plus.svg" />
-        관심매장 추가
-      </InterestMoreBt>
+      {interestData.length < 3 && (
+        <InterestMoreBt>
+          <img src="images/my/bt_plus.svg" />
+          관심매장 추가
+        </InterestMoreBt>
+      )}
     </InterestPageStyle>
   );
 };

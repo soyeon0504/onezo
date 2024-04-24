@@ -35,9 +35,9 @@ const Footer = () => {
           <br />
           <h2>INTRODUCE</h2>
           <br />
-          <h1>FRONT-END 박소연 사공은진</h1>
+          <h1>FRONT-END 사공은진 박소연 권수민 고찬우 신지훈</h1>
           <br />
-          <h1>BACK-END 한상원 김현빈 김현일 조현민</h1>
+          <h1>BACK-END 최은재 박준재 정은희 조정진</h1>
         </FooterMainInfo>
         <div>
           <h2>SOCIAL</h2>

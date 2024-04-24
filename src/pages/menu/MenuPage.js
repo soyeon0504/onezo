@@ -76,7 +76,7 @@ const MainPage = () => {
   return (
     <>
       <Layout>
-      <MainWrap>
+      <MainWrap  style={{ backgroundColor: '#fff7e1' }}>
         <MainWrapInner>
           <MenuWrap>
             <MenuTop>

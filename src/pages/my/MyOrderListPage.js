@@ -6,7 +6,7 @@ import {
   OrderListTitle,
 } from "../../styles/my/MyOrderListStyle";
 import { PaginationOrange } from "../../styles/Pagination";
-import MyOrderDetailModal from
+import { useNavigate } from "react-router-dom";
 
 const orderListData = [
   {
@@ -39,6 +39,11 @@ const orderListData = [
 ];
 
 const MyOrderListPage = () => {
+  const navigate = useNavigate();
+
+  const moveToOrderDetail = () => {
+    navigate(`/my/orderDetail`);
+  };
   return (
     <div>
       {orderListData.map(item => (
@@ -62,10 +67,7 @@ const MyOrderListPage = () => {
               <p>
                 [{item.howto}] {item.menu}
               </p>
-                 {/* Link 컴포넌트를 사용하여 주문 상세 페이지로 이동하는 버튼 추가 */}
-                 <Link to={`/order-detail/${item.id}`}>
-                <button>주문 상세</button>
-              </Link>
+              <button onClick={moveToOrderDetail}>주문 상세</button>
             </div>
             <div>
               <h1>{item.price}원</h1>

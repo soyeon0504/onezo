@@ -11,6 +11,8 @@ import {
   CartTotalPrice,
 } from "../../styles/cart/CartStyle";
 import Layout from "../../layouts/Layout";
+import { useNavigate } from "react-router-dom";
+import PayModal, { ModalBackground } from "../../components/pay/PayModal";
 const storeData = {
   store: "대구동성로점",
   address: "대구 중구 동성로5길 89",
@@ -42,9 +44,27 @@ const cartData = [
   },
 ];
 const CartPage = () => {
+  // 경로 이동
+  const navigate = useNavigate();
+  const moveToMoreMenu = () => navigate(`/menu`);
+  // 결제창 나오기
+  const [payModal, setPayModal] = useState(false);
+  const handlePayModal = () => setPayModal(true);
+  const closePayModal = () => setPayModal(false);
   return (
-    <>
     <Layout>
+      {payModal && (
+        <>
+          <PayModal
+            add={storeData.address}
+            menu={cartData[0].menu}
+            count={cartData.length - 1}
+            price={new Intl.NumberFormat().format(cartData[0].totalPrice)}
+            onCloseModal={closePayModal}
+          />
+          <ModalBackground></ModalBackground>
+        </>
+      )}
       <CartStyle>
         <CartHeader>
           <p>장바구니</p>
@@ -90,7 +110,7 @@ const CartPage = () => {
               </CartItem>
             );
           })}
-          <CartMoreBt>
+          <CartMoreBt onClick={moveToMoreMenu}>
             <img src="images/my/bt_plus.svg" />더 담으러 갈래요
           </CartMoreBt>
           <CartTotalPrice>
@@ -99,13 +119,12 @@ const CartPage = () => {
               <span>
                 {new Intl.NumberFormat().format(cartData[0].totalPrice)}원
               </span>
-              <button>주문하기</button>
+              <button onClick={handlePayModal}>주문하기</button>
             </div>
           </CartTotalPrice>
         </CartMain>
       </CartStyle>
     </Layout>
-    </>
   );
 };
 export default CartPage;

@@ -15,7 +15,6 @@ function MyOrderDetailPage() {
   };
  
   return (
-    <Layout>
     <div className="app">
     <div className="order-detail-page">
       <header>
@@ -77,7 +76,6 @@ function MyOrderDetailPage() {
       <p>© 2024 원조 통닭 프랜차이즈. All rights reserved.</p>
     </footer>
   </div>
-  </Layout>
 );
 }
 export default MyOrderDetailPage;

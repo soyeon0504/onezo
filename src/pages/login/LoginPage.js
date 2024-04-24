@@ -11,8 +11,10 @@ import {
 } from "../../styles/login/LoginStyle";
 import IdFind from "../../components/login/IdFind";
 import Layout from "../../layouts/Layout";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
    // 아이디 찾기 버튼 클릭
    const [idFindModal, setIdFindModal] = useState(false);
    const handleIdFind = () => {
@@ -21,6 +23,11 @@ const LoginPage = () => {
    const closeIdFindModal = () => {
      setIdFindModal(false);
    };
+
+  const moveToMain = () => {
+    const url = '/'
+    navigate(url);
+  }
 
   return (
     <>
@@ -46,7 +53,7 @@ const LoginPage = () => {
             </div>
             </InputWrap>
             <LoginFooter>
-            <LoginButton>로그인</LoginButton>
+            <LoginButton onClick={moveToMain}>로그인</LoginButton>
             <LoginBottomWrap>
               <div onClick={handleIdFind}>아이디 찾기</div>
               {idFindModal && (

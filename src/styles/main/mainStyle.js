@@ -2,13 +2,15 @@ import styled from "@emotion/styled";
 
 export const MainWrap = styled.div`
   width: 100vw;
-  height: auto;
+  /* height: 100vh; */
   background-color: #fff7e1;
   margin: 0 auto;
+  z-index: 10000;
 `;
 
 export const MainWrapInner = styled.div`
   width: 1300px;
+  /* height: 100vh; */
   margin: 0 auto;
 `;
 

@@ -9,10 +9,6 @@ const LazyMainPage = lazy(() => import("../pages/main/MainPage"));
 const LazyMenuPage = lazy(() => import("../pages/menu/MenuPage"));
 const LazyDetailPage = lazy(() => import("../pages/menu/DetailPage"));
 const LazyMyPage = lazy(() => import("../pages/my/MyPage"));
-const LazyMyOrderDetailPage = lazy(() => import("../pages/my/MyOrderDetailPage"));
-const LazyMyOrderListPage = lazy(() => import("../pages/my/MyOrderListPage"));
-
-
 const LazyLoginPage = lazy(() => import("../pages/login/LoginPage"));
 const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
 const LazyPaymentPage = lazy(() => import("../pages/pay/PaymentPage"));
@@ -64,22 +60,6 @@ const router = createBrowserRouter([
       </Suspense>
     ),
     children:myRouter(),
-  },
-  {
-    path: "/order", // 주문 내역 페이지 경로
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LazyMyOrderListPage />
-      </Suspense>
-    ),
-  },
-  {
-    path:"/orderDetail",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LazyMyOrderDetailPage />
-      </Suspense>
-    ),
   },
   {
     path: "/login",
