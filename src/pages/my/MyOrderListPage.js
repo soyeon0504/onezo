@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   OrderListContent,
   OrderListItem,
   OrderListTitle,
 } from "../../styles/my/MyOrderListStyle";
 import { PaginationOrange } from "../../styles/Pagination";
+import MyOrderDetailModal from
 
 const orderListData = [
   {
@@ -60,7 +62,10 @@ const MyOrderListPage = () => {
               <p>
                 [{item.howto}] {item.menu}
               </p>
-              <button>주문 상세</button>
+                 {/* Link 컴포넌트를 사용하여 주문 상세 페이지로 이동하는 버튼 추가 */}
+                 <Link to={`/order-detail/${item.id}`}>
+                <button>주문 상세</button>
+              </Link>
             </div>
             <div>
               <h1>{item.price}원</h1>

@@ -1,8 +1,19 @@
 import React from 'react';
 import '../../styles/my/MyOrderDetail.css'; // import 키워드를 사용하여 CSS 파일을 import
 import Layout from '../../layouts/Layout';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+
+
 
 function MyOrderDetailPage() {
+  const navigate = useNavigate();
+
+  const goToOrderListPage = () => {
+    navigate('/my'); // 기본 주문 내역 페이지의 경로로 이동
+  };
+ 
   return (
     <Layout>
     <div className="app">
@@ -10,6 +21,12 @@ function MyOrderDetailPage() {
       <header>
         <h1>주문 상세</h1>
       </header>
+      {/* X 버튼 추가 */}
+      <div className="button-container">
+            <button onClick={goToOrderListPage} className="close-button">
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          </div>
       <div className="order-section">
         <h2>주문내역</h2>
         <div className="order-info">
@@ -58,7 +75,6 @@ function MyOrderDetailPage() {
     </div>
     <footer className="footer">
       <p>© 2024 원조 통닭 프랜차이즈. All rights reserved.</p>
-      {/* 추가 정보나 링크 */}
     </footer>
   </div>
   </Layout>
