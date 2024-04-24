@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
 
 export const Wrap = styled.div`
+position: fixed;
   margin: 0 auto;
   width: 100vw;
   box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.1);
+  z-index: 99999;
+  background-color: #fff;
 `;
 
 export const InnerWrap = styled.div`
