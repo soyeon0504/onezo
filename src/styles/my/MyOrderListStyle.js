@@ -21,13 +21,11 @@ export const OrderListTitle = styled.div`
   p {
     font-size: 20px;
     font-weight: 700;
-    font-family: "Noto Sans";
   }
   span {
     color: #ff8b38;
-    font-size: 20px;
+    font-size: 21px;
     font-weight: 700;
-    font-family: "Noto Sans";
   }
   button {
     width: 60px;
@@ -35,9 +33,9 @@ export const OrderListTitle = styled.div`
     background-color: #fff;
     border-radius: 10px;
     border: 1px solid #572a01;
+    cursor: pointer;
 
     color: #000;
-    font-family: "Noto Sans";
     font-size: 13px;
     font-weight: 400;
   }
@@ -52,15 +50,13 @@ export const OrderListContent = styled.div`
   }
   span {
     color: #000;
-    font-family: "Noto Sans";
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
   }
   p {
     color: #777;
-    font-family: "Noto Sans";
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     margin: 10px 0;
   }
   button {
@@ -69,15 +65,14 @@ export const OrderListContent = styled.div`
     background-color: #fff;
     border-radius: 10px;
     border: 1px solid #572a01;
+    cursor: pointer;
 
     color: #000;
-    font-family: "Noto Sans";
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 600;
   }
   h1 {
     color: #000;
-    font-family: "Noto Sans";
     font-size: 24px;
     font-weight: 700;
   }

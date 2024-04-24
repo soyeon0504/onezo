@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Children, useEffect, useState } from "react";
 import MyOrderListPage from "./MyOrderListPage";
 import MyOrderStatusPage from "./MyOrderStatusPage";
 import MyInterestPage from "./MyInterestPage";
@@ -6,7 +6,7 @@ import MyInfoPage from "./MyInfoPage";
 import MyWithdrawPage from "./MyWithdrawPage";
 import styled from "@emotion/styled";
 import MyCategory from "../../components/my/MyCategory";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Layout from "../../layouts/Layout";
 
 const AllWidth = styled.div`
@@ -87,7 +87,7 @@ const MyPage = () => {
       });
 
       if (selectedName) {
-        navigate(`/my?${selectedName}`, {
+        navigate(`/my/${selectedName}`, {
           state: { selectedItem: subItem },
         });
         sessionStorage.setItem("selectedItem", subItem);
@@ -110,11 +110,12 @@ const MyPage = () => {
               onSubItemClick={handleSubItemClick}
             />
             <div style={{ paddingTop: "30px" }}>
-              {activeBtn === "주문 내역" && <MyOrderListPage />}
+              {/* {activeBtn === "주문 내역" && <MyOrderListPage />}
               {activeBtn === "주문 현황" && <MyOrderStatusPage />}
               {activeBtn === "관심 매장" && <MyInterestPage />}
               {activeBtn === "내 정보 수정" && <MyInfoPage />}
-              {activeBtn === "회원 탈퇴" && <MyWithdrawPage />}
+              {activeBtn === "회원 탈퇴" && <MyWithdrawPage />} */}
+              <Outlet />
             </div>
           </Flex>
         </div>

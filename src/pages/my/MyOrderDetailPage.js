@@ -4,7 +4,6 @@ import Layout from '../../layouts/Layout';
 
 function MyOrderDetailPage() {
   return (
-    <Layout>
     <div className="app">
     <div className="order-detail-page">
       <header>
@@ -61,7 +60,6 @@ function MyOrderDetailPage() {
       {/* 추가 정보나 링크 */}
     </footer>
   </div>
-  </Layout>
 );
 }
 export default MyOrderDetailPage;
