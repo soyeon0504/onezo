@@ -1,0 +1,53 @@
+#mapmap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.scroll_y {
+    padding: 1rem;
+    overflow: hidden;
+    height: 300px;
+    overflow-y: auto;
+}
+
+#map {
+    width: 1220px;
+    height: 500px;
+    margin-bottom: 6rem;
+}
+
+.my_location {
+    width: 1220px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+}
+
+.btn_location {
+    width: 110px;
+    height: 40px;
+    border-radius: 10px;
+    background: #ff8b38;
+    color: #fff;
+    border: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 0.5rem;
+}
+
+hr {
+    background: #ff8b38;
+    height: 5px;
+    border-style: none;
+}
+
+p {
+    display: inline-block;
+}
+
+.id {
+    margin: 5px;
+}

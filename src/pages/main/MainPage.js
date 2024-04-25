@@ -195,7 +195,7 @@ const MainPage = () => {
                     </div>
                     <div>
                       <button onClick={() => handlePageChange()}
-                       className="menu-detail">
+                      className="menu-detail">
                         상세보기
                       </button>
                     </div>
