@@ -25,7 +25,7 @@ const schema = yup
         /^[A-Za-z][A-Za-z0-9_]{2,20}$/,
         "아이디는 숫자, 영문으로 작성 가능합니다.",
       )
-      .required("비밀번호를 입력해 주세요."),
+      .required("아이디를 입력해 주세요."),
 
     password: yup
       .string()
@@ -71,8 +71,9 @@ const schema = yup
   })
   .required();
 
-const JoinPage = (formState) => {
-  const [idOverlapConfirm, setIdOverlapConfirm] = useState(false);
+const JoinPage = formState => {
+  const [idConfirm, setIdConfirm] = useState(false);
+  const [nickConfirm, setNickConfirm] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -143,6 +144,11 @@ const JoinPage = (formState) => {
   };
 
   const handlePageChange = () => {
+    if (!isValid || !userId || !password || !nickName || !tel ) {
+      // 필수 입력 칸이 비어있는 경우
+      alert("필수 입력 칸을 모두 채워주세요.");
+      return;
+    }
     const url = `/login`;
     navigate(url);
   };
@@ -172,7 +178,7 @@ const JoinPage = (formState) => {
                   <div className="message">{errors.memberId?.message}</div>
                 </FormGroup>
                 <div>{errors.userId?.message}</div>
-                {catchErr && !idOverlapConfirm && !errors.userId && (
+                {catchErr && !idConfirm && !errors.userId && (
                   <div>아이디 중복 확인을 해주세요.</div>
                 )}
                 <FormGroup>
@@ -220,13 +226,13 @@ const JoinPage = (formState) => {
                 {/* 가입하기 버튼 (빈 칸 있을 시 가입 X) */}
                 <div className="join-button">
                   {formState.isValid &&
-                  nickOverlapConfirm &&
-                  idOverlapConfirm ? (
-                    <JoinButton onClick={() => handlePageChange()}>
+                  nickConfirm &&
+                  idConfirm ? (
+                    <JoinButton onClick={handlePageChange}>
                       가입하기
                     </JoinButton>
                   ) : (
-                    <JoinButton onClick={() => handlePageChange()}>
+                    <JoinButton onClick={handlePageChange}>
                       가입하기
                     </JoinButton>
                   )}

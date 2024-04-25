@@ -55,3 +55,22 @@ export const idPost = async (obj, setUserList) => {
     console.log("error");
   }
 };
+
+
+// 비밀번호 찾기
+export const passwordPost = async (obj, setUserList) => {
+  try {
+    // const url = `${SERVER_URL}/api/user/id`
+    const res = await axios.post(`${SERVER_URL}/api/user/password`, obj);
+
+    const resStatus = res.status.toString();
+    if (resStatus.charAt(0) === "2") {
+      setUserList({ ...res.data });
+    } else {
+      alert("데이터 전송에 실패했습니다.");
+    }
+    // fnc([...res.data])
+  } catch (error) {
+    console.log("error");
+  }
+};

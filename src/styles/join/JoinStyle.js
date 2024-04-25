@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Wrap = styled.div`
-  width: 1980px;
+  width: 100vh;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
 `;
 export const InnerWrap = styled.div`
   width: 1300px;
@@ -10,6 +12,7 @@ export const InnerWrap = styled.div`
   padding-top: 140px;
   padding-bottom: 230px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   .join-title {
@@ -20,6 +23,7 @@ export const InnerWrap = styled.div`
   }
 `;
 export const InfoBox = styled.div`
+margin: 0 auto;
   width: 1000px;
   height: 800px;
   border: 1px solid #d9d9d9;
