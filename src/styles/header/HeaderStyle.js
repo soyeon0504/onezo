@@ -5,7 +5,7 @@ position: fixed;
   margin: 0 auto;
   width: 100vw;
   box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.1);
-  z-index: 99999;
+  z-index: 999;
   background-color: #fff;
 `;
 
@@ -13,12 +13,12 @@ export const InnerWrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 1300px;
-  height: 200px;
+  height: 140px;
   margin: 0 auto;
 `;
 
 export const Logo = styled.div`
-  margin-top: 50px;
+  margin-top: 30px;
   margin-left: 30px;
   img {
     width: 260px;
@@ -43,7 +43,7 @@ export const HeaderRightTop = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    top: 50px;
+    top: 30px;
     right: 4px;
     a {
       text-decoration-line: none;
@@ -59,7 +59,7 @@ export const LoginState = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  top: 50px;
+  top: 30px;
   right: 4px;
   button {
     background: none;
@@ -71,7 +71,7 @@ export const LoginState = styled.div`
 export const HeaderRightBottom = styled.div`
   position: relative;
   display: flex;
-  top: 90px;
+  top: 70px;
   right: 0;
   width: 350px;
   justify-content: space-between;

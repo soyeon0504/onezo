@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   OrderListContent,
@@ -7,6 +7,8 @@ import {
 } from "../../styles/my/MyOrderListStyle";
 import { PaginationOrange } from "../../styles/Pagination";
 import { useNavigate } from "react-router-dom";
+import ReviewModal from "../../components/review/ReviewModal";
+import { ModalBackground } from "../../components/pay/PayModal";
 
 const orderListData = [
   {
@@ -39,13 +41,25 @@ const orderListData = [
 ];
 
 const MyOrderListPage = () => {
+  // orderDetail로 이동
   const navigate = useNavigate();
-
   const moveToOrderDetail = () => {
     navigate(`/my/orderDetail`);
   };
+
+  // 리뷰창 나오기
+  const [reviewModal, setReviewModal] = useState(false);
+  const handleReviewModal = () => setReviewModal(true)
+  const closeReviewModal = () => setReviewModal(false)
+
   return (
     <div>
+      {reviewModal && (
+        <>
+        <ReviewModal store={orderListData[0].store} onCloseModal={closeReviewModal}/>
+        <ModalBackground></ModalBackground>
+        </>
+      )}
       {orderListData.map(item => (
         <OrderListItem key={item.id}>
           <OrderListTitle>
@@ -55,7 +69,7 @@ const MyOrderListPage = () => {
             </div>
             <div>
               <button>재주문</button>
-              <button>별점</button>
+              <button onClick={handleReviewModal}>별점</button>
             </div>
           </OrderListTitle>
           <OrderListContent>

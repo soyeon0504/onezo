@@ -30,7 +30,7 @@ const MyInterestPage = () => {
       <h1>즐겨찾는 매장</h1>
       {interestData.map(item => (
         <InterestItem key={item.id}>
-          <img src="images/my/store.png" />
+          <img src="/images/my/store.png" />
           <div>
             <span>{item.store}</span>
             <p>{item.address}</p>
@@ -40,7 +40,7 @@ const MyInterestPage = () => {
       ))}
       {interestData.length < 3 && (
         <InterestMoreBt>
-          <img src="images/my/bt_plus.svg" />
+          <img src="/images/my/bt_plus.svg" />
           관심매장 추가
         </InterestMoreBt>
       )}
