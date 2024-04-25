@@ -15,7 +15,7 @@ import {
   MenuTitle,
   MenuTop,
   MenuWrap,
-} from "../../styles/main/MainStyle";
+} from "../../styles/main/mainStyle";
 import Layout from "../../layouts/Layout";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
