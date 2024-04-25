@@ -151,8 +151,8 @@ const MainPage = () => {
                 </SwiperSlide>
               </BannerSlide>
             </Swiper>
-            <button className="slide-prev c-slide-prev"></button>
-            <button className="slide-next c-slide-next"></button>
+            {/* <button className="slide-prev c-slide-prev"></button>
+            <button className="slide-next c-slide-next"></button> */}
           </Banner>
           <MenuWrap>
             <MenuTop>

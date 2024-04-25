@@ -17,12 +17,19 @@ const LoginPage = () => {
   const navigate = useNavigate();
    // 아이디 찾기 버튼 클릭
    const [idFindModal, setIdFindModal] = useState(false);
+   const [passwordFindModal, setPasswordFindModal] = useState(false);
    const handleIdFind = () => {
      setIdFindModal(true);
    };
+   const handlePasswordFind = () => {
+    setPasswordFindModal(true);
+  };
    const closeIdFindModal = () => {
      setIdFindModal(false);
    };
+   const closePasswordFindModal = () => {
+    setPasswordFindModal(true);
+  };
 
   const moveToMain = () => {
     const url = '/'
@@ -63,7 +70,13 @@ const LoginPage = () => {
               </>
             )}
               <hr/>
-              <div>비밀번호 찾기</div>
+              <div onClick={handlePasswordFind}>비밀번호 찾기</div>
+              {passwordFindModal && (
+              <>
+                <IdFind closeModal={closePasswordFindModal} />
+                <ModalBackground></ModalBackground>
+              </>
+            )}
               <hr/>
               <a href="/join">회원가입</a>
             </LoginBottomWrap>
