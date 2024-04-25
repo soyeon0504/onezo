@@ -11,7 +11,7 @@ import { passwordPost } from "../../api/login/login_api";
 
 const PasswordFind = ({ closeModal }) => {
   const [userId, setUserId] = useState("");
-  const [userList, setUserList] = useState({ uPw: "", iauth: 0 });
+  const [userList, setUserList] = useState({ uid: "", iauth: 0 });
 
   const [confirmClick, setConfirmClick] = useState(false);
   const loginUserId = () => {
@@ -19,13 +19,15 @@ const PasswordFind = ({ closeModal }) => {
     const obj = {
       id: userId,
     };
-    idPost(obj, setUserList);
+    passwordPost(obj, setUserList);
   };
+
+  
 
   // 상태에 따라 문구 바꾸기
   let content;
 if (confirmClick) {
-  if (userList.uPw) {
+  if (userList.uid !== "") {
     content = (
       <p>
         고객님의 비밀번호입니다. <br />
@@ -55,14 +57,14 @@ if (confirmClick) {
         <Logo src="/images/header/logo.svg" />
       </LogoZone>
       {content}
-        {!userList.uPw && (
+        {!userList.uid && (
           <IdBox
             type="text"
-            value={userNum}
-            onChange={e => setUserNum(e.target.value)}
+            value={userId}
+            onChange={e => setUserId(e.target.value)}
           />
         )}
-        {userList.uPw && <IdBox value={`비밀번호: ${userList.uPw}`} />}
+        {/* {userList.uid && <IdBox value={`비밀번호: ${userList.uid}`} />} */}
         <BtSection>
           <CancelBt onClick={closeModal}>닫기</CancelBt>
           <SaveBt onClick={() => loginUserId(userId)}>확인</SaveBt>

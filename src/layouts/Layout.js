@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
       <header>
         <Header />
       </header>
-      <div style={{ position: 'absolute', top: '200px', left: '0', width: '100%', height: '100vh' }}>
+      <div style={{ position: 'absolute', top: '140px', left: '0', width: '100%', height: '100vh' }}>
       <ContentWrapper>{children}</ContentWrapper>
       <footer>
         <Footer />

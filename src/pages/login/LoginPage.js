@@ -10,6 +10,7 @@ import {
   ModalBackground
 } from "../../styles/login/LoginStyle";
 import IdFind from "../../components/login/IdFind";
+import PasswordFind from "../../components/login/PasswordFind";
 import Layout from "../../layouts/Layout";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +29,7 @@ const LoginPage = () => {
      setIdFindModal(false);
    };
    const closePasswordFindModal = () => {
-    setPasswordFindModal(true);
+    setPasswordFindModal(false);
   };
 
   const moveToMain = () => {
@@ -73,7 +74,7 @@ const LoginPage = () => {
               <div onClick={handlePasswordFind}>비밀번호 찾기</div>
               {passwordFindModal && (
               <>
-                <IdFind closeModal={closePasswordFindModal} />
+                <PasswordFind closeModal={closePasswordFindModal} />
                 <ModalBackground></ModalBackground>
               </>
             )}
