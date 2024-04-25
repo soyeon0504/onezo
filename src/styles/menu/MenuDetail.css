@@ -1,0 +1,144 @@
+.menu-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: transparent;
+  border-radius: 8px;
+}
+
+.Info-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: transparent;
+  border-radius: 8px;
+}
+
+.menu-image {
+  flex: 0 0 auto;
+  margin-right: 40px;
+}
+
+.menu-image img {
+  max-width: 800px;
+  height: auto;
+}
+
+.menu-details {
+  flex: 1 1 auto;
+}
+
+.menu-details h1 {
+  margin-bottom: 20px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 54px;
+  /* text-align: center; */
+
+  color: #572a01;
+}
+
+.menu-price {
+  font-weight: bold;
+  margin-bottom: 20px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 41px;
+
+  color: #555555;
+}
+
+.menu-note {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+
+  color: #9a9898;
+
+  margin-bottom: 20px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.quantity-controls button {
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity-controls .quantity {
+  margin: 0 10px;
+  font-size: 16px;
+}
+
+.order-button {
+  padding: 10px 20px;
+  font-size: 27px;
+  background-color: #ff8b38;
+  color: #ffffff;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.nutrition-info {
+  margin-top: 20px;
+  display: flex;
+}
+
+.nutrition-info h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.nutrition-info table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.nutrition-info th,
+.nutrition-info td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.nutrition-info th {
+  font-weight: bold;
+}
+
+.origin-info {
+  margin-left: 210px;
+  margin-bottom: 30px;
+  margin-right: 600px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 34px;
+
+  color: #572a01;
+}
+
+.allergy-info {
+  margin-bottom: 40px;
+  margin-left: 210px;
+}
