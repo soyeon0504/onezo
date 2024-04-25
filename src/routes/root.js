@@ -14,6 +14,7 @@ const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
 const LazyPaymentPage = lazy(() => import("../pages/pay/PaymentPage"));
 const LazyShopPage = lazy(() => import("../pages/shop/ShopPage"));
 const LazyCartPage = lazy(() => import("../pages/cart/CartPage"));
+const LazyFindStore = lazy(() => import("../pages/modal/FindStore"));
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,15 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <h1>.</h1>,
+  },
+  // 매장찾기
+  {
+    path: "/find",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyFindStore />
+      </Suspense>
+    ),
   },
 ]);
 
