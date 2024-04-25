@@ -29,15 +29,14 @@ const Footer = () => {
         <FooterMainInfo>
           <h2>COMPANY</h2>
           <br />
-          <br />
-          <h1>회사소개 이용약관 개인정보처리방침 제휴문의 고객센터</h1>
+          <h1>회사소개 &nbsp; 이용약관 &nbsp; 개인정보처리방침 &nbsp; 제휴문의 &nbsp; 고객센터</h1>
           <br />
           <br />
           <h2>INTRODUCE</h2>
           <br />
-          <h1>FRONT-END 사공은진 박소연 권수민 고찬우 신지훈</h1>
+          <h1>FRONT-END &nbsp; 사공은진 &nbsp;박소연 &nbsp;권수민 &nbsp;고찬우 &nbsp;신지훈</h1>
           <br />
-          <h1>BACK-END 최은재 박준재 정은희 조정진</h1>
+          <h1>BACK-END &nbsp; 최은재 &nbsp;박준재 &nbsp;정은희 &nbsp;조정진</h1>
         </FooterMainInfo>
         <div>
           <h2>SOCIAL</h2>

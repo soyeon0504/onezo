@@ -19,7 +19,7 @@ const PayModal = ({add, menu, count, price, onCloseModal}) => {
   return (
     <PayStyle>
       <PayCancelBt>
-        <img src="images/my/bt_cancel.svg" onClick={onCloseModal} />
+        <img src="/images/my/bt_cancel.svg" onClick={onCloseModal} />
       </PayCancelBt>
       <PayInnerBox>
         <h1>가게주소</h1>

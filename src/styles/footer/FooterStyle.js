@@ -5,9 +5,9 @@ export const FooterStyle = styled.div`
   /* width: 100vw; */
   text-align: center;
   margin: 0 auto;
-  border-top: 1px solid #D9D9D9;
+  border-top: 1px solid #d9d9d9;
   background-color: #fff;
-  z-index: 9999;
+  z-index: 999;
   /* bottom: 0; */
   /* margin-top: auto;  */
   /* 나머지 공간을 차지하기 위해 사용 */
@@ -15,24 +15,24 @@ export const FooterStyle = styled.div`
   /* width: 100%; */
 `;
 export const FooterTop = styled.div`
-text-align: start;
+  text-align: start;
   width: 1300px;
   margin: 0 auto;
   height: 70px;
-  padding-top: 30px;
+  padding-top: 5px;
 `;
 export const FooterLogo = styled.img`
-  width: 60px;
-  height: 50px;
+  width: 200px;
+  height: 60px;
   background-color: transparent;
 `;
 export const FooterMain = styled.div`
   width: 1300px;
   margin: 0 auto;
   display: flex;
-  height: 270px;
+  height: 230px;
 
-  padding-top: 25px;
+  padding-top: 15px;
   div {
     text-align: start;
   }
@@ -40,16 +40,13 @@ export const FooterMain = styled.div`
     text-align: start;
     color: #777;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
+    margin: 0px 0px 13px;
   }
   h2 {
-    color: #572A01;
+    color: #572a01;
     font-size: 14px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
   }
   img {
     margin-right: 15px;
@@ -62,13 +59,11 @@ export const FooterMainInfo = styled.div`
   width: 610px;
 `;
 export const FooterBottom = styled.div`
-  border-top: 1px solid #572A01;
-  height: 60px;
+  border-top: 1px solid #572a01;
+  height: 50px;
   span {
     color: #777;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
-    line-height: normal;
   }
 `;
