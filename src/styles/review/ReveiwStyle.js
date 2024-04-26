@@ -18,7 +18,7 @@ export const ReviewStyle = styled.div`
   }
   textarea {
     margin-top: 15px;
-    width: 350px;
+    width: 360px;
     height: 160px;
     resize: none;
     border: 1px solid #d9d9d9;
@@ -56,5 +56,15 @@ export const ReviewOrder = styled.div`
     color: #000;
     font-size: 18px;
     font-weight: 500;
+  }
+`;
+export const ReviewStar = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 20px;
+  img {
+    width: 40px;
+    height: 40px;
   }
 `;

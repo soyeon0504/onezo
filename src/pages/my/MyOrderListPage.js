@@ -9,6 +9,7 @@ import { PaginationOrange } from "../../styles/Pagination";
 import { useNavigate } from "react-router-dom";
 import ReviewModal from "../../components/review/ReviewModal";
 import { ModalBackground } from "../../components/pay/PayModal";
+import MyOrderDetailPage from "./MyOrderDetailPage";
 
 const orderListData = [
   {
@@ -42,22 +43,36 @@ const orderListData = [
 
 const MyOrderListPage = () => {
   // orderDetail로 이동
-  const navigate = useNavigate();
-  const moveToOrderDetail = () => {
-    navigate(`/my/orderDetail`);
-  };
+  // const navigate = useNavigate();
+  // const moveToOrderDetail = () => {
+  //   navigate(`/my/orderDetail`);
+  // };
 
   // 리뷰창 나오기
   const [reviewModal, setReviewModal] = useState(false);
-  const handleReviewModal = () => setReviewModal(true)
-  const closeReviewModal = () => setReviewModal(false)
+  const handleReviewModal = () => setReviewModal(true);
+  const closeReviewModal = () => setReviewModal(false);
+
+  // orderDetail창 나오기
+  const [orderDetailModal, setOrderDetailModal] = useState(false);
+  const handleDetailModal = () => setOrderDetailModal(true);
+  const closeDetailModal = () => setOrderDetailModal(false);
 
   return (
     <div>
       {reviewModal && (
         <>
-        <ReviewModal store={orderListData[0].store} onCloseModal={closeReviewModal}/>
-        <ModalBackground></ModalBackground>
+          <ReviewModal
+            store={orderListData[0].store}
+            onCloseModal={closeReviewModal}
+          />
+          <ModalBackground></ModalBackground>
+        </>
+      )}
+      {orderDetailModal && (
+        <>
+          <MyOrderDetailPage></MyOrderDetailPage>
+          <ModalBackground></ModalBackground>
         </>
       )}
       {orderListData.map(item => (
@@ -68,7 +83,7 @@ const MyOrderListPage = () => {
               <span>포장/식사 완료</span>
             </div>
             <div>
-              <button>재주문</button>
+              {/* <button>재주문</button> */}
               <button onClick={handleReviewModal}>별점</button>
             </div>
           </OrderListTitle>
@@ -81,7 +96,7 @@ const MyOrderListPage = () => {
               <p>
                 [{item.howto}] {item.menu}
               </p>
-              <button onClick={moveToOrderDetail}>주문 상세</button>
+              <button onClick={handleDetailModal}>주문 상세</button>
             </div>
             <div>
               <h1>{item.price}원</h1>
