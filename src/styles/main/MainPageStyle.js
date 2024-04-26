@@ -55,6 +55,7 @@ export const MenuButtonWrap = styled.div`
     background-color: #fff;
     color: #572a01;
     text-align: center;
+    cursor: pointer;
   }
 
   button:hover {

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-
 import {
   Banner,
   BannerSlide,
@@ -20,18 +19,18 @@ import Layout from "../../layouts/Layout";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 // Import Swiper styles
 import "swiper/css";
-import { useNavigate } from "react-router-dom";
+import { getProduct } from "../../api/main/main_api";
 
 const btList = [
-    { title: "전체" },
-    { title: "세트" },
-    { title: "치킨" },
-    { title: "사이드" },
-    { title: "소스" },
-    { title: "음료" },
+    { id: 1, title: "전체" },
+    { id: 2, title: "세트" },
+    { id: 3, title: "치킨" },
+    { id: 4, title: "사이드" },
+    { id: 5, title: "소스" },
+    { id: 6, title: "음료" },
   ]
 
 const menuData = [
@@ -67,9 +66,9 @@ const menuData = [
   },
 ];
 
-const MainPage = () => {
+const MainPage = ({ category }) => {
+  const navigate = useNavigate();
   const swiperRef = useRef();
-  const navigate = useNavigate(`/menu/detail`);
 
   // 전달 받은 목록데이터
   const [productData, setProductData] = useState();
@@ -91,7 +90,7 @@ const MainPage = () => {
   };
   
   const handleClickMenu = () => {
-    const url = `/menu`;
+    const url = `/menu/${category}`;
     navigate(url);
   }
 
@@ -165,7 +164,7 @@ const MainPage = () => {
             return (
               <button
                 key={`product-slide-bt-${index}`}
-                className={"ㅗㅗ"}
+                className={"bt-cate"}
                 onClick={() => {
                   handleCategoryClick(item);
                 }}
@@ -184,7 +183,10 @@ const MainPage = () => {
             </MenuTop>
             <MenuMainWrap>
               {menuData.map((item, index) => (
-                <MenuMain key={index}>
+                <MenuMain 
+                key={index}
+                btList={btList[index]}
+                >
                   <MenuImage>
                     <img src={item.image} alt="메뉴 이미지" />
                   </MenuImage>
@@ -207,7 +209,9 @@ const MainPage = () => {
               <StyledButton 
               className="menu-more-button"
               onClick={handleClickMenu}
-              >더보기</StyledButton>
+              >더보기
+              {/* {category} */}
+              </StyledButton>
             </MenuMoreButton>
           </MenuWrap>
         </MainWrapInner>

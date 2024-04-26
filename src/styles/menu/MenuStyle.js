@@ -16,10 +16,11 @@ export const MainWrapInner = styled.div`
 `;
 
 export const MenuWrap = styled.div`
-  padding-top: 80px;
+  padding-top: 50px;
 `;
 
-export const MenuTop = styled.div``;
+export const MenuTop = styled.div`
+`;
 
 export const MenuTitle = styled.div`
   display: flex;
@@ -27,6 +28,7 @@ export const MenuTitle = styled.div`
   width: 360px;
   margin: 0 auto;
   margin-top: 100px;
+  padding-bottom: 30px;
   p {
     font-size: 25px;
     font-weight: 700;
@@ -49,6 +51,7 @@ export const MenuButtonWrap = styled.div`
     background-color: #fff;
     color: #572a01;
     text-align: center;
+    cursor: pointer;
   }
   button:hover {
     background-color: #ffd15a;
