@@ -17,9 +17,9 @@ function MyOrderDetailPage() {
   return (
     <div className="app">
     <div className="order-detail-page">
-      <header>
+      {/* <header>
         <h1>주문 상세</h1>
-      </header>
+      </header> */}
       {/* X 버튼 추가 */}
       <div className="button-container">
             <button onClick={goToOrderListPage} className="close-button">
@@ -54,12 +54,12 @@ function MyOrderDetailPage() {
       <div className="order-section">
         <h2>결제금액</h2>
         <div className="payment-info">
-          <p>
+          {/* <p>
             <span className="info-label">주문금액</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25,500원
           </p>
           <p>
             <span className="info-label">할인금액</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -5,000원
-          </p>
+          </p> */}
           <p>
             <span className="info-label">총 결제금액</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20,500원
           </p>
@@ -72,9 +72,9 @@ function MyOrderDetailPage() {
         </div>
       </div>
     </div>
-    <footer className="footer">
+    {/* <footer className="footer">
       <p>© 2024 원조 통닭 프랜차이즈. All rights reserved.</p>
-    </footer>
+    </footer> */}
   </div>
 );
 }
