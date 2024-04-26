@@ -1,7 +1,6 @@
 import axios from "axios";
 import { SERVER_URL } from "../config";
 import { useNavigate } from "react-router-dom";
-import { jwtAxios } from "../../util/jwtUtil";
 const path = `${SERVER_URL}/api`;
 
 const failPostDatas = () => {
