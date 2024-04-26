@@ -13,6 +13,8 @@ import {
 import Layout from "../../layouts/Layout";
 import { useNavigate } from "react-router-dom";
 import PayModal, { ModalBackground } from "../../components/pay/PayModal";
+import {StoreModal} from '../../components/store/StoreModal'
+
 const storeData = {
   store: "대구동성로점",
   address: "대구 중구 동성로5길 89",
@@ -43,6 +45,8 @@ const cartData = [
     totalPrice: 53500,
   },
 ];
+
+
 const CartPage = () => {
   // 경로 이동
   const navigate = useNavigate();
@@ -51,6 +55,11 @@ const CartPage = () => {
   const [payModal, setPayModal] = useState(false);
   const handlePayModal = () => setPayModal(true);
   const closePayModal = () => setPayModal(false);
+
+  const [storeModal, setStoreModal] = useState(false);
+  const handleStoreModal = () => setStoreModal(true);
+  const closeStoreModal = () => setStoreModal(false);
+  
   return (
     <Layout>
       {payModal && (
@@ -61,6 +70,19 @@ const CartPage = () => {
             count={cartData.length - 1}
             price={new Intl.NumberFormat().format(cartData[0].totalPrice)}
             onCloseModal={closePayModal}
+          />
+          <ModalBackground></ModalBackground>
+        </>
+      )}
+
+      {storeModal && (
+        <>
+          <StoreModal
+            add={storeData.address}
+            menu={cartData[0].menu}
+            count={cartData.length - 1}
+            price={new Intl.NumberFormat().format(cartData[0].totalPrice)}
+            onCloseModal={closeStoreModal}
           />
           <ModalBackground></ModalBackground>
         </>
@@ -76,7 +98,7 @@ const CartPage = () => {
               <p>{storeData.store}</p>
               <h3>{storeData.address}</h3>
             </div>
-            <button className="store_change">변경</button>
+            <button className="store_change" onClick={handleStoreModal}>변경</button>
           </CartItem>
           {cartData.map(item => {
             const [count, setCount] = useState(item.count);

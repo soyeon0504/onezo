@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
+
 import {
   PayBt,
   PayCancelBt,
   PayInnerBox,
   PayStyle,
 } from "../../styles/pay/PayStyle";
+
 export const ModalBackground = styled.div`
   position: fixed;
   top: 0;

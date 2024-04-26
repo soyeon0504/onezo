@@ -1,13 +1,9 @@
-import '../../styles/modal/FindStore.css';
+import '../../styles/store/StoreModal.css';
 import React, { useEffect, useState } from "react";
-import {
-    CartItem,
-    CartMain
-} from "../../styles/cart/CartStyle.js";
 
 const { kakao } = window;
 
-export const MapComponent = () => {
+export const StoreModal = () => {
     let initlocation = { location_x: 35, location_y: 127 }; //초기값 설정
     const [location, setLocation] = useState(initlocation); //초기값 설정
 
@@ -194,8 +190,8 @@ export const MapComponent = () => {
         <div id='mapmap'>
             <h1>근처매장</h1>
             <div className='scroll_y'>
-                <CartMain>
-                    <CartItem>
+                <div className='store_list_main'>
+                    <div className='store_list'>
                         <img src="images/my/store.png" />
                         <div style={{ width: "970px" }}>
                             <p>대구점</p>
@@ -203,8 +199,8 @@ export const MapComponent = () => {
                         </div>
                         <button className='btn_location'>포장</button>
                         <button className='btn_location'>매장</button>
-                    </CartItem>
-                    <CartItem>
+                    </div>
+                    <div className='store_list'>
                         <img src="images/my/store.png" />
                         <div style={{ width: "970px" }}>
                             <p>대구점</p>
@@ -212,8 +208,8 @@ export const MapComponent = () => {
                         </div>
                         <button className='btn_location'>포장</button>
                         <button className='btn_location'>매장</button>
-                    </CartItem>
-                    <CartItem>
+                    </div>
+                    <div className='store_list'>
                         <img src="images/my/store.png" />
                         <div style={{ width: "970px" }}>
                             <p>대구점</p>
@@ -221,14 +217,14 @@ export const MapComponent = () => {
                         </div>
                         <button className='btn_location'>포장</button>
                         <button className='btn_location'>매장</button>
-                    </CartItem>
-                </CartMain>
+                    </div>
+                </div>
             </div>
             <hr />
             <h1>모든매장</h1>
             <div className='scroll_y'>
-                <CartMain>
-                    <CartItem>
+                <div className='store_list_main'>
+                    <div className='store_list'>
                         <img src="images/my/store.png" />
                         <div style={{ width: "970px" }}>
                             <p>대구점</p>
@@ -236,8 +232,8 @@ export const MapComponent = () => {
                         </div>
                         <button className='btn_location'>포장</button>
                         <button className='btn_location'>매장</button>
-                    </CartItem>
-                    <CartItem>
+                    </div>
+                    <div className='store_list'>
                         <img src="images/my/store.png" />
                         <div style={{ width: "970px" }}>
                             <p>대구점</p>
@@ -245,8 +241,17 @@ export const MapComponent = () => {
                         </div>
                         <button className='btn_location'>포장</button>
                         <button className='btn_location'>매장</button>
-                    </CartItem>
-                </CartMain>
+                    </div>
+                    <div className='store_list'>
+                        <img src="images/my/store.png" />
+                        <div style={{ width: "970px" }}>
+                            <p>대구점</p>
+                            <h3>ㅇㅇ시ㅇㅇ구ㅇㅇ동</h3>
+                        </div>
+                        <button className='btn_location'>포장</button>
+                        <button className='btn_location'>매장</button>
+                    </div>
+                </div>
             </div>
             <div className='my_location'>
                 <button className='btn_location' style={{ marginBottom: '1rem' }} onClick={() => {
@@ -260,8 +265,9 @@ export const MapComponent = () => {
                 }}>내위치 찾기</button>
             </div>
             <div id="map"></div>
-
+            <button className='btn_location'>확인</button>
+            <button className='btn_location'>취소</button>
         </div>
     );
 }
-export default MapComponent;
+export default StoreModal;
