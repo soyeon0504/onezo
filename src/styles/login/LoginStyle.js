@@ -21,13 +21,11 @@ export const LoginInnerWrap = styled.div`
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
   padding-top: 100px;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
   img {
     margin: 0 auto;
-    /* margin-bottom: 100px; */
   }
 `;
 export const InputWrap = styled.div`
@@ -63,7 +61,6 @@ export const InputWrap = styled.div`
         margin-top: 10px;
     }
   }
-
 `;
 
 export const LoginFooter = styled.div`
@@ -82,7 +79,6 @@ export const LoginButton = styled.button`
   font-weight: 500;
   letter-spacing: 1px;
   margin-bottom: 25px;
-  /* margin-top: 20px; */
 `;
 
 export const LoginBottomWrap = styled.div`
@@ -97,7 +93,7 @@ div {
 }
 hr {
     width: 15px;
-    transform: rotate(90deg); /* 회전시키기 */
+    transform: rotate(90deg);
 }
 a {
     color: #A9A7A7;
