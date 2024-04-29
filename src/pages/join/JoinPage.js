@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Layout from "../../layouts/Layout";
 import {
   CheckButton,
+  ConfirmBt,
   Essential,
   FormGroup,
   InfoBox,
@@ -14,6 +15,8 @@ import {
   Wrap,
 } from "../../styles/join/JoinStyle";
 import { getIdFrom } from "../../api/join/join_api";
+import VerificationModal from "../../components/joinpopup/VerificationModal";
+import { ModalBackground } from "../../styles/login/LoginStyle";
 
 const schema = yup
   .object({
@@ -74,6 +77,46 @@ const schema = yup
 const JoinPage = formState => {
   const [idConfirm, setIdConfirm] = useState(false);
   const [nickConfirm, setNickConfirm] = useState(false);
+ // 본인 인증 버튼
+ const [verificationModal, setVerificationModal] = useState(false);
+ const [verificationId, setVerificationId] = useState("");
+ const [resultOk, setResultOk] = useState(false);
+ const [verifiData, setVerifiData] = useState();
+ const [verifiResultModal, setVerifiResultModal] = useState(false);
+
+ const verifiResultonConfirm = () => {
+  setVerifiResultModal(true);
+}
+
+const verifiResultClose = () => {
+  setVerifiResultModal(false);
+}
+
+const verificationConfirm = () => {
+  setVerificationModal(true);
+};
+const closeVerificationModal = () => {
+  setVerificationModal(false);
+};
+
+const onVerifiConfirm = async (id) => {
+  try {
+    let result;
+    result = await verificationGet(id);
+    
+    if (result) {
+      setVerifiData(result);
+      setVerificationModal(false);
+      setResultOk(true);
+    } else {
+      console.log("Result is empty");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
   const navigate = useNavigate();
 
   const {
@@ -91,18 +134,19 @@ const JoinPage = formState => {
   const nickName = watch("nickName");
   const tel = watch("tel");
   const [isValid, setIsValid] = useState(0);
-
   const [catchErr, setCatchErr] = useState(false);
+
+
+  // const verificationConfirm = () => {
+  //   setVerificationModal(true);
+  // };
 
   // 비밀번호나 전화번호에 대해서도 동일하게 처리할 수 있음
   const idPostSuccess = () => {
-    // setIdOverlapConfirm(true);
-    // setIdConfirmModal(true);
     alert("성공");
   };
 
   const idPostFail = () => {
-    // setIdFailModal(true);
     alert("실패");
   };
 
@@ -123,7 +167,6 @@ const JoinPage = formState => {
   };
 
   const idNullBt = () => {
-    // setNickNullModal(true);
     // 아이디가 없을 때 실행되는 함수
     const userId = getIdFrom(); // 아이디 가져오는 함수 예시
     if (!userId) {
@@ -143,8 +186,9 @@ const JoinPage = formState => {
     }
   };
 
+
   const handlePageChange = () => {
-    if (!isValid || !userId || !password || !nickName || !tel ) {
+    if (!isValid || !userId || !password || !nickName || !tel) {
       // 필수 입력 칸이 비어있는 경우
       alert("필수 입력 칸을 모두 채워주세요.");
       return;
@@ -152,9 +196,40 @@ const JoinPage = formState => {
     const url = `/login`;
     navigate(url);
   };
+
+  // 데이터 연동(회원가입)
+  // const handleSubmitJoin = async () => {
+  //   const formData = new FormData();
+  //   const dto = new Blob(
+  //     [
+  //       JSON.stringify({
+  //         addr: address,
+  //         restAddr: restAddress,
+  //         uid: userId,
+  //         upw: password,
+  //         nick: nickname,
+  //         phone: phoneNumber,
+  //         email: email,
+  //         isValid: isValid,
+  //         iverificationInfo: verificationId,
+  //       }),
+  //     ],
+  //     { type: "application/json" },
+  //   );
+  //   formData.append("dto", dto);
+
   return (
     <>
       <Layout>
+      {verificationModal && (
+        <>
+          <VerificationModal closeModal={closeVerificationModal} 
+          onConfirm={onVerifiConfirm} 
+          verificationId={verificationId}
+          setVerificationId={setVerificationId}/>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
         <Wrap>
           <InnerWrap>
             <div className="join-title">회원가입</div>
@@ -220,21 +295,26 @@ const JoinPage = formState => {
                   <label htmlFor="tel">연락처</label>
                   <Essential>*</Essential>
                   <input className="input6" {...register("tel")} />
-                  <CheckButton>중복확인</CheckButton>
+                  {/* <CheckButton>본인 인증</CheckButton> */}
+                  {resultOk === true ? (
+                  <ConfirmBt type="button"
+                  onClick={()=> {verifiResultonConfirm()}}>
+                    본인 인증 확인
+                  </ConfirmBt>
+                ) : (
+                  <ConfirmBt type="button"
+                  onClick={()=> {verificationConfirm()}}>
+                     본인 인증
+                  </ConfirmBt>
+                )}
                   <div className="message">{errors.tel?.message}</div>
                 </FormGroup>
                 {/* 가입하기 버튼 (빈 칸 있을 시 가입 X) */}
                 <div className="join-button">
-                  {formState.isValid &&
-                  nickConfirm &&
-                  idConfirm ? (
-                    <JoinButton onClick={handlePageChange}>
-                      가입하기
-                    </JoinButton>
+                  {formState.isValid && nickConfirm && idConfirm ? (
+                    <JoinButton onClick={handlePageChange}>가입하기</JoinButton>
                   ) : (
-                    <JoinButton onClick={handlePageChange}>
-                      가입하기
-                    </JoinButton>
+                    <JoinButton onClick={handlePageChange}>가입하기</JoinButton>
                   )}
                   {/* <JoinButton onClick={() => handlePageChange()}>
                     가입하기

@@ -95,6 +95,8 @@ export const HeaderRightBottom = styled.div`
     font-weight: 500;
   }
   .cart {
+    cursor: pointer;
+    display: flex;
   }
 `;
 export const Login = styled.a`

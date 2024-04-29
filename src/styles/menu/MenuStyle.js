@@ -13,6 +13,11 @@ export const MainWrapInner = styled.div`
   width: 1300px;
   /* height: 100vh; */
   margin: 0 auto;
+  .pagination-wrap {
+    display: flex;
+    justify-content: center;
+    padding-top: 300px;
+  }
 `;
 
 export const MenuWrap = styled.div`

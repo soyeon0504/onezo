@@ -4,7 +4,6 @@ export const JoinPageStyle = styled.div`
   width: 1300px;
   text-align: center;
   margin: 0 auto;
-  /* background: skyblue; */
 `;
 export const JoinBox = styled.form`
   width: 980px;
@@ -14,6 +13,10 @@ export const JoinBox = styled.form`
   margin: ${props => props.margin ? props.margin : "0 auto 100px"};
   padding: 60px 90px;
 `;
+
+export const Logo = styled.img`
+width: 200px;
+`
 
 export const JoinElement = styled.div`
   display: flex;
@@ -46,7 +49,6 @@ export const JoinElementInput = styled.div`
   display: flex;
   justify-content: space-between;
   width: 600px;
-  /* background: pink; */
   img {
     width: 180px;
     height: 180px;
@@ -82,21 +84,6 @@ export const JoinElementInput = styled.div`
     font-weight: 400;
     line-height: ${props => (props.lineHight ? props.lineHight : "normal")};
   }
-  /* input[type="file"] {
-    width: 180px;
-    height: 180px;
-  } */
-  /* input[type="text"] {
-    width: ${props => (props.width ? props.width : "600px")};
-    height: 36px;
-    padding-left: 15px;
-
-    color: #000;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  } */
 `;
 export const InputValid = styled.div`
   color: red;
@@ -153,19 +140,33 @@ export const ConfirmBt = styled.button`
   font-weight: 400;
   line-height: normal;
 `;
-// export const AddressBt = styled.button`
-//   width: 105px;
-//   height: 36px;
-//   border-radius: 5px;
-//   border: 1px solid #2c39b5;
-//   background: #fff;
-
-//   color: #777;
-//   font-size: 16px;
-//   font-style: normal;
-//   font-weight: 400;
-//   line-height: normal;
-// `;
+export const BtSection = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: ${props => (props.width ? props.width : "")};
+  margin-top: ${props => (props.mgtop ? props.mgtop : "60px")};
+  margin-bottom: ${props => (props.mgbtm ? props.mgbtm : "90px")};
+`;
+export const CancelBt = styled.button`
+  width: 130px;
+  height: 50px;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  color: #572A01;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: 1px solid #572A01;
+`;
+export const SaveBt = styled(CancelBt)`
+  background: #FF8B38;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid #FF8B38;
+`;
 
 export const VerifiBt = styled.button`
   width: 320px;

@@ -129,18 +129,29 @@ export const MenuDesc = styled.div`
 
 export const MenuMoreButton = styled.div`
   padding: 200px 100px;
-  display: flex; /* 부모 요소를 Flex 컨테이너로 설정 */
+  display: flex;
   justify-content: center;
   color: #572a01;
   font-weight: 500;
-  .menu-more-button {
-    width: 150px;
+  text-align: center;
+  align-items: center;
+`;
+
+export const MoreBtWrap = styled.div`
+`
+
+export const MoreBt = styled.div`
+display: flex;
+justify-content: center;
+text-align: center;
+width: 150px;
     height: 65px;
     border: 1px solid #572a01;
     border-radius: 32.5px;
     background-color: #fff;
     text-align: center;
     font-size: 25px;
+    padding-top: 15px;
     &:hover {
       color: #fff;
       font-weight: 500;
@@ -148,5 +159,4 @@ export const MenuMoreButton = styled.div`
       border: 1px solid #ffd15a;
       cursor: pointer;
     }
-  }
-`;
+`

@@ -57,3 +57,27 @@ export const getTelFrom = async (obj, idPostSuccess, idPostFail) => {
       //   idPostFail();
       }
   };
+
+
+  // 본인인증 요청
+export const verificationPost = async (obj) => {
+  try {
+    const res = await axios.post(`${SERVER_URL}/api/user/verification`, obj);
+    return res.data;
+  } catch (error) {
+    console.log("error");
+  }
+}
+
+export const verificationGet = async (id) => {
+  try {
+    if (!id) {
+      console.log("id가 정의되지 않았습니다.");
+      return; // id가 정의되지 않은 경우 함수 종료
+    }
+    const res = await axios.get(`${SERVER_URL}/api/user/verification?id=${id}`);
+    return res.data;
+  } catch (error) {
+    console.log("error");
+  }
+}

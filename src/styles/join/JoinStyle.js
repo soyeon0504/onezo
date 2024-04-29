@@ -104,6 +104,25 @@ export const CheckButton = styled.button`
   }
 `;
 
+export const ConfirmBt = styled.button`
+  position: absolute;
+  width: 150px;
+  height: 35px;
+  border: 1px solid #572a01;
+  border-radius: 10px;
+  background-color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  right: 0;
+  color: #555;
+  cursor: pointer;
+  &:hover {
+    background-color: #ff8b38;
+    border: #ff8b38;
+    color: #fff;
+  }
+`
+
 export const JoinButton = styled.button`
   width: 200px;
   height: 50px;

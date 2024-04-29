@@ -68,18 +68,14 @@ export const Header = () => {
             <button onClick={handleJoin}>회원가입</button>
           </LoginState>
         )}
-            {/* <div className="header-right-top-inner">
-              <a href="/login">로그인</a>
-              <a href="/join">회원가입</a>
-            </div> */}
           </HeaderRightTop>
           <HeaderRightBottom>
             <a href="/menu" className="menu">메뉴</a>
             <a href="/order" className="order">주문하기</a>
-            <div className="cart">
+            <a href="/cart" className="cart">
               <img src="../../images/header/shopping_cart.png" style={{marginBottom: "11px"}}/>
-              <a href="/cart" className="cart-a">장바구니</a>
-            </div>
+              <div>장바구니</div>
+            </a>
           </HeaderRightBottom>
         </HeaderRight>
       </InnerWrap>
