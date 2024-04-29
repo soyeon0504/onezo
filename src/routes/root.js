@@ -14,6 +14,7 @@ const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
 const LazyPaymentPage = lazy(() => import("../pages/pay/PaymentPage"));
 const LazyShopPage = lazy(() => import("../pages/shop/ShopPage"));
 const LazyCartPage = lazy(() => import("../pages/cart/CartPage"));
+const LazyJoinTOSPage = lazy(() => import("../pages/join/JoinTOS"));
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,15 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loading />}>
         <LazyCartPage />
+      </Suspense>
+    ),
+  },
+
+  {
+    path: "/joinTOS",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyJoinTOSPage />
       </Suspense>
     ),
   },

@@ -29,6 +29,7 @@
   background-color: #ffd15a;
   border: 1px solid #ffd15a;
   color: #fff;
+  cursor: pointer;
 }
 
 .MenuTitle {
@@ -144,21 +145,20 @@
 }
 
 .infoNutrition h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-
+  display: inline-block;
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
   font-size: 25px;
-  line-height: 34px;
+  line-height: 25px;
+
+  white-space: nowrap;
 
   color: #572a01;
 }
 
 .infoNutrition table {
   box-sizing: border-box;
-  width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 
@@ -180,7 +180,7 @@
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 20px;
   line-height: 34px;
 
   color: #572a01;
@@ -191,14 +191,16 @@
 }
 
 .origin-info {
-  margin-left: 210px;
+  /* margin-left: 210px;
   margin-bottom: 30px;
-  margin-right: 10px;
+  margin-right: 10px; */
+
+  margin-left: 150px;
 
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 18px;
   line-height: 34px;
 
   color: #572a01;
@@ -206,17 +208,17 @@
 
 .infoNutrition {
   display: flex;
-  right: 0;
 }
 
 .allergy-info {
   margin-top: 300px;
-  margin-left: 210px;
+  margin-left: 150px;
+  margin-bottom: 100px;
 
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 18px;
   line-height: 34px;
 
   color: #572a01;
@@ -227,22 +229,49 @@
 }
 
 .line {
-  position: absolute;
-
-  left: 50%;
-  /* top: 50%; */
-  /* transform: translate(-50%, -50%); */
-
-  /* transform: translateX(-50%); */
   width: 1300px;
-  height: 0px;
-  border: 2px dashed rgba(87, 42, 1, 0.32);
-  transform: rotate(-0.09deg);
-  transform-origin: center;
+  border: 1px dashed rgba(87, 42, 1, 0.32);
+  margin: 0 auto;
 }
 
 .lineContainer {
-
   display: flex;
+  margin: 100px;
+}
 
+.nutrition-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nutrient-info {
+  margin: 0 auto;
+
+  text-align: center;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 34px;
+
+  color: #572a01;
+}
+
+.nutrient-info h2 {
+  margin-bottom: 30px;
+}
+
+.nutrition-table table {
+  border: 1px solid #9a9898;
+  padding: 50px;
+  text-align: center;
+
+  border-radius: 15px;
+}
+
+.nutrition-table th {
+  background: transparent;
+  font-weight: bold;
 }

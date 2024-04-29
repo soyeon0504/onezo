@@ -73,6 +73,9 @@ const DetailPage = () => {
             <button className="order-button">주문하기</button>
           </div>
         </div>
+        <div className="lineContainer">
+          <div className="line"></div>
+        </div>
         <div className="container">
           <div className="infoContainer">
             <div className="origin-info">
@@ -84,43 +87,40 @@ const DetailPage = () => {
               <p>{allergyInfo}</p>
             </div>
           </div>
-          {/* <div className="lineContainer">
-            <div className="line"></div>
-          </div> */}
-          <div className="infoNutrition">
-            <h3>영양성분 정보</h3>
-            <table>
-              <tbody>
-                <tr>
-                  <th>1회 제공량</th>
-                  <td>{nutritionData.serving}g</td>
-                </tr>
-                <tr>
-                  <th>열량(Kcal)</th>
-                  <td>{nutritionData.calories}</td>
-                </tr>
-                <tr>
-                  <th>나트륨(mg)</th>
-                  <td>{nutritionData.sodium}</td>
-                </tr>
-                <tr>
-                  <th>탄수화물(g)</th>
-                  <td>{nutritionData.carbs}</td>
-                </tr>
-                <tr>
-                  <th>단백질(g)</th>
-                  <td>{nutritionData.protein}</td>
-                </tr>
-                <tr>
-                  <th>지방(g)</th>
-                  <td>{nutritionData.fat}</td>
-                </tr>
-                <tr>
-                  <th>당류(g)</th>
-                  <td>{nutritionData.sugar}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="nutrition-table">
+            <div className="nutrient-info">
+              <h2>영양성분 정보</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>1회 제공량</th>
+                    <th>100g</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>열량(Kcal)</td>
+                    <td>250.54</td>
+                  </tr>
+                  <tr>
+                    <td>나트륨(mg)</td>
+                    <td>273</td>
+                  </tr>
+                  <tr>
+                    <td>당류(g)</td>
+                    <td>7.6</td>
+                  </tr>
+                  <tr>
+                    <td>지방(g)</td>
+                    <td>11.7</td>
+                  </tr>
+                  <tr>
+                    <td>단백질(g)</td>
+                    <td>23.71</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </Layout>
