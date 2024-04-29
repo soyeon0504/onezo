@@ -13,7 +13,7 @@ import {
 import Layout from "../../layouts/Layout";
 import { useNavigate } from "react-router-dom";
 import PayModal, { ModalBackground } from "../../components/pay/PayModal";
-import {StoreModal} from '../../components/store/StoreModal'
+import {ShopModal} from '../../components/shop/ShopModal';
 
 const storeData = {
   store: "대구동성로점",
@@ -56,9 +56,9 @@ const CartPage = () => {
   const handlePayModal = () => setPayModal(true);
   const closePayModal = () => setPayModal(false);
 
-  const [storeModal, setStoreModal] = useState(false);
-  const handleStoreModal = () => setStoreModal(true);
-  const closeStoreModal = () => setStoreModal(false);
+  const [shopModal, setShopModal] = useState(false);
+  const handleShopModal = () => setShopModal(true);
+  const closeShopModal = () => setShopModal(false);
   
   return (
     <Layout>
@@ -75,14 +75,10 @@ const CartPage = () => {
         </>
       )}
 
-      {storeModal && (
+      {shopModal && (
         <>
-          <StoreModal
-            add={storeData.address}
-            menu={cartData[0].menu}
-            count={cartData.length - 1}
-            price={new Intl.NumberFormat().format(cartData[0].totalPrice)}
-            onCloseModal={closeStoreModal}
+          <ShopModal
+            onCloseModal={closeShopModal}
           />
           <ModalBackground></ModalBackground>
         </>
@@ -98,7 +94,7 @@ const CartPage = () => {
               <p>{storeData.store}</p>
               <h3>{storeData.address}</h3>
             </div>
-            <button className="store_change" onClick={handleStoreModal}>변경</button>
+            <button className="store_change" onClick={handleShopModal}>변경</button>
           </CartItem>
           {cartData.map(item => {
             const [count, setCount] = useState(item.count);

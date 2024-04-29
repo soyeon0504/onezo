@@ -1,0 +1,21 @@
+.MainWrap {
+    width: 100vw;
+    height: auto;
+    /* margin: 0 auto; */
+}
+
+.MainWrapInner {
+    width: 1300px;
+    margin: 0 auto;
+}
+
+.Banner {
+    padding-top: 70px;
+}
+
+.BannerSlide {
+    width: 1300px;
+    height: auto;
+    position: relative;
+    justify-content: center;
+}

@@ -1,9 +1,9 @@
-import '../../styles/store/StoreModal.css';
+import '../../styles/shop/ShopModal.css';
 import React, { useEffect, useState } from "react";
 
 const { kakao } = window;
 
-export const StoreModal = () => {
+export const ShopModal = ({ onCloseModal }) => {
     let initlocation = { location_x: 35, location_y: 127 }; //초기값 설정
     const [location, setLocation] = useState(initlocation); //초기값 설정
 
@@ -188,6 +188,11 @@ export const StoreModal = () => {
 
     return (
         <div id='mapmap'>
+            <div className='modal_cancle'>
+                <div className='store_modal_cancle'>
+                    <img src="/images/my/bt_cancel.svg" onClick={onCloseModal} />
+                </div>
+            </div>
             <h1>근처매장</h1>
             <div className='scroll_y'>
                 <div className='store_list_main'>
@@ -197,8 +202,7 @@ export const StoreModal = () => {
                             <p>대구점</p>
                             <h3>ㅇㅇ시ㅇㅇ구ㅇㅇ동</h3>
                         </div>
-                        <button className='btn_location'>포장</button>
-                        <button className='btn_location'>매장</button>
+                        <button className='btn_choice'>매장선택</button>
                     </div>
                     <div className='store_list'>
                         <img src="images/my/store.png" />
@@ -206,8 +210,7 @@ export const StoreModal = () => {
                             <p>대구점</p>
                             <h3>ㅇㅇ시ㅇㅇ구ㅇㅇ동</h3>
                         </div>
-                        <button className='btn_location'>포장</button>
-                        <button className='btn_location'>매장</button>
+                        <button className='btn_choice'>매장선택</button>
                     </div>
                     <div className='store_list'>
                         <img src="images/my/store.png" />
@@ -215,8 +218,7 @@ export const StoreModal = () => {
                             <p>대구점</p>
                             <h3>ㅇㅇ시ㅇㅇ구ㅇㅇ동</h3>
                         </div>
-                        <button className='btn_location'>포장</button>
-                        <button className='btn_location'>매장</button>
+                        <button className='btn_choice'>매장선택</button>
                     </div>
                 </div>
             </div>
@@ -230,8 +232,7 @@ export const StoreModal = () => {
                             <p>대구점</p>
                             <h3>ㅇㅇ시ㅇㅇ구ㅇㅇ동</h3>
                         </div>
-                        <button className='btn_location'>포장</button>
-                        <button className='btn_location'>매장</button>
+                        <button className='btn_choice'>매장선택</button>
                     </div>
                     <div className='store_list'>
                         <img src="images/my/store.png" />
@@ -239,8 +240,7 @@ export const StoreModal = () => {
                             <p>대구점</p>
                             <h3>ㅇㅇ시ㅇㅇ구ㅇㅇ동</h3>
                         </div>
-                        <button className='btn_location'>포장</button>
-                        <button className='btn_location'>매장</button>
+                        <button className='btn_choice'>매장선택</button>
                     </div>
                     <div className='store_list'>
                         <img src="images/my/store.png" />
@@ -248,13 +248,12 @@ export const StoreModal = () => {
                             <p>대구점</p>
                             <h3>ㅇㅇ시ㅇㅇ구ㅇㅇ동</h3>
                         </div>
-                        <button className='btn_location'>포장</button>
-                        <button className='btn_location'>매장</button>
+                        <button className='btn_choice'>매장선택</button>
                     </div>
                 </div>
             </div>
             <div className='my_location'>
-                <button className='btn_location' style={{ marginBottom: '1rem' }} onClick={() => {
+                <button className='btn_my_location' style={{ marginBottom: '1rem' }} onClick={() => {
                     navigator.geolocation.getCurrentPosition((position) => {
                         setLocation({
                             location_x: position.coords.latitude,
@@ -265,9 +264,7 @@ export const StoreModal = () => {
                 }}>내위치 찾기</button>
             </div>
             <div id="map"></div>
-            <button className='btn_location'>확인</button>
-            <button className='btn_location'>취소</button>
         </div>
     );
 }
-export default StoreModal;
+export default ShopModal;
