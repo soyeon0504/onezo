@@ -1,9 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import "../../styles/menu/MenuDetail.css";
+import axios from "axios";
 
 const DetailPage = () => {
   const [quantity, setQuantity] = useState(0);
+
+  const [menuInfo, setMenuInfo] = useState(null);
+  // const [loading, setLoding] = useState(true);
+  // const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchMenuInfo = async () => {
+      const response = await axios.get(
+        "http://172.18.0.3:8080/menuInfo/4",
+      );
+      setMenuInfo(response.data);
+      console.log(response.data);
+    };
+    fetchMenuInfo();
+  }, []);
 
   const handleQuantityChange = change => {
     const newQuantity = quantity + change;
@@ -77,16 +93,18 @@ const DetailPage = () => {
           <div className="line"></div>
         </div>
         <div className="container">
-          <div className="infoContainer">
-            <div className="origin-info">
-              <h2>원산지</h2>
-              <p>{originInfo}</p>
+          {menuInfo && (
+            <div className="infoContainer">
+              <div className="origin-info">
+                <h2>원산지</h2>
+                <p>{originInfo}</p>
+              </div>
+              <div className="allergy-info">
+                <h2>알레르기 정보</h2>
+                <p>{menuInfo.origin}</p>
+              </div>
             </div>
-            <div className="allergy-info">
-              <h2>알레르기 정보</h2>
-              <p>{allergyInfo}</p>
-            </div>
-          </div>
+          )}
           <div className="nutrition-table">
             <div className="nutrient-info">
               <h2>영양성분 정보</h2>

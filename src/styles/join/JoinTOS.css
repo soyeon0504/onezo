@@ -36,7 +36,6 @@
 
   width: 50%;
   height: 25%;
-
 }
 
 .border-box h2 {
@@ -54,10 +53,11 @@
 .checkbox-container {
   display: block;
   position: relative;
-  padding-left: 35px;
+  padding-left: 40px;
   margin-top: 15px;
   cursor: pointer;
   font-size: 18px;
+  right: 50px;
 }
 
 .checkbox-container input {
@@ -106,12 +106,10 @@
 .join-button {
   width: 200px;
   height: 50px;
-  border: none;
+  border: 1px solid #572a01;
   border-radius: 20px;
-  background-color: #ff8b38;
-  color: #fff;
   font-size: 22px;
-  cursor: pointer;
+  cursor: not-allowed;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -120,14 +118,13 @@
   margin-bottom: 100px;
 }
 
+.join-button.clickable {
+  cursor: pointer;
+}
+
 .scroll-y {
   padding: 1rem;
   overflow: hidden;
-  height: 400px;
+  height: 300px;
   overflow-y: auto;
-}
-
-.store_list_main {
-  width: 500px;
-  margin: 0 auto;
 }
