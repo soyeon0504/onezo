@@ -48,6 +48,10 @@ const cartData = [
 
 
 const CartPage = () => {
+  // 데이터 연동(장바구니)
+
+
+
   // 경로 이동
   const navigate = useNavigate();
   const moveToMoreMenu = () => navigate(`/menu`);
@@ -68,7 +72,7 @@ const CartPage = () => {
             add={storeData.address}
             menu={cartData[0].menu}
             count={cartData.length - 1}
-            price={new Intl.NumberFormat().format(cartData[0].totalPrice)}
+            price={cartData[0].totalPrice}
             onCloseModal={closePayModal}
           />
           <ModalBackground></ModalBackground>
