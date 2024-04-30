@@ -23,7 +23,7 @@ export const InnerWrap = styled.div`
   }
 `;
 export const InfoBox = styled.div`
-margin: 0 auto;
+  margin: 0 auto;
   width: 1000px;
   height: 800px;
   border: 1px solid #d9d9d9;
@@ -32,14 +32,13 @@ margin: 0 auto;
   form {
     position: relative;
     .message {
-    padding-top: 40px;
-    padding-left: 125px;
-    position: absolute;
-    color: red;
-    font-size: 14px;
+      padding-top: 40px;
+      padding-left: 125px;
+      position: absolute;
+      color: red;
+      font-size: 14px;
+    }
   }
-  }
-  
 `;
 
 export const FormGroup = styled.div`
@@ -54,12 +53,13 @@ export const FormGroup = styled.div`
     left: 0;
     font-size: 16px;
     font-weight: 700;
+    padding-top: 5px;
   }
   input {
     position: absolute;
     right: 0;
     width: 700px;
-    height: 35px;
+    height: 40px;
     border: 1px solid #572a01;
     border-radius: 10px;
     font-size: 16px;
@@ -71,7 +71,7 @@ export const FormGroup = styled.div`
     position: absolute;
     left: 150px;
     width: 500px;
-    height: 35px;
+    height: 40px;
     border: 1px solid #572a01;
     border-radius: 10px;
   }
@@ -81,14 +81,15 @@ export const FormGroup = styled.div`
 `;
 
 export const Essential = styled.p`
-font-size: 18px;
-    color: red;
-`
+  font-size: 18px;
+  color: red;
+  padding-top: 5px;
+`;
 
 export const CheckButton = styled.button`
   position: absolute;
   width: 150px;
-  height: 35px;
+  height: 40px;
   border: 1px solid #572a01;
   border-radius: 10px;
   background-color: #fff;
@@ -107,7 +108,7 @@ export const CheckButton = styled.button`
 export const ConfirmBt = styled.button`
   position: absolute;
   width: 150px;
-  height: 35px;
+  height: 40px;
   border: 1px solid #572a01;
   border-radius: 10px;
   background-color: #fff;
@@ -121,7 +122,7 @@ export const ConfirmBt = styled.button`
     border: #ff8b38;
     color: #fff;
   }
-`
+`;
 
 export const JoinButton = styled.button`
   width: 200px;

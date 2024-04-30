@@ -18,16 +18,16 @@ import useCustomLogin from "../../hooks/useCustomLogin";
 import JoinPopUp from "../../components/joinpopup/JoinPopUp";
 
 const initState = {
-  uid: "",
-  upw: "",
-};
+  "userId": "string",
+  "password": "string",
+}
 const LoginPage = () => {
   const [loginParam, setLoginParam] = useState(initState);
   const handleChange = e => {
     loginParam[e.target.name] = e.target.value;
     setLoginParam({ ...loginParam });
   };
-  // 커스터훅 사용하기
+  // 커스텀훅 사용하기
   const { doLogin, isLogin, moveToPath, userAuth } = useCustomLogin();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
