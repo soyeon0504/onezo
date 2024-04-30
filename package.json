@@ -18,7 +18,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react-modal": "^3.16.3",
-    "antd": "^5.13.2",
+    "antd": "^5.16.4",
     "antd-img-crop": "^4.21.0",
     "axios": "^1.6.5",
     "react": "^18.2.0",
@@ -71,5 +71,5 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2"
   },
-  "proxy": "http://two.hellomh.site/"
+  "proxy": "http://two.hellomh.site"
 }

@@ -1,0 +1,31 @@
+.ShopContainer{
+    display: flex;
+    background-color: '#fff';
+    align-items: 'center';
+    justify-content: 'center';
+    border: 1rem solid;
+    width: 1000px;
+    height: 500px;
+}
+
+.ShopWrap {
+    width: 100vw;
+    height: auto;
+    /* margin: 0 auto; */
+}
+
+.ShopWrapInner {
+    width: 1300px;
+    margin: 0 auto;
+}
+
+.Banner {
+    padding-top: 70px;
+}
+
+.BannerSlide {
+    width: 1300px;
+    height: auto;
+    position: relative;
+    justify-content: center;
+}

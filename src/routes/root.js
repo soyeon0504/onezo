@@ -12,9 +12,8 @@ const LazyMyPage = lazy(() => import("../pages/my/MyPage"));
 const LazyLoginPage = lazy(() => import("../pages/login/LoginPage"));
 const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
 const LazyPaymentPage = lazy(() => import("../pages/pay/PaymentPage"));
-const LazyShopPage = lazy(() => import("../pages/shop/ShopPage"));
 const LazyCartPage = lazy(() => import("../pages/cart/CartPage"));
-const LazyFindModal = lazy(() => import("../components/store/StoreModal"));
+const LazyJoinTOSPage = lazy(() => import("../pages/join/JoinTOS"));
 
 const router = createBrowserRouter([
   {
@@ -78,29 +77,29 @@ const router = createBrowserRouter([
       </Suspense>
     ),
   },
-  {
-    path: "/find",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LazyFindModal />
-      </Suspense>
-    ),
-  },
-
   // shop Area
-  {
-    path: "/shop/",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LazyShopPage />
-      </Suspense>
-    ),
-  },
+  // {
+  //   path: "/shop/",
+  //   element: (
+  //     <Suspense fallback={<Loading />}>
+  //       <LazyShopPage />
+  //     </Suspense>
+  //   ),
+  // },
   {
     path: "/cart",
     element: (
       <Suspense fallback={<Loading />}>
         <LazyCartPage />
+      </Suspense>
+    ),
+  },
+
+  {
+    path: "/joinTOS",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyJoinTOSPage />
       </Suspense>
     ),
   },
