@@ -12,7 +12,6 @@ const LazyMyPage = lazy(() => import("../pages/my/MyPage"));
 const LazyLoginPage = lazy(() => import("../pages/login/LoginPage"));
 const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
 const LazyPaymentPage = lazy(() => import("../pages/pay/PaymentPage"));
-const LazyShopPage = lazy(() => import("../pages/shop/ShopPage"));
 const LazyCartPage = lazy(() => import("../pages/cart/CartPage"));
 const LazyJoinTOSPage = lazy(() => import("../pages/join/JoinTOS"));
 
@@ -79,14 +78,14 @@ const router = createBrowserRouter([
     ),
   },
   // shop Area
-  {
-    path: "/shop/",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <LazyShopPage />
-      </Suspense>
-    ),
-  },
+  // {
+  //   path: "/shop/",
+  //   element: (
+  //     <Suspense fallback={<Loading />}>
+  //       <LazyShopPage />
+  //     </Suspense>
+  //   ),
+  // },
   {
     path: "/cart",
     element: (
