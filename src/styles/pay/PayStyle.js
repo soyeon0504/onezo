@@ -42,10 +42,10 @@ export const PayInnerBox = styled.div`
     height: 50px;
     border-radius: 10px;
     margin-right: 59px;
-    background: rgba(255, 139, 56, 0.5);
+    /* background: rgba(255, 139, 56, 0.5); */
     border: none;
     cursor: pointer;
-    color: #000;
+    /* color: #000; */
     font-size: 14px;
     font-weight: 400;
   }

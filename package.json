@@ -70,5 +70,6 @@
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2"
-  }
+  },
+  "proxy": "http://two.hellomh.site/"
 }
