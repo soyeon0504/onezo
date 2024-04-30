@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import "../../styles/join/JoinTOS.css";
+import { useNavigate } from "react-router-dom";
 
 const JoinTOS = () => {
   const [isCheckedTOS, setIsCheckedTOS] = useState(false);
   const [isCheckedPrivacy, setIsCheckedPrivacy] = useState(false);
+  const [buttonBackgroundColor, setButtonBackgroundColor] = useState("#fff");
+  const [buttonFontColor, setButtonFontColor] = useState("#572a01");
+  const [isButtonClickable, setIsButtonClickable] = useState(false);
 
   const handleCheckboxChangeTOS = () => {
     setIsCheckedTOS(!isCheckedTOS);
@@ -12,6 +16,27 @@ const JoinTOS = () => {
 
   const handleCheckboxChangePrivacy = () => {
     setIsCheckedPrivacy(!isCheckedPrivacy);
+  };
+
+  useEffect(() => {
+    if (isCheckedTOS && isCheckedPrivacy) {
+      setButtonBackgroundColor("#ff8b38");
+      setButtonFontColor("#fff");
+      setIsButtonClickable(true);
+    } else {
+      setButtonBackgroundColor("#fff");
+      setButtonFontColor("#572a01");
+      setIsButtonClickable(false);
+    }
+  }, [isCheckedTOS, isCheckedPrivacy]);
+
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    if (isCheckedTOS && isCheckedPrivacy) {
+      const url = `/join`;
+      navigate(url);
+    }
   };
 
   return (
@@ -111,7 +136,7 @@ const JoinTOS = () => {
             onChange={handleCheckboxChangeTOS}
           />
           <span className="checkmark"></span>
-          약관에 동의합니다.
+          (필수) 약관에 동의합니다.
         </label>
         <div className="border-box">
           <div className="scroll-y">
@@ -168,10 +193,19 @@ const JoinTOS = () => {
             onChange={handleCheckboxChangePrivacy}
           />
           <span className="checkmark"></span>
-          약관에 동의합니다.
+          (필수) 약관에 동의합니다.
         </label>
       </div>
-      <div className="join-button">가입하기</div>
+      <div
+        className={`join-button ${isButtonClickable ? "clickable" : ""}`}
+        style={{
+          backgroundColor: buttonBackgroundColor,
+          color: buttonFontColor,
+        }}
+        onClick={() => handleButtonClick()}
+      >
+        가입하기
+      </div>
     </Layout>
   );
 };
