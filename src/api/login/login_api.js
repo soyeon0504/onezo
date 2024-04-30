@@ -1,7 +1,7 @@
 import axios from "axios";
 import { SERVER_URL } from "../config";
 
-const path = `${SERVER_URL}/api/user`;
+// const path = `${SERVER_URL}/api/user`;
 
 // 로그인
 export const loginPost = async ({ loginParam, successFn, failFn, errorFn }) => {
@@ -11,27 +11,12 @@ export const loginPost = async ({ loginParam, successFn, failFn, errorFn }) => {
       uid: loginParam.uid,
       upw: loginParam.upw,
     };
-    //     const res = await axios.post(`${path}`, data, header);
-    //     const status = res.status.toString();
-
-    //     if (status.charAt(0) === "2") {
-    //       successFn(res.data);
-
-    //       return res.data;
-    //     } else {
-    //       failFn("로그인에 실패하였습니다. 다시 시도해주세요.");
-    //     }
-    //   } catch (error) {
-    //     const res = error.response;
-    //     errorFn(res.message);
-    //   }
-    // };
-    const response = await axios.post(`${path}`, data, header);
+    const response = await axios.post(`${SERVER_URL}/auth/login`, data, header);
     if (response && response.status < 400) {
       successFn(response.data);
       return response.data;
     } else {
-      failFn("problem");
+      failFn("로그인에 실패하였습니다. 다시 시도해주세요");
     }
   } catch (error) {
     errorFn(error);

@@ -20,10 +20,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ShopModal from "../../components/shop/ShopModal"
 // Import Swiper styles
 import "swiper/css";
 import { getProduct } from "../../api/main/main_api";
 import MoreButton from "../../components/main/MoreButton";
+import useCustomLogin from "../../hooks/useCustomLogin";
 
 const btList = [
   { id: 1, title: "전체" },
@@ -70,6 +72,8 @@ const menuData = [
 const MainPage = ({ category, id }) => {
   const navigate = useNavigate();
   const swiperRef = useRef();
+  const { isLogin } = useCustomLogin();
+
 
   // 전달 받은 목록데이터
   const [productData, setProductData] = useState();
@@ -93,6 +97,7 @@ const MainPage = ({ category, id }) => {
   return (
     <>
       <Layout>
+      {isLogin === true && <ShopModal />}
         <MainWrap>
           <MainWrapInner>
             <Banner>
