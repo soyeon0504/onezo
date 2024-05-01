@@ -35,7 +35,6 @@
   display: flex;
   justify-content: space-between;
   width: 360px;
-  /* background-color: yellowgreen; */
   margin: 0 auto;
   margin-top: 100px;
 }
@@ -76,7 +75,7 @@
   font-weight: 600;
   font-size: 40px;
   line-height: 54px;
-  /* text-align: center; */
+  text-align: left;
 
   color: #572a01;
 }
@@ -143,12 +142,24 @@
   display: block;
   margin-left: 10%;
   text-align: center;
-  
 }
 
 .origin-info {
-
   margin-left: 150px;
+
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 34px;
+
+  color: #572a01;
+}
+
+.allergy-info {
+  margin-top: 60%;
+  margin-left: 150px;
+  margin-bottom: 100px;
 
   font-family: "Noto Sans";
   font-style: normal;
@@ -161,20 +172,6 @@
 
 .infoNutrition {
   display: flex;
-}
-
-.allergy-info {
-  margin-top: 300px;
-  margin-left: 150px;
-  margin-bottom: 100px;
-
-  font-family: "Noto Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 34px;
-
-  color: #572a01;
 }
 
 .container {

@@ -12,29 +12,22 @@ const DetailPage = () => {
 
   useEffect(() => {
     const fetchMenuInfo = async () => {
-      const response = await axios.get(
-        "http://172.18.0.3:8080/menuInfo/4",
-      );
+      const response = await axios.get("/menuInfo/5");
       setMenuInfo(response.data);
       console.log(response.data);
     };
     fetchMenuInfo();
-  }, []);
+  }, [menuInfo]);
+
+  const numberWithCommas = x => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   const handleQuantityChange = change => {
     const newQuantity = quantity + change;
     if (newQuantity >= 0) {
       setQuantity(newQuantity);
     }
-  };
-  const nutritionData = {
-    serving: 100,
-    calories: 250.54,
-    sodium: 273,
-    carbs: 33.2,
-    protein: 7.6,
-    fat: 11.7,
-    sugar: 23.71,
   };
 
   const btList = [
@@ -45,10 +38,6 @@ const DetailPage = () => {
     { title: "소스" },
     { title: "음료" },
   ];
-
-  const originInfo = "닭고기: 국내산";
-  const allergyInfo =
-    "유유, 대두, 밀, 계란, 닭고기, 조개류(굴), 새우, 사료, 방부제";
 
   return (
     <>
@@ -69,25 +58,29 @@ const DetailPage = () => {
           <div className="menu-image">
             <img src="../../images/main/chicken.svg" alt="원조 후라이드" />
           </div>
-          <div className="menu-details">
-            <h1>원조 후라이드</h1>
-            <p className="menu-price">18,000원</p>
-            <p className="menu-note">
-              * 본 이미지는 실제와 다를 수 있으며 가맹점 상황에 따라 가격이
-              상이할 수 있습니다.
-            </p>
-            <div className="quantity-controls">
-              <button
-                onClick={() => handleQuantityChange(-1)}
-                disabled={quantity === 0}
-              >
-                -
-              </button>
-              <span className="quantity">{quantity}</span>
-              <button onClick={() => handleQuantityChange(1)}>+</button>
+          {menuInfo && (
+            <div className="menu-details">
+              <h1>{menuInfo.menu.menuName}</h1>
+              <p className="menu-price">
+                {numberWithCommas(menuInfo.menu.price)} 원
+              </p>
+              <p className="menu-note">
+                * 본 이미지는 실제와 다를 수 있으며 가맹점 상황에 따라 가격이
+                상이할 수 있습니다.
+              </p>
+              <div className="quantity-controls">
+                <button
+                  onClick={() => handleQuantityChange(-1)}
+                  disabled={quantity === 0}
+                >
+                  -
+                </button>
+                <span className="quantity">{quantity}</span>
+                <button onClick={() => handleQuantityChange(1)}>+</button>
+              </div>
+              <button className="order-button">주문하기</button>
             </div>
-            <button className="order-button">주문하기</button>
-          </div>
+          )}
         </div>
         <div className="lineContainer">
           <div className="line"></div>
@@ -97,11 +90,11 @@ const DetailPage = () => {
             <div className="infoContainer">
               <div className="origin-info">
                 <h2>원산지</h2>
-                <p>{originInfo}</p>
+                <p>닭고기 : {menuInfo.origin}</p>
               </div>
               <div className="allergy-info">
                 <h2>알레르기 정보</h2>
-                <p>{menuInfo.origin}</p>
+                <p>{menuInfo.allergy}</p>
               </div>
             </div>
           )}
