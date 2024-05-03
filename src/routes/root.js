@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Loading from "../components/loading/Loading";
 
 import myRouter from "./myRouter";
+import paymentRouter from "./paymentRouter";
 // import menuRouter from "./menuRouter";
 
 const LazyMainPage = lazy(() => import("../pages/main/MainPage"));
@@ -76,6 +77,7 @@ const router = createBrowserRouter([
         <LazyPaymentPage />
       </Suspense>
     ),
+    children: paymentRouter(),
   },
   // shop Area
   // {

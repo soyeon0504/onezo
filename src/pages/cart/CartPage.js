@@ -12,8 +12,8 @@ import {
 } from "../../styles/cart/CartStyle";
 import Layout from "../../layouts/Layout";
 import { useNavigate } from "react-router-dom";
-import PayModal, { ModalBackground } from "../../components/pay/PayModal";
 import {ShopModal} from '../../components/shop/ShopModal';
+import { ModalBackground } from "../../styles/review/ReveiwStyle";
 
 const storeData = {
   store: "대구동성로점",
@@ -22,7 +22,7 @@ const storeData = {
 const cartData = [
   {
     id: 1,
-    menu: "핫황금올리브치킨™크리스피",
+    menu: "원조간장통닭",
     count: 1,
     price: 21000,
     pic: `/images/my/chicken1.jpg`,
@@ -55,6 +55,7 @@ const CartPage = () => {
   // 경로 이동
   const navigate = useNavigate();
   const moveToMoreMenu = () => navigate(`/menu`);
+  const moveToPatment = () => navigate(`/payment/checkout?add=${storeData.address}&menu=${cartData[0].menu}&price=${cartData[0].totalPrice}`)
   // 결제창 나오기
   const [payModal, setPayModal] = useState(false);
   const handlePayModal = () => setPayModal(true);
@@ -66,19 +67,6 @@ const CartPage = () => {
   
   return (
     <Layout>
-      {payModal && (
-        <>
-          <PayModal
-            add={storeData.address}
-            menu={cartData[0].menu}
-            count={cartData.length - 1}
-            price={cartData[0].totalPrice}
-            onCloseModal={closePayModal}
-          />
-          <ModalBackground></ModalBackground>
-        </>
-      )}
-
       {shopModal && (
         <>
           <ShopModal
@@ -141,7 +129,7 @@ const CartPage = () => {
               <span>
                 {new Intl.NumberFormat().format(cartData[0].totalPrice)}원
               </span>
-              <button onClick={handlePayModal}>주문하기</button>
+              <button onClick={moveToPatment}>주문하기</button>
             </div>
           </CartTotalPrice>
         </CartMain>
