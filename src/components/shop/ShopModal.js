@@ -214,7 +214,7 @@ export const ShopModal = ({ onCloseModal }) => {
                     <img src="/images/my/bt_cancel.svg" onClick={onCloseModal} />
                 </div>
             </div>
-            <h1>근처매장</h1>
+            <h1 className='store_h1'>근처매장</h1>
             <div className='scroll_y'>
                 <div className='store_list_main'>
                     {
@@ -235,7 +235,7 @@ export const ShopModal = ({ onCloseModal }) => {
                 </div>
             </div>
             <hr />
-            <h1>모든매장</h1>
+            <h1 className='store_h1'>모든매장</h1>
             <div className='scroll_y'>
                 <div className='store_list_main'>
                     {

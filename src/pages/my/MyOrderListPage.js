@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   OrderListContent,
   OrderListItem,
   OrderListTitle,
 } from "../../styles/my/MyOrderListStyle";
 import { PaginationOrange } from "../../styles/Pagination";
-import { useNavigate } from "react-router-dom";
 import ReviewModal from "../../components/review/ReviewModal";
-import { ModalBackground } from "../../components/pay/PayModal";
 import MyOrderDetailPage from "./MyOrderDetailPage";
+import { ModalBackground } from "../../styles/review/ReveiwStyle";
 
 const orderListData = [
   {

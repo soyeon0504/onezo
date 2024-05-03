@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {
+  ReviewCancelBt,
   ReviewOrder,
   ReviewStar,
   ReviewStyle,
 } from "../../styles/review/ReveiwStyle";
-import { PayCancelBt } from "../../styles/pay/PayStyle";
 
 const ReviewModal = ({ store, onCloseModal }) => {
   // 별점 클릭 핸들러
@@ -15,9 +15,9 @@ const ReviewModal = ({ store, onCloseModal }) => {
 
   return (
     <ReviewStyle>
-      <PayCancelBt>
+      <ReviewCancelBt>
         <img src="/images/my/bt_cancel.svg" onClick={onCloseModal} />
-      </PayCancelBt>
+      </ReviewCancelBt>
       <p>리뷰</p>
       <ReviewOrder>
         <img src="/images/my/chicken1.jpg" />

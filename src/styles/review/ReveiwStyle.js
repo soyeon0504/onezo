@@ -1,5 +1,15 @@
 import styled from "@emotion/styled";
 
+export const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+`;
+
 export const ReviewStyle = styled.div`
   position: fixed;
   top: 50%;
@@ -37,6 +47,14 @@ export const ReviewStyle = styled.div`
     color: #fff;
     font-size: 22px;
     font-weight: 600;
+  }
+`;
+export const ReviewCancelBt = styled.div`
+  text-align: end;
+  margin-bottom: 5px;
+  img {
+    width: 20px;
+    cursor: pointer;
   }
 `;
 export const ReviewOrder = styled.div`
