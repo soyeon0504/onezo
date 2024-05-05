@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
 
 export const Wrap = styled.div`
-  height: 100vh;
+  height: 1100px;
   margin: 0 auto;
+  z-index: 999999;
 `;
 
 export const LoginWrap = styled.div`
   padding-top: 170px;
+  padding-bottom: 200px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -4,9 +4,9 @@ import { getCookie, removeCookie, setCookie } from "../util/cookieUtil";
 
 export const loginPostAsync = createAsyncThunk(
   "loginPostAsync",
-  async ({ loginParam, successFn, failFn, errorFn }) => {
+  async ({ loginParam, successFn, failFn }) => {
     try {
-      const res = await loginPost({ loginParam, successFn, failFn, errorFn });
+      const res = await loginPost({ loginParam, successFn, failFn });
       return res;
     } catch (error) {
       return error;
@@ -39,29 +39,29 @@ const loginSlice = createSlice({
       return { ...initState };
     },
   },
-  extraReducers: builder => {
-    builder
-      .addCase(loginPostAsync.fulfilled, (state, action) => {
-        console.log("fulfilled");
-        const payload = action.payload;
-        console.log("payload", payload);
-        if (!payload.error) {
-          setCookie("member", JSON.stringify(payload));
-          sessionStorage.setItem('isLogin', 'true');
-          sessionStorage.setItem('userAuth', action.payload.auth);
-          return {...state, isLogin: true, iuser: payload.iuser }
-        } else {
-          console.log(payload.error);
-        }
-        return payload;
-      })
-      .addCase(loginPostAsync.pending, (state, action) => {
-        console.log("pending");
-      })
-      .addCase(loginPostAsync.rejected, (state, action) => {
-        console.log("rejected");
-      });
-  },
+  // extraReducers: builder => {
+  //   builder
+  //     .addCase(loginPostAsync.fulfilled, (state, action) => {
+  //       console.log("fulfilled");
+  //       const payload = action.payload;
+  //       console.log("payload", payload);
+  //       if (!payload.error) {
+  //         setCookie("member", JSON.stringify(payload));
+  //         sessionStorage.setItem('isLogin', 'true');
+  //         sessionStorage.setItem('userAuth', action.payload.auth);
+  //         return {...state, isLogin: true, iuser: payload.iuser }
+  //       } else {
+  //         console.log(payload.error);
+  //       }
+  //       return payload;
+  //     })
+  //     .addCase(loginPostAsync.pending, (state, action) => {
+  //       console.log("pending");
+  //     })
+  //     .addCase(loginPostAsync.rejected, (state, action) => {
+  //       console.log("rejected");
+  //     });
+  // },
 });
 
 export const { login, logout } = loginSlice.actions;
