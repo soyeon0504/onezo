@@ -14,11 +14,12 @@ import {
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useCustomLogin from "../../hooks/useCustomLogin";
+import { getCookie, removeCookie } from "../../util/cookieUtil";
 
 export const Header = () => {
   const navigate = useNavigate(`/`);
+  const token = getCookie('accessToken')
   const [scrollPosition, setScrollPosition] = useState(0);
-
   const handleLogin = () => {
     navigate(`/login`);
   };
@@ -29,17 +30,17 @@ export const Header = () => {
     sessionStorage.setItem("selectedItem", subItem);
   };
     // 로그인 & 로그아웃
-    const loginState = useSelector(state => state.loginSlice);
+    // const loginState = useSelector(state => state.loginSlice);
     // console.log(loginState);
-    const { moveToPath, isLogin, doLogout } = useCustomLogin();
+    const { moveToPath } = useCustomLogin();
     // console.log(userAuth)
   
     // const dispatch = useDispatch();
     const handleLogout = () => {
-      doLogout();
+      removeCookie('accessToken')
+      removeCookie('refreshToken')
       moveToPath("/");
     };
-
   return (
     <Wrap>
       <InnerWrap>
@@ -50,7 +51,7 @@ export const Header = () => {
         </Logo>
         <HeaderRight>
           <HeaderRightTop>
-          {isLogin ? (
+          {token ? (
           <LoginState>
             <button onClick={handleLogout}>로그아웃</button>
               <Link

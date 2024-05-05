@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { idGet } from "../../api/login/login_api";
 import {
+  CancelBt,
   IdBox,
+  IdBtSection,
+  IdFindStyle,
+  InputBundle,
   LoginBox,
   Logo,
   LogoZone,
-  IdFindStyle,
-  BtSection, CancelBt, SaveBt
+  NameBox,
+  NumberBox,
+  SaveBt
 } from "../../styles/login/IdFindStyle";
-import { idPost } from "../../api/login/login_api";
 
 const IdFind = ({ closeModal }) => {
+  const [userName, setUserName] = useState("");
   const [userNum, setUserNum] = useState("");
   const [userList, setUserList] = useState({ uid: "", iauth: 0 });
 
@@ -17,9 +23,10 @@ const IdFind = ({ closeModal }) => {
   const loginUserId = () => {
     setConfirmClick(true);
     const obj = {
+      name: userName,
       phone: userNum,
     };
-    idPost(obj, setUserList);
+    idGet(obj, setUserList);
   };
 
   // 상태에 따라 문구 바꾸기
@@ -44,7 +51,7 @@ if (confirmClick) {
   content = (
     <p>
       아이디를 잊으셨나요? <br />
-      휴대폰 번호를 입력해 주세요.
+      이름과 휴대폰 번호를 입력해 주세요.
     </p>
   );
 }
@@ -56,19 +63,28 @@ if (confirmClick) {
       </LogoZone>
       {content}
         {!userList.uid && (
-          <IdBox
+          <InputBundle>
+          <NameBox 
+          type="text"
+          placeholder="이름을 입력해주세요."
+            value={userName}
+            onChange={e => setUserName(e.target.value)}
+          />
+          <NumberBox
             type="text"
             placeholder="휴대폰 번호 예) 010-0000-0000"
             value={userNum}
             onChange={e => setUserNum(e.target.value)}
           />
+          <IdBox />
+          </InputBundle>
         )}
         {userList.uid && <IdBox value={`아이디: ${userList.uid}`} />}
-        <BtSection>
+        <IdBtSection>
           <CancelBt onClick={closeModal}>닫기</CancelBt>
-          <SaveBt onClick={() => loginUserId(userNum)}>확인</SaveBt>
+          <SaveBt onClick={() => loginUserId(userName,userNum)}>확인</SaveBt>
           {/* 사용자 정보 : {userList.iauth} : {userList.uid} */}
-        </BtSection>
+        </IdBtSection>
       </LoginBox>
     </IdFindStyle>
   );

@@ -14,7 +14,11 @@ import {
   JoinButton,
   Wrap,
 } from "../../styles/join/JoinStyle";
-import { idOverlapPost, verificationGet } from "../../api/join/join_api";
+import {
+  idOverlapPost,
+  joinPost,
+  nickOverlapPost,
+} from "../../api/join/join_api";
 import VerificationModal from "../../components/joinpopup/VerificationModal";
 import { ModalBackground } from "../../styles/login/LoginStyle";
 
@@ -35,27 +39,27 @@ const schema = yup
       .min(4, "최소 4자 이상 작성해야 합니다.")
       .max(20, "최대 20자까지 작성 가능합니다.")
       .matches(
-      /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*()]{4,20}$/,
+        /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])[a-zA-Z0-9!@#$%^&*()]{4,20}$/,
         "비밀번호는 영어, 숫자, 특수문자만 가능합니다.",
       )
       .required("비밀번호를 입력해 주세요."),
 
-    checkPassword: yup
+    passwordCheck: yup
       .string()
       .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다")
       .required("비밀번호를 한번 더 입력해 주세요."),
 
     name: yup
       .string()
-      .min(4, "최소 4자 이상 작성해야 합니다.")
+      // .min(4, "최소 2자 이상 작성해야 합니다.")
       .max(10, "최대 10자까지 작성 가능합니다.")
       .matches(
-        /^[A-Za-z0-9가-힣]{4,10}$/,
+        /^[A-Za-z0-9가-힣]{10}$/,
         "이름은 영어, 한글, 숫자만 가능합니다.",
       )
       .required(),
 
-    nickName: yup
+    nickname: yup
       .string()
       .min(2, "최소 2자 이상 작성해야 합니다.")
       .max(10, "최대 10자까지 작성 가능합니다.")
@@ -65,7 +69,7 @@ const schema = yup
       )
       .required(),
 
-    tel: yup
+    phone: yup
       .string()
       .matches(
         /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/,
@@ -75,6 +79,7 @@ const schema = yup
   .required();
 
 const JoinPage = formState => {
+  const [isValid, setIsValid] = useState(false);
   const [idConfirm, setIdConfirm] = useState(false);
   const [nickConfirm, setNickConfirm] = useState(false);
   // 본인 인증 버튼
@@ -129,10 +134,11 @@ const JoinPage = formState => {
   });
   const userId = watch("userId");
   const password = watch("password");
+  const passwordCheck = watch("passwordCheck");
   const name = watch("name");
-  const nickName = watch("nickName");
-  const tel = watch("tel");
-  const [isValid, setIsValid] = useState(0);
+  const nickname = watch("nickname");
+  const phone = watch("phone");
+  // const [isValid, setIsValid] = useState(0);
   const [catchErr, setCatchErr] = useState(false);
 
   // const verificationConfirm = () => {
@@ -141,7 +147,11 @@ const JoinPage = formState => {
 
   // 비밀번호나 전화번호에 대해서도 동일하게 처리할 수 있음
   const idPostSuccess = () => {
-    alert("성공");
+    // alert("성공");
+  };
+
+  const nickPostSuccess = () => {
+    // alert("성공");
   };
 
   // const idPostFail = () => {
@@ -150,7 +160,7 @@ const JoinPage = formState => {
 
   const idOverlap = () => {
     const obj = {
-      uid: userId,
+      userId: userId,
     };
     idOverlapPost(
       obj,
@@ -168,57 +178,171 @@ const JoinPage = formState => {
     alert("아이디를 입력해주세요."); // 아이디가 없는 경우 알림창 띄우기
   };
 
-  const idOverlapBt = e => {
+  const idOverlapBt = async e => {
     e.preventDefault();
-    idOverlap();
+    const res = await idOverlapPost({
+      userId: userId,
+    });
+    // idOverlap();
     // 아이디 중복 확인 후 실행되는 함수
-    const userId = idOverlapPost();
-    if (userId === true) {
+    // const userId = idOverlapPost();
+    if (res.data === "중복된 아이디입니다") {
       alert("이미 사용 중인 아이디입니다."); // 중복된 경우 알림창 띄우기
-    } else if (userId === false) {
+    } else if (res.data === "사용가능한 아이디 입니다") {
       alert("사용 가능한 아이디입니다."); // 중복되지 않은 경우 알림창 띄우기
-    // } else {
-    //   alert("2~10자 이내로 작성해주세요.");
-    // }
+      // } else {
+      //   alert("2~10자 이내로 작성해주세요.");
+      // }
     }
   };
 
-  // 데이터 연동(회원가입)
-  const handleSubmitJoin = async () => {
-    // 모든 필수 입력 칸이 채워져 있는지 확인
-    if (isValid && userId && password && name && nickName && tel) {
-      // 모든 필수 입력 칸이 채워져 있다면 로그인 페이지로 이동
-      const url = `/login`;
-      navigate(url);
-    } else {
-      // 필수 입력 칸이 하나라도 비어있다면 경고 표시
-      alert("필수 입력 칸을 모두 채워주세요.");
-      console.log("필수 입력 칸이 비어 있습니다.");
-    }
-    const formData = new FormData();
-    const dto = new Blob(
-      [
-        JSON.stringify({
-          id: 0,
-          userId: "string",
-          password: "string",
-          passwordCheck: "string",
-          name: "string",
-          nickname: "string",
-          phone: "010-0000-0000",
-          resign_yn: "Y",
-        }),
-      ],
-      { type: "application/json" },
+  const nickNameOverlap = () => {
+    const obj = {
+      nickname: nickname,
+    };
+    nickOverlapPost(
+      obj,
+      () => {
+        setIsValid(2);
+        nickPostSuccess();
+      },
+      // nickPostFail,
     );
-    formData.append("dto", dto);
-    try {
-      joinPost({ obj: formData });
-      // navigate(`/join/step_3?nick=${nickname}`);
-    } catch (error) {
-      console.log(error);
+  };
+
+  const nickNameNullBt = () => {
+    // 아이디가 없을 때 실행되는 함수
+    // const userId = idOverlapPost(); // 아이디 가져오는 함수 예시
+    alert("닉네임을 입력해주세요."); // 아이디가 없는 경우 알림창 띄우기
+  };
+
+  const nickNameOverlapBt = async e => {
+    e.preventDefault();
+    const res = await nickOverlapPost({
+      nickname: nickname,
+    });
+    // console.log(res);
+    // nickNameOverlap(nickOverlapPost);
+    if (!res) {
+      alert("이미 사용 중인 닉네임입니다.");
+      // 중복된 경우 알림창 띄우기
+    } else if (res.status === 200) {
+      alert("사용 가능한 닉네임입니다."); // 중복되지 않은 경우 알림창 띄우기
+      // } else {
+      //   alert("2~10자 이내로 작성해주세요.");
+      // }
     }
   };
+
+  // 가입하기 데이터 연동 부분
+  const joinPostSuccess = () => {
+    // alert("회원가입에 성공하였습니다.")
+  };
+
+  // const join = () => {
+  //   const obj = {
+  //     userId: userId,
+  //     password: password,
+  //     passwordCheck: passwordCheck,
+  //     name: name,
+  //     nickname: nickname,
+  //     phone: phone,
+  //   };
+  //   joinPost(
+  //     obj,
+  //     () => {
+  //       setIsValid(2);
+  //       joinPostSuccess();
+  //     },
+  //     // nickPostFail,
+  //   );
+  // };
+
+  const joinNullBt = () => {
+    // const userId = idOverlapPost();
+    alert("필수입력칸을 채워주세요.");
+  };
+
+  const joinSuccessBt = async e => {
+    e.preventDefault();
+    const res = await joinPost({
+      userId: userId,
+      password: password,
+      passwordCheck: passwordCheck,
+      name: name,
+      nickname: nickname,
+      phone: phone,
+    });
+    console.log(res);
+    // join(joinPost);
+    if (res.status === 400) {
+      alert("휴대폰 번호 중복입니다.");
+      // 중복된 경우 알림창 띄우기
+    } else if (res.status === 201) {
+      alert("회원가입에 성공하였습니다."); // 중복되지 않은 경우 알림창 띄우기
+      navigate("/login");
+    }
+    // else {
+    //   alert("2~10자 이내로 작성해주세요.");
+    // }
+  };
+
+  // const join = () => {
+  //   const obj = {
+  //     userId: "string",
+  //     password: "string",
+  //     passwordCheck: "string",
+  //     name: "string",
+  //     nickname: "string",
+  //     phone: "010-0000-0000",
+  //     resign_yn: "Y",
+  //   };
+  //   joinPost(
+  //     obj,
+  //     () => {
+  //       setIsValid(2);
+  //       joinPostSuccess();
+  //     },
+  //     // nickPostFail,
+  //   );
+  // };
+
+  // 데이터 연동(회원가입)
+  // const handleSubmitJoin = async () => {
+  //   // 모든 필수 입력 칸이 채워져 있는지 확인
+  //   if (isValid && userId && password && name && nickname && tel) {
+  //     // 모든 필수 입력 칸이 채워져 있다면 로그인 페이지로 이동
+  //     const url = `/login`;
+  //     navigate(url);
+  //   } else {
+  //     // 필수 입력 칸이 하나라도 비어있다면 경고 표시
+  //     alert("필수 입력 칸을 모두 채워주세요.");
+  //     // console.log("필수 입력 칸이 비어 있습니다.");
+  //   }
+  //   const formData = new FormData();
+  //   const dto = new Blob(
+  //     [
+  //       JSON.stringify({
+  //         id: 0,
+  //         userId: "string",
+  //         password: "string",
+  //         passwordCheck: "string",
+  //         name: "string",
+  //         nickname: "string",
+  //         phone: "010-0000-0000",
+  //         resign_yn: "Y",
+  //       }),
+  //     ],
+  //     { type: "application/json" },
+  //   );
+  //   formData.append("dto", dto);
+  //   try {
+  //     joinPost({ obj: formData });
+  //     // navigate(`/join/step_3?nick=${nickname}`);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <>
@@ -243,9 +367,10 @@ const JoinPage = formState => {
                 <FormGroup>
                   <label htmlFor="memberId">아이디</label>
                   <Essential>*</Essential>
-                  <input 
-                  className="input1" {...register("userId")} 
-                  placeholder="ex ) ddd@gmail.com"
+                  <input
+                    className="input1"
+                    {...register("userId")}
+                    placeholder="ex ) ddd@gmail.com"
                   />
                   {!userId ? (
                     <CheckButton onClick={idNullBt} type="button">
@@ -279,9 +404,9 @@ const JoinPage = formState => {
                   <input
                     className="input3"
                     type="password"
-                    {...register("checkPassword")}
+                    {...register("passwordCheck")}
                   />
-                  <div className="message">{errors.checkPassword?.message}</div>
+                  <div className="message">{errors.passwordCheck?.message}</div>
                 </FormGroup>
                 <FormGroup>
                   <label htmlFor="name">이름</label>
@@ -292,42 +417,35 @@ const JoinPage = formState => {
                 <FormGroup>
                   <label htmlFor="nickName">닉네임</label>
                   <Essential>*</Essential>
-                  <input className="input5" {...register("nickName")} />
-                  <CheckButton>중복확인</CheckButton>
-                  <div className="message">{errors.nickName?.message}</div>
+                  <input className="input5" {...register("nickname")} />
+                  {!nickname ? (
+                    <CheckButton onClick={nickNameNullBt} type="button">
+                      중복 확인
+                    </CheckButton>
+                  ) : (
+                    <CheckButton onClick={nickNameOverlapBt} type="button">
+                      중복 확인
+                    </CheckButton>
+                  )}
+                  {/* <CheckButton>중복확인</CheckButton> */}
+                  <div className="message">{errors.nickname?.message}</div>
                 </FormGroup>
                 <FormGroup>
-                  <label htmlFor="tel">연락처</label>
+                  <label htmlFor="phone">휴대폰 번호</label>
                   <Essential>*</Essential>
-                  <input className="input6" {...register("tel")} />
-                  {/* <CheckButton>본인 인증</CheckButton> */}
-                  {resultOk === true ? (
-                    <ConfirmBt
-                      type="button"
-                      onClick={() => {
-                        verifiResultonConfirm();
-                      }}
-                    >
-                      본인 인증 확인
-                    </ConfirmBt>
-                  ) : (
-                    <ConfirmBt
-                      type="button"
-                      onClick={() => {
-                        verificationConfirm();
-                      }}
-                    >
-                      본인 인증
-                    </ConfirmBt>
-                  )}
-                  <div className="message">{errors.tel?.message}</div>
+                  <input
+                    className="input6"
+                    placeholder="휴대폰 번호 예 ) 010-0000-0000"
+                    {...register("phone")}
+                  />
+                  <div className="message">{errors.phone?.message}</div>
                 </FormGroup>
                 {/* 가입하기 버튼 (빈 칸 있을 시 가입 X) */}
                 <div className="join-button">
                   {formState.isValid && nickConfirm && idConfirm ? (
-                    <JoinButton onClick={handleSubmitJoin}>가입하기</JoinButton>
+                    <JoinButton onClick={joinNullBt}>가입하기</JoinButton>
                   ) : (
-                    <JoinButton onClick={handleSubmitJoin}>가입하기</JoinButton>
+                    <JoinButton onClick={joinSuccessBt}>가입하기</JoinButton>
                   )}
                 </div>
               </form>

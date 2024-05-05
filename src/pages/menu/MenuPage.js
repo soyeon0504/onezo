@@ -119,7 +119,12 @@ const MainPage = () => {
               </MenuMainWrap>
             </MenuWrap>
             <div className="pagination-wrap">
-              <PaginationOrange />
+              <PaginationOrange 
+              // current={pageNum}
+              // onChange={handlePageChange}
+              // total={totalPage}
+              // pageSize={9}
+              />
             </div>
           </MainWrapInner>
         </MainWrap>

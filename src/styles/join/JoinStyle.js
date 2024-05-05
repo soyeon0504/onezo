@@ -66,8 +66,7 @@ export const FormGroup = styled.div`
     padding-left: 10px;
   }
   .input1,
-  .input5,
-  .input6 {
+  .input5 {
     position: absolute;
     left: 150px;
     width: 500px;

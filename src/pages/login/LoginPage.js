@@ -16,12 +16,16 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useCustomLogin from "../../hooks/useCustomLogin";
 import JoinPopUp from "../../components/joinpopup/JoinPopUp";
+import { loginPost } from "../../api/login/login_api";
+import { loginPostAsync } from "../../slices/loginSlice";
+import { setCookie } from "../../util/cookieUtil";
 
 const initState = {
-  "userId": "string",
-  "password": "string",
+userId: '',
+password: '',
 }
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [loginParam, setLoginParam] = useState(initState);
   const handleChange = e => {
     loginParam[e.target.name] = e.target.value;
@@ -32,44 +36,45 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const handleClick = async () => {
-    // dispatch(login(loginParam));
-    // dispatch(loginPostAsync({ loginParam, successFn, failFn, errorFn }));
+    dispatch(loginPostAsync({ loginParam, successFn, failFn}));
     try {
-      await doLogin({ loginParam, successFn, failFn, errorFn });
+      await doLogin({ loginParam, successFn, failFn });
     } catch (error) {
       console.log("login error");
     }
   };
 
-  const successFn = async(result) => {
-    {
-      result.auth == 1 ? moveToPath("/") : moveToPath("/admin");
-    }
+  const successFn = (data) => {
+    setCookie('accessToken',data.accessToken)
+    setCookie('refreshToken',data.refreshToken)
+    moveToPath("/")
   };
   const failFn = result => {
     console.log("실패", result);
-    setShowModal(true);
   };
+  // const errorFn = () => {
+  //   console.log("에러");
+  // };
+
   const [idFail, setIdFail] = useState(false);
   const [pwFail, setPwFail] = useState(false);
   const [loginFail, setLoginFail] = useState(false);
-  const errorFn = error => {
-    console.log("서버 에러입니다.", error);
-    if (error.response && error.response.status === 456) {
-      setPwFail(true);
-    }
-    if (error.response && error.response.status === 455) {
-      setIdFail(true);
-    }
-    if (error.response && error.response.status === 400) {
-      setLoginFail(true);
-    }
-    if (error.response && error.response.status === 494) {
-      setLoginFail(true);
-    }
-  };
+  // const errorFn = error => {
+  //   console.log("서버 에러입니다.", error);
+  //   if (error.response && error.response.status === 456) {
+  //     setPwFail(true);
+  //   }
+  //   if (error.response && error.response.status === 455) {
+  //     setIdFail(true);
+  //   }
+  //   if (error.response && error.response.status === 400) {
+  //     setLoginFail(true);
+  //   }
+  //   if (error.response && error.response.status === 494) {
+  //     setLoginFail(true);
+  //   }
+  // };
 
-  const navigate = useNavigate();
    // 아이디 찾기 버튼 클릭
    const [idFindModal, setIdFindModal] = useState(false);
    const [passwordFindModal, setPasswordFindModal] = useState(false);
@@ -90,6 +95,7 @@ const LoginPage = () => {
     const url = '/'
     navigate(url);
   }
+
 
   return (
     <>
@@ -124,14 +130,13 @@ const LoginPage = () => {
             <div className="id-box">
               <img src="../../images/login/person.svg"/> 
               <input
-              type="text"
-              maxLength={15}
-              // placeholder="아이디 4~15자 이내"
-              name="uid"
-              value={loginParam.uid}
+              type="userId"
+              maxLength={20}
+              name="userId"
+              value={loginParam.userId}
               onChange={e => handleChange(e)}
                 placeholder="아이디를 입력해주세요."
-                className="id"
+                className="userId"
               ></input>
             </div>
             <div className="password-box">
@@ -139,9 +144,8 @@ const LoginPage = () => {
               <input
               type="password"
               maxLength={20}
-              // placeholder="비밀번호 8~20자 이내"
-              name="upw"
-              value={loginParam.upw}
+              name="password"
+              value={loginParam.password}
               onChange={e => handleChange(e)}
                 placeholder="비밀번호를 입력해주세요."
                 className="password"
