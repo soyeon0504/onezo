@@ -12,7 +12,8 @@ export const Wrap = styled.div`
 export const InnerWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1300px;
+  max-width: 1300px;
+  min-width: 850px;
   height: 140px;
   margin: 0 auto;
 `;
@@ -30,8 +31,9 @@ export const Logo = styled.div`
 export const HeaderRight = styled.div`
   display: block;
   align-items: center;
-  right: 0;
+  /* right: 0; */
   padding-top: 5px;
+  margin-right: 30px;
 `;
 
 export const HeaderRightTop = styled.div`

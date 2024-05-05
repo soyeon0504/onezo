@@ -16,7 +16,8 @@ export const FooterStyle = styled.div`
 `;
 export const FooterTop = styled.div`
   text-align: start;
-  width: 1300px;
+  max-width: 1300px;
+  min-width: 850px;
   margin: 0 auto;
   height: 70px;
   padding-top: 5px;
@@ -27,9 +28,11 @@ export const FooterLogo = styled.img`
   background-color: transparent;
 `;
 export const FooterMain = styled.div`
-  width: 1300px;
+  max-width: 1300px;
+  min-width: 850px;
   margin: 0 auto;
   display: flex;
+  justify-content: space-between;
   height: 230px;
 
   padding-top: 15px;
@@ -53,11 +56,14 @@ export const FooterMain = styled.div`
   }
 `;
 export const FooterMainContact = styled.div`
-  width: 550px;
+  width: 330px;
 `;
 export const FooterMainInfo = styled.div`
-  width: 610px;
+  width: 360px;
 `;
+export const FooterMainSocial = styled.div`
+width: 150px;
+`
 export const FooterBottom = styled.div`
   border-top: 1px solid #572a01;
   height: 50px;

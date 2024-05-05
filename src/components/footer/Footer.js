@@ -5,6 +5,7 @@ import {
   FooterMain,
   FooterMainContact,
   FooterMainInfo,
+  FooterMainSocial,
   FooterStyle,
   FooterTop,
 } from "../../styles/footer/FooterStyle";
@@ -38,14 +39,14 @@ const Footer = () => {
           <br />
           <h1>BACK-END &nbsp; 최은재 &nbsp;박준재 &nbsp;정은희 &nbsp;조정진</h1>
         </FooterMainInfo>
-        <div>
+        <FooterMainSocial>
           <h2>SOCIAL</h2>
           <br />
           <br />
           <img src="/images/footer/gitHub.svg" />
           <img src="/images/footer/notion.svg" />
           <img src="/images/footer/figma.svg" />
-        </div>
+        </FooterMainSocial>
       </FooterMain>
       <FooterBottom>
         <br />
