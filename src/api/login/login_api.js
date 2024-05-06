@@ -48,6 +48,7 @@ export const passwordGet = async (setUserList, userId, name, phone) => {
     const res = await axios.get(`${SERVER_URL}/auth/findPw/${userId}/${name}/${phone}`);
     // const resStatus = res.status.toString();
     if (res.status === 200) {
+      console.log(res.data)
       setUserList({ ...res.data });
     } else {
       alert("데이터 전송에 실패했습니다.");

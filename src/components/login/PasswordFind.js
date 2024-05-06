@@ -21,7 +21,7 @@ const PasswordFind = ({ closeModal }) => {
   const [userList, setUserList] = useState({ userId: "", password: "", iauth: 0 });
 
   const [confirmClick, setConfirmClick] = useState(false);
-  const [showPwBox, setShowPwBox] = useState(false); // IdBox 상태 추가
+  const [showPwBox, setShowPwBox] = useState(false);
 
 
   const loginUserPw = () => {

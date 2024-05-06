@@ -111,7 +111,7 @@ justify-content: center;
   margin-top: 20px;
 `;
 
-export const PwBox = styled.div`
+export const PwBox = styled.input`
  width: 380px;
   height: 45px;
   border-radius: 10px;
