@@ -10,22 +10,34 @@ import {
   NameBox,
   NumberBox,
   PasswordBtSection,
+  PwBox,
   SaveBt
 } from "../../styles/login/PwFindStyle";
 
 const PasswordFind = ({ closeModal }) => {
   const [userId, setUserId] = useState("");
-  const [userNumber, setUserNumber] = useState("");
+  const [userNum, setUserNum] = useState("");
   const [userName, setUserName] = useState("");
-  const [userList, setUserList] = useState({ uid: "", iauth: 0 });
+  const [userList, setUserList] = useState({ userId: "", password: "", iauth: 0 });
 
   const [confirmClick, setConfirmClick] = useState(false);
-  const loginUserId = () => {
+  const [showPwBox, setShowPwBox] = useState(false);
+
+
+  const loginUserPw = () => {
     setConfirmClick(true);
-    const obj = {
-      id: userId,
-    };
-    passwordGet(obj, setUserList);
+    // const obj = {
+    //   userId: userId,
+    //   name: userName,
+    //   phone: userNum,
+    // };
+    passwordGet(setUserList, userId, userName, userNum)
+    .then(() => {
+      setShowPwBox(true); // 데이터가 성공적으로 받아와지면 IdBox를 표시
+    })
+    .catch(() => {
+      setShowPwBox(false); // 데이터를 받아오지 못하면 IdBox를 숨김
+    });
   };
 
   
@@ -33,7 +45,7 @@ const PasswordFind = ({ closeModal }) => {
   // 상태에 따라 문구 바꾸기
   let content;
 if (confirmClick) {
-  if (userList.uid !== "") {
+  if (userList.password) {
     content = (
       <p>
         고객님의 비밀번호입니다. <br />
@@ -63,7 +75,7 @@ if (confirmClick) {
         <Logo src="/images/header/logo.svg" />
       </LogoZone>
       {content}
-        {!userList.uid && (
+        {!showPwBox && (
           <div>
           <IdBox 
           type="text"
@@ -80,15 +92,16 @@ if (confirmClick) {
           <NumberBox
             type="text"
             placeholder="휴대폰 번호 예 ) 010-0000-0000"
-            value={userNumber}
-            onChange={e => setUserNumber(e.target.value)}
+            value={userNum}
+            onChange={e => setUserNum(e.target.value)}
           />
+          {/* <PwBox /> */}
           </div>
         )}
-        {/* {userList.uid && <IdBox value={`비밀번호: ${userList.uid}`} />} */}
+        {showPwBox && <PwBox value={`비밀번호: ${userList.password}`} />}
         <PasswordBtSection>
           <CancelBt onClick={closeModal}>닫기</CancelBt>
-          <SaveBt onClick={() => loginUserId(userId)}>확인</SaveBt>
+          <SaveBt onClick={() => loginUserPw(userId, userName, userNum)}>확인</SaveBt>
           {/* 사용자 정보 : {userList.iauth} : {userList.uid} */}
         </PasswordBtSection>
       </LoginBox>

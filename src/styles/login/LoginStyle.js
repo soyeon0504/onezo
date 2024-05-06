@@ -96,6 +96,7 @@ div {
 hr {
     width: 15px;
     transform: rotate(90deg);
+    color: #FF8B38;
 }
 a {
     color: #A9A7A7;

@@ -111,6 +111,20 @@ justify-content: center;
   margin-top: 20px;
 `;
 
+export const PwBox = styled.input`
+ width: 380px;
+  height: 45px;
+  border-radius: 10px;
+  border: 1px solid #572a01;
+  padding-left: 20px;
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 20px;
+`
+
 export const IdBtSection = styled.div`
 width: 380px;
   display: flex;
@@ -127,8 +141,6 @@ width: 380px;
   display: flex;
   justify-content: space-evenly;
   gap: 10px;
-  /* width: ${props => (props.width ? props.width : "")}; */
-  /* margin-top: ${props => (props.mgtop ? props.mgtop : "60px")}; */
   margin-top: 50px;
   margin-bottom: ${props => (props.mgbtm ? props.mgbtm : "90px")};
 `;
