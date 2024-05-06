@@ -17,22 +17,32 @@ import {
 const IdFind = ({ closeModal }) => {
   const [userName, setUserName] = useState("");
   const [userNum, setUserNum] = useState("");
-  const [userList, setUserList] = useState({ uid: "", iauth: 0 });
+  const [userList, setUserList] = useState({ userId: "", iauth: 0 });
 
   const [confirmClick, setConfirmClick] = useState(false);
+  const [showIdBox, setShowIdBox] = useState(false); // IdBox 상태 추가
+
+
   const loginUserId = () => {
     setConfirmClick(true);
-    const obj = {
-      name: userName,
-      phone: userNum,
-    };
-    idGet(obj, setUserList);
+    // const obj = {
+    //   name: userName,
+    //   phone: userNum,
+    // };
+    idGet(setUserList, userName, userNum)
+    // idGet(obj, setUserList)
+    .then(() => {
+      setShowIdBox(true); // 데이터가 성공적으로 받아와지면 IdBox를 표시
+    })
+    .catch(() => {
+      setShowIdBox(false); // 데이터를 받아오지 못하면 IdBox를 숨김
+    });
   };
 
   // 상태에 따라 문구 바꾸기
   let content;
 if (confirmClick) {
-  if (userList.uid) {
+  if (userList.userId) {
     content = (
       <p>
         고객님의 아이디입니다. <br />
@@ -41,7 +51,7 @@ if (confirmClick) {
   } else {
     content = (
       <p style={{ color: "red" }}>
-        잘못된 휴대폰 번호입니다.
+        잘못된 이름 또는 휴대폰 번호입니다.
         <br />
         다시 입력해주세요.
       </p>
@@ -62,7 +72,7 @@ if (confirmClick) {
         <Logo src="/images/header/logo.svg" />
       </LogoZone>
       {content}
-        {!userList.uid && (
+      {!showIdBox && (
           <InputBundle>
           <NameBox 
           type="text"
@@ -76,10 +86,10 @@ if (confirmClick) {
             value={userNum}
             onChange={e => setUserNum(e.target.value)}
           />
-          <IdBox />
+          {/* <IdBox /> */}
           </InputBundle>
         )}
-        {userList.uid && <IdBox value={`아이디: ${userList.uid}`} />}
+        {showIdBox && <IdBox value={`아이디: ${userList.userId}`} />} {/* showIdBox가 true인 경우에만 IdBox 표시 */}
         <IdBtSection>
           <CancelBt onClick={closeModal}>닫기</CancelBt>
           <SaveBt onClick={() => loginUserId(userName,userNum)}>확인</SaveBt>

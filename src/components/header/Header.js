@@ -60,7 +60,7 @@ export const Header = () => {
                   handleMy("대여중");
                 }}
               >
-                <button>마이페이지</button>
+                <button>MY PAGE</button>
               </Link>
           </LoginState>
         ) : (
