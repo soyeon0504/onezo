@@ -48,7 +48,7 @@ if (confirmClick) {
   if (userList.password) {
     content = (
       <p>
-        고객님의 비밀번호입니다. <br />
+        고객님의 임시 비밀번호입니다. <br />
       </p>
     );
   } else {
@@ -98,7 +98,7 @@ if (confirmClick) {
           {/* <PwBox /> */}
           </div>
         )}
-        {showPwBox && <PwBox value={`비밀번호: ${userList.password}`} />}
+        {showPwBox && <PwBox value={`임시 비밀번호: ${userList.password}`} />}
         <PasswordBtSection>
           <CancelBt onClick={closeModal}>닫기</CancelBt>
           <SaveBt onClick={() => loginUserPw(userId, userName, userNum)}>확인</SaveBt>

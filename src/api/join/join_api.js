@@ -55,7 +55,7 @@ export const idOverlapPost = async (userId) => {
 
 
 // 회원가입
-export const joinPost = async (obj, joinPostSuccess) => {
+export const joinPost = async (obj, errorFn) => {
   // try {
   //   const res = await axios.post(`${SERVER_URL}/auth/signUp`, obj);
   //   const resStatus = res.status.toString();
@@ -76,6 +76,7 @@ export const joinPost = async (obj, joinPostSuccess) => {
     return res;
   } catch (error) {
     // idPostFail();
+    errorFn(error);
     console.log(error);
   }
 };
