@@ -14,7 +14,11 @@ import Layout from "../../layouts/Layout";
 import { useNavigate } from "react-router-dom";
 import { ShopModal } from "../../components/shop/ShopModal";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
-import { deleteCartItem, getCartItem } from "../../api/cart/cart_api";
+import {
+  deleteCartItem,
+  getCartItem,
+  putCartItem,
+} from "../../api/cart/cart_api";
 
 // 더미데이터
 const storeData = {
@@ -55,7 +59,7 @@ const CartPage = () => {
 
   const cartGetData = async () => {
     await getCartItem({ memberId, setCartListData });
-    
+
     useEffect(() => {
       cartGetData();
     }, []);
@@ -113,13 +117,24 @@ const CartPage = () => {
           </CartItem>
           {cartListData?.map(item => {
             const [quantity, setQuantity] = useState(item.quantity);
-            const handleIncrement = () => {
+            const [cartId, setCartId] = useState(null);
+            const handleIncrement = cartItemId => {
               setQuantity(quantity + 1);
+              setCartId(cartItemId);
             };
-            const handleDecrement = () => {
+            const handleDecrement = cartItemId => {
               if (quantity > 1) {
                 setQuantity(quantity - 1);
               }
+              setCartId(cartItemId);
+            };
+            // 데이터 연동 (장바구니 수량 변경)
+            const cartPutData = async () => {
+              await putCartItem({ cartId, quantity });
+
+              useEffect(() => {
+                cartPutData();
+              }, [quantity]);
             };
             return (
               <CartItem key={item.cartItemId}>
@@ -131,9 +146,13 @@ const CartPage = () => {
                   </CartMenu>
                   <CartCount>
                     <div>
-                      <button onClick={handleDecrement}>-</button>
+                      <button onClick={() => handleDecrement(item.cartItemId)}>
+                        -
+                      </button>
                       <h2>{quantity}</h2>
-                      <button onClick={handleIncrement}>+</button>
+                      <button onClick={() => handleIncrement(item.cartItemId)}>
+                        +
+                      </button>
                     </div>
                     <span>
                       {new Intl.NumberFormat().format(item.price * quantity)}원
