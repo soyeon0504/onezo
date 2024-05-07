@@ -38,51 +38,95 @@ const btList = [
 
 const menuData = [
   {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "원조 후라이드",
     price: "18,000원",
+    menuCategory: "ALL"
   },
   {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "제로콜라",
     price: "18,000원",
+    menuCategory: "DRINK"
   },
   {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "원조 후라이드",
     price: "18,000원",
+    menuCategory: "CHICKEN"
   },
   {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "원조 후라이드",
     price: "18,000원",
+    menuCategory: "CHICKEN"
   },
   {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "양념소스",
     price: "18,000원",
+    menuCategory: "SAUCE"
   },
   {
-    image: "../../images/main/chicken.svg",
-    title: "원조 후라이드",
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "원조 후라이드",
     price: "18,000원",
+    menuCategory: "CHICKEN"
+  },
+  {
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "양념소스",
+    price: "18,000원",
+    menuCategory: "SAUCE"
+  },
+  {
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "감자튀김",
+    price: "18,000원",
+    menuCategory: "SIDE"
+  },
+  {
+    menuImage: "../../images/main/chicken.svg",
+    menuName: "감자튀김",
+    price: "18,000원",
+    menuCategory: "SIDE"
   },
 ];
 
-const MainPage = ({ category, id }) => {
+const data = [
+  {
+    "id": 0,
+    "store": {
+      "id": 0,
+      "storeName": "string",
+      "address": "string",
+      "addressOld": "string",
+      "storePhone": "string",
+      "storeHours": "string",
+      "orderType": "DINE_IN"
+    },
+    "stock": "string",
+    "price": 0,
+    "menuCategory": "ALL",
+    "menuName": "string",
+    "menuImage": "string"
+  }
+]
+
+const MainPage = ({ id, data }) => {
   const navigate = useNavigate();
   const swiperRef = useRef();
   const { isLogin } = useCustomLogin();
+  const [focus, setFocus] = useState(0);
 
 
   // 전달 받은 목록데이터
-  const [productData, setProductData] = useState();
+  const [productData, setProductData] = useState(data);
 
   // 버튼 클릭 이벤트 처리 함수
   const handleCategoryClick = async () => {
     try {
       const res = await getProduct();
-      // setSelectedButton(buttonName);
       setProductData(res);
     } catch (error) {
       console.log(error);
@@ -161,6 +205,7 @@ const MainPage = ({ category, id }) => {
                         key={`menu-bt-${index}`}
                         className={"bt-cate"}
                         onClick={() => {
+                          setFocus(productData.menuCategory("ALL"));
                           handleCategoryClick(item);
                         }}
                       >
@@ -171,14 +216,14 @@ const MainPage = ({ category, id }) => {
                 </MenuButtonWrap>
               </MenuTop>
               <MenuMainWrap>
-                {menuData.map((item, index) => (
+                {productData && productData.slice(0, 6).map((item, index) => (
                   <MenuMain key={index} btList={btList[index]}>
                     <MenuImage>
-                      <img src={item.image} alt="메뉴 이미지" />
+                      <img src={item.menuImage} alt="메뉴 이미지" />
                     </MenuImage>
                     <MenuDesc>
                       <div className="menu-desc">
-                        <div className="menu-title">{item.title}</div>
+                        <div className="menu-title">{item.menuName}</div>
                         <div className="menu-price">{item.price}</div>
                       </div>
                       <div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../../layouts/Layout";
 import {
   MainWrap,
@@ -64,15 +64,55 @@ const menuData = [
     title: "원조 후라이드",
     price: "18,000원",
   },
+  {
+    image: "../../images/main/chicken.svg",
+    title: "원조 후라이드",
+    price: "18,000원",
+  },
+  {
+    image: "../../images/main/chicken.svg",
+    title: "원조 후라이드",
+    price: "18,000원",
+  },
+  {
+    image: "../../images/main/chicken.svg",
+    title: "원조 후라이드",
+    price: "18,000원",
+  },
+  {
+    image: "../../images/main/chicken.svg",
+    title: "원조 후라이드",
+    price: "18,000원",
+  },
+  {
+    image: "../../images/main/chicken.svg",
+    title: "원조 후라이드",
+    price: "18,000원",
+  },
+
 ];
 
 const MainPage = () => {
   const navigate = useNavigate(`/`);
-
+  const [pageNum, setPageNum] = useState(1);
+  const pageSize = 9;
+  // const [totalPage, setTotalPage] = useState(null);
+  const [totalPage, setTotalPage] = useState(Math.ceil(menuData.length / pageSize));
+  const slicedMenuData = menuData.slice(
+    (pageNum - 1) * pageSize,
+    pageNum * pageSize
+  );
+  
   const handlePageChange = () => {
     const url = `/menu/detail`;
     navigate(url);
   };
+
+  const handlePaginationChange = _tempPage => {
+    setPageNum(_tempPage);
+    setTotalPage(Math.ceil(menuData.length / pageSize));
+  };
+
   return (
     <>
       <Layout>
@@ -95,7 +135,7 @@ const MainPage = () => {
               </MenuTop>
               {/* 메뉴.map */}
               <MenuMainWrap>
-                {menuData.map((item, index) => (
+                {slicedMenuData.map((item, index) => (
                   <MenuMain key={index}>
                     <MenuImage>
                       <img src={item.image} alt="메뉴 이미지" />
@@ -120,9 +160,9 @@ const MainPage = () => {
             </MenuWrap>
             <div className="pagination-wrap">
               <PaginationOrange 
-              // current={pageNum}
-              // onChange={handlePageChange}
-              // total={totalPage}
+              current={pageNum}
+              onChange={handlePaginationChange}
+              total={totalPage}
               // pageSize={9}
               />
             </div>

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { SERVER_URL } from "../config";
 
-// const path = `${SERVER_URL}/api/user`;
 
 // 로그인
 export const loginPost = async ({ loginParam, successFn, failFn }) => {
