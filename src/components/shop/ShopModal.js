@@ -1,21 +1,27 @@
 import axios from 'axios';
 import '../../styles/shop/ShopModal.css';
 import React, { useEffect, useState } from "react";
+import { getCookie } from '../../util/cookieUtil';
+import Swal from 'sweetalert2';
+
+const authToken = getCookie('accessToken');
 
 const { kakao } = window;
 
 export const ShopModal = ({ onCloseModal }) => {
     let initlocation = { location_x: 35, location_y: 127 }; //초기값 설정
     const [location, setLocation] = useState(initlocation); //초기값 설정
-
-    // 가게아이디, 가게이름, 주소 배열 
-    const [shopList, setShopList] = useState([]);
+    const [positions, setPositions] = useState([]);
+    const [aroundMarker, setAroundMaker] = useState([]);
 
     useEffect(() => {
         const getData = async () => {
-            const response = await axios.get('/api/store/storeList');
-            setShopList(response.data);
-            console.log(response.data);
+            const response = await axios.get('/api/store/storeList', {
+                headers: {
+                    'Authorization': `Bearer ${authToken}`
+                }
+            });
+            setPositions(response.data);
         }
         getData();
 
@@ -25,42 +31,30 @@ export const ShopModal = ({ onCloseModal }) => {
             return
         }
         geolocation.getCurrentPosition(handleSuccess)
-    }, [])
+    }, []);
 
     var marker;
 
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
     var coords;
-    for (let i = 0; i < shopList.length; i++) {
-        // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(shopList[i].address, function (result, status) {
-            console.log("주소조회오나");
-            console.log("주소조회 = " + shopList[i].address);
+
+    for (let i = 0; i < positions.length; i++) {
+
+        geocoder.addressSearch(positions[i].address, function (result, status) {
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {
                 // 결과값도 조회해본다
-                console.log(result)
                 coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                 // // 좌표를 주소로 변환합니다
-                console.log("위도경도오나");
-                console.log("위도경도 = " + coords);
-                const [latitude, longitude] = coords
-                    .slice(1, -1) // 괄호 제거
-                    .split(', ')  // 쉼표와 공백으로 분할
-                    .map(parseFloat); // 각 값에 parseFloat 적용
+                const { La, Ma } = coords;
 
-                console.log("위도 값:", latitude);
-                console.log("경도 값:", longitude);
-                // 결과값으로 받은 위치를 마커로 표시합니다
+                positions[i] = { latlng: { La, Ma }, ...positions[i] }
+
                 marker = new kakao.maps.Marker({
                     map: map,
-                    position: coords
+                    position: { latlng: { La, Ma } }
                 });
-
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                // map.setCenter(coords);
-                // }
             }
         });
     }
@@ -78,14 +72,6 @@ export const ShopModal = ({ onCloseModal }) => {
         };
         map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
-
-
-        // 선택한 주소를 지도에 마크되도록
-        // setLocation({
-        //     location_x: latitude,
-        //     location_y: longitude,
-        // });
-
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
         // 마커 이미지의 이미지 크기 입니다
@@ -97,7 +83,7 @@ export const ShopModal = ({ onCloseModal }) => {
             location.location_x,
             location.location_y
         );
-
+        var marker;
 
         // 지도에 표시할 원을 생성합니다
         var circle = new kakao.maps.Circle({
@@ -105,7 +91,7 @@ export const ShopModal = ({ onCloseModal }) => {
                 location.location_x,
                 location.location_y
             ), // 원의 중심좌표
-            radius: 2000, // 미터 단위의 원의 반지름입니다 
+            radius: 10000, // 미터 단위의 원의 반지름입니다 반경 10키로
             strokeWeight: 5, // 선의 두께입니다 
             strokeColor: '#75B8FA', // 선의 색깔입니다
             strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
@@ -135,39 +121,45 @@ export const ShopModal = ({ onCloseModal }) => {
 
         var distances = [];
         function calculateDistancesFromCurrentLocation(currentLat, currentLon, locations) {
-            for (let i = 0; i < shopList.length; i++) {
-                distances.push(calculateDistance(location.location_x, location.location_y, shopList[i].latlng.Ma, shopList[i].latlng.La));
+            for (let i = 0; i < positions.length; i++) {
+                if (typeof positions[i].latlng == 'undefined') {
+                    distances.push(9999999999);
+                }
+                else {
+                    distances.push(calculateDistance(location.location_x, location.location_y, positions[i].latlng.Ma, positions[i].latlng.La));
+                }
             }
 
             return distances;
         }
 
-        var distancess = calculateDistancesFromCurrentLocation(location.location_x, location.location_y, shopList); // 리스트 안에 리스트를 담아서 배열형태가 아니라서 오류가 났던거다
+        var distancess = calculateDistancesFromCurrentLocation(location.location_x, location.location_y, positions); // 리스트 안에 리스트를 담아서 배열형태가 아니라서 오류가 났던거다
+
         function calculateDistancesAndShowMarkers() {
-            var aroundMarker = [];
-            var allMarker = [];
+            const nearData = [];
             // 가게들과 중심의 길이가 반경보다 짧으면 보이도록
-            for (let i = 0; i < shopList.length; i++) {
+            for (let i = 0; i < positions.length; i++) {
                 // 모든 가게목록
-                allMarker.push(shopList[i].storeName);
                 if (distancess[i] < radius) {
-                    marker = new kakao.maps.Marker({
-                        map: map, // 마커를 표시할 지도
-                        title: shopList[i].storeName, // 마커의 타이틀을 표시
-                        position: coords[i] // 마커를 표시할 위치
-                    });
-                    // 반경내 가게목록
-                    aroundMarker.push(shopList[i].storeName);
+                    if (typeof positions[i].latlng != 'undefined') {
+                        var geoMarkerPosition = new kakao.maps.LatLng(
+                            positions[i].latlng.Ma,
+                            positions[i].latlng.La
+                        );
+                        marker = new kakao.maps.Marker({
+                            map: map, // 마커를 표시할 지도
+                            title: positions[i].storeName, // 마커의 타이틀을 표시
+                            position: geoMarkerPosition// 마커를 표시할 위치
+                        });
+                        nearData.push(positions[i]);
+                    }
                 }
             }
-            console.log("모든주소 = " + allMarker);
-            console.log("근처주소 = " + aroundMarker);
+            setAroundMaker(nearData);
         }
 
         // calculateDistancesAndShowMarkers 함수 호출
         calculateDistancesAndShowMarkers();
-
-
 
         //해당 위치 마커 표시
         marker = new kakao.maps.Marker({
@@ -194,13 +186,42 @@ export const ShopModal = ({ onCloseModal }) => {
 
     }
 
-
-
     const handleSuccess = (pos) => {
         const { latitude, longitude } = pos.coords
         setLocation({
             location_x: latitude,
             location_y: longitude,
+        });
+        drawMap();
+    }
+
+    function takeAlert(take) {
+        if (take == "takeOut") {
+            Swal.fire({
+                title: "포장하시겠습니까?",
+                icon: "question"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    onCloseModal();
+                }
+            });
+        } else if (take == "takeIn") {
+            Swal.fire({
+                title: "매장에서 식사하시겠습니까?",
+                icon: "question"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    onCloseModal();
+                }
+            });
+        }
+    }
+
+    function goLocation(loc) {
+        console.log("위치 = " + JSON.stringify(loc));
+        setLocation({
+            location_x: loc.Ma,
+            location_y: loc.La,
         });
         drawMap();
     }
@@ -214,42 +235,38 @@ export const ShopModal = ({ onCloseModal }) => {
                     <img src="/images/my/bt_cancel.svg" onClick={onCloseModal} />
                 </div>
             </div>
-            <h1 className='store_h1'>근처매장</h1>
+            <h1>근처매장</h1>
             <div className='scroll_y'>
                 <div className='store_list_main'>
                     {
-                        shopList.map((shopList, index) => (
+                        aroundMarker && aroundMarker.map((position, index) => (
                             <div className='store_list' key={index}>
                                 <img src="images/my/store.png" />
-                                <div style={{ width: "970px" }}>
-                                    <p>{shopList.storeName}</p>
-                                    <h3>{
-                                        JSON.stringify(store.latlng).slice(0, 20)
-                                    }</h3>
+                                <div style={{ width: "970px",cursor:"pointer" }} onClick={()=>{ goLocation(position.latlng); }}>
+                                    <p>{position.storeName}</p>
+                                    <h3>{position.address}</h3>
                                 </div>
-                                <button className='btn_choice'>포장</button>
-                                <button className='btn_choice'>매장</button>
+                                <button className='btn_choice' onClick={() => { takeAlert("takeOut") }}>포장</button>
+                                <button className='btn_choice' onClick={() => { takeAlert("takeIn") }}>매장</button>
                             </div>
                         ))
                     }
                 </div>
             </div>
             <hr />
-            <h1 className='store_h1'>모든매장</h1>
+            <h1>모든매장</h1>
             <div className='scroll_y'>
                 <div className='store_list_main'>
                     {
-                        shopList.map((store, index) => (
+                        positions.map((position, index) => (
                             <div className='store_list' key={index}>
                                 <img src="images/my/store.png" />
-                                <div style={{ width: "970px" }}>
-                                    <p>{store.title}</p>
-                                    <h3>{
-                                        JSON.stringify(store.latlng).slice(0, 20)
-                                    }</h3>
+                                <div style={{ width: "970px",cursor:"pointer"}} onClick={()=>{ goLocation(position.latlng); }}>
+                                    <p>{position.storeName}</p>
+                                    <h3>{position.address}</h3>
                                 </div>
-                                <button className='btn_choice'>포장</button>
-                                <button className='btn_choice'>매장</button>
+                                <button className='btn_choice' onClick={() => { takeAlert("takeOut") }}>포장</button>
+                                <button className='btn_choice' onClick={() => { takeAlert("takeIn") }}>매장</button>
                             </div>
                         ))
                     }
