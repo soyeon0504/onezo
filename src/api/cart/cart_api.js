@@ -30,7 +30,7 @@ export const deleteCartItem = async cartItemId => {
   try {
     const url = `${SERVER_URL}/api/cart/delete/${cartItemId}`;
 
-    const res = await axios.delete(url);
+    const res = await jwtAxios.delete(url);
     return res;
   } catch (error) {
     console.log(error);

@@ -59,3 +59,26 @@ export const WithdrawForm = styled.form`
     cursor: pointer;
   }
 `;
+
+export const PasswordSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  padding: 0 !important;
+  input {
+  }
+  button {
+    background: transparent;
+    border: none;
+    width: 0px;
+    height: 0px;
+  }
+  img {
+    width: 25px;
+    height: 25px;
+    border: none;
+    transform: translate(-150%, -135%);
+    cursor: pointer;
+  }
+`;
