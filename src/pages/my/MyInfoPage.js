@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   InfoForm,
   InfoStyle,
@@ -7,6 +7,8 @@ import {
   ShowPasswordImg,
 } from "../../styles/my/MyInfoStyle";
 import { CheckButton, JoinButton } from "../../styles/join/JoinStyle";
+import { useSelector } from "react-redux";
+import { getMemberInfo } from "../../api/my/my_api";
 
 const MyInfoData = {
   id: "onezo123",
@@ -16,6 +18,20 @@ const MyInfoData = {
 };
 
 const MyInfoPage = () => {
+  // 유저 memberId 값
+  const memberId = useSelector(state => state.loginSlice.memberId);
+
+  // 데이터 연동(회원 정보 조회)
+  useEffect(() => {
+    const getData = async() => {
+      try {
+        const res = await getMemberInfo(memberId)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  })
+
   // 비밀번호 보이기/감추기
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
