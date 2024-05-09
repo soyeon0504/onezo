@@ -18,19 +18,68 @@ const MyInfoData = {
 };
 
 const MyInfoPage = () => {
+  const [data, setData] = useState(null);
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   // 유저 memberId 값
   const memberId = useSelector(state => state.loginSlice.memberId);
 
   // 데이터 연동(회원 정보 조회)
   useEffect(() => {
-    const getData = async() => {
+    const getData = async () => {
       try {
-        const res = await getMemberInfo(memberId)
+        const res = await getMemberInfo(memberId);
+        setData(res.data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
+    };
+    getData();
+  }, [memberId]);
+
+  useEffect(() => {
+    if (data) {
+      setUserId(data.userId);
+      setName(data.name);
+      setNickname(data.nickname);
+      setPhoneNumber(data.phone);
     }
-  })
+  }, [data]);
+
+  // 값 바꾸기
+  const handlePasswordChange = e => {
+    setPassword(e.target.value);
+  };
+  const handlePasswordConfirmChange = e => {
+    setPasswordConfirm(e.target.value);
+  };
+  const handleNameChange = e => {
+    setName(e.target.value);
+  };
+  const handleNicknameChange = e => {
+    setNickname(e.target.value);
+  };
+  const handlePhoneNumberChange = e => {
+    setPhoneNumber(e.target.value);
+  };
+
+  // 데이터 연동(회원 정보 수정)
+  const [modifyData, setModifyData] = useState({
+    password: "",
+    passwordCheck: "",
+    name: "",
+    nickname: "",
+    phone: "",
+  });
+
+  const handleModifyButtonClick = () => {
+    setModifyData({})
+  }
 
   // 비밀번호 보이기/감추기
   const [showPassword, setShowPassword] = useState(false);
@@ -50,8 +99,7 @@ const MyInfoPage = () => {
         <InfoForm>
           <div className="bundle">
             <p>아이디</p>
-            <input className="input1" />
-            <CheckButton>중복확인</CheckButton>
+            <input value={userId} readOnly />
           </div>
 
           <div className="bundle">
@@ -60,6 +108,11 @@ const MyInfoPage = () => {
               <input
                 className="input2"
                 type={showPassword ? "text" : "password"}
+                minLength={4}
+                maxLength={20}
+                placeholder="특수문자 포함 4~20자 이내"
+                value={password}
+                onChange={handlePasswordChange}
               />
               <ShowPasswordBt type="button" onClick={handleTogglePassword}>
                 {showPassword ? (
@@ -79,6 +132,11 @@ const MyInfoPage = () => {
               <input
                 className="input3"
                 type={showPasswordConfirm ? "text" : "password"}
+                minLength={4}
+                maxLength={20}
+                placeholder="특수문자 포함 4~20자 이내"
+                value={passwordConfirm}
+                onChange={handlePasswordConfirmChange}
               />
               <ShowPasswordBt
                 type="button"
@@ -91,20 +149,50 @@ const MyInfoPage = () => {
                 )}
               </ShowPasswordBt>
             </PasswordInput>
+            {passwordConfirm && password != passwordConfirm ? (
+              <p>비밀번호가 일치하지 않습니다.</p>
+            ) : (
+              <p></p>
+            )}
           </div>
 
           <div className="bundle">
             <p>이름</p>
-            <input className="input4" />
+            <input
+              className="input4"
+              type="text"
+              maxLength={10}
+              placeholder="10자 이내"
+              name="name"
+              value={name}
+              onChange={handleNameChange}
+            />
           </div>
+
           <div className="bundle">
             <p>닉네임</p>
-            <input className="input5" />
+            <input
+              className="input5"
+              type="text"
+              minLength={2}
+              maxLength={15}
+              placeholder="2~15자 이내"
+              value={nickname}
+              onChange={handleNicknameChange}
+            />
             <CheckButton>중복확인</CheckButton>
           </div>
+
           <div className="bundle">
             <p>연락처</p>
-            <input className="input6" />
+            <input
+              className="input6"
+              type="text"
+              placeholder="예) 010-0000-0000"
+              name="phoneNumber"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+            />
             <CheckButton>중복확인</CheckButton>
           </div>
           <div className="join-button">

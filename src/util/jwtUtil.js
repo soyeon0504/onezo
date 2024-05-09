@@ -25,17 +25,17 @@ const requestFail = error => {
   return Promise.reject(error);
 };
 
-const refreshJWT = async (accessToken, refreshToken) => {
-  const host = SERVER_URL;
-  const header = { headers: { Authorization: `Bearer ${accessToken}` } };
-  const res = await axios.get(
-    `${host}/api/user/refresh-token?refreshToken=${refreshToken}`,
-    header,
-  );
-  // console.log("1. refreshToken 토큰 요청");
-  // console.log("2. 백엔드에서 새로 준 값", res.data);
-  return res.data;
-};
+// const refreshJWT = async (accessToken, refreshToken) => {
+//   const host = SERVER_URL;
+//   const header = { headers: { Authorization: `Bearer ${accessToken}` } };
+//   const res = await axios.get(
+//     `${host}/api/user/refresh-token?refreshToken=${refreshToken}`,
+//     header,
+//   );
+//   // console.log("1. refreshToken 토큰 요청");
+//   // console.log("2. 백엔드에서 새로 준 값", res.data);
+//   return res.data;
+// };
 
 const beforeRes = async res => {
   // console.log("Response 전처리", res);

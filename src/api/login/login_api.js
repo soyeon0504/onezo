@@ -3,9 +3,8 @@ import { SERVER_URL } from "../config";
 
 
 // 로그인
-export const loginPost = async ({ loginParam, successFn, failFn }) => {
+export const loginPost = async ({ loginParam, successFn, failFn, errorFn }) => {
   try {
-    console.log(loginParam)
     const header = { headers: { "Content-Type": "application/json" } };
     const data = {
       userId: loginParam.userId,
@@ -19,8 +18,7 @@ export const loginPost = async ({ loginParam, successFn, failFn }) => {
       failFn("로그인에 실패하였습니다. 다시 시도해주세요");
     }
   } catch (error) {
-    // errorFn(error);
-    error;
+    errorFn(error);
   }
 };
 
