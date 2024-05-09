@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MoreBt, MoreBtWrap } from "../../styles/main/MainPageStyle";
 
-const MoreButton = ({ categoryId, subCategoryId, pageNum, title }) => {
+const MoreButton = ({ menuCategory, pageNum, title }) => {
   const navigate = useNavigate();
-  console.log(title);
+  // console.log(title);
 
   const handleClickMenu = () => {
-    navigate(`/menu?category=${categoryId}&page=${pageNum}`, {
+    navigate(`/menu?category=${menuCategory}&page=${pageNum}`, {
       state: { title },
     });
   };

@@ -1,3 +1,4 @@
+// 프론트 박소연 담당
 import React, { useState } from "react";
 import {
   InputWrap,
