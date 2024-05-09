@@ -6,16 +6,11 @@ import {
   ShowPasswordBt,
   ShowPasswordImg,
 } from "../../styles/my/MyInfoStyle";
-import { CheckButton, JoinButton } from "../../styles/join/JoinStyle";
+import { JoinButton } from "../../styles/join/JoinStyle";
 import { useSelector } from "react-redux";
-import { getMemberInfo } from "../../api/my/my_api";
-
-const MyInfoData = {
-  id: "onezo123",
-  name: "김그린",
-  nick: "그린컴퓨터",
-  phone: "01012341234",
-};
+import { getMemberInfo, putMemberInfo } from "../../api/my/my_api";
+import Modal_Bt1 from "../../components/modal/Modal_Bt1";
+import { ModalBackground } from "../../styles/review/ReveiwStyle";
 
 const MyInfoPage = () => {
   const [data, setData] = useState(null);
@@ -69,17 +64,46 @@ const MyInfoPage = () => {
   };
 
   // 데이터 연동(회원 정보 수정)
-  const [modifyData, setModifyData] = useState({
-    password: "",
-    passwordCheck: "",
-    name: "",
-    nickname: "",
-    phone: "",
-  });
+  const [modifyData, setModifyData] = useState(null);
 
-  const handleModifyButtonClick = () => {
-    setModifyData({})
-  }
+  const handleModifyButtonClick = async () => {
+    setModifyData({
+      password: password,
+      passwordCheck: passwordConfirm,
+      name: name,
+      nickname: nickname,
+      phone: phoneNumber,
+    });
+  };
+
+  useEffect(() => {
+    const modifyInfo = async () => {
+      if (modifyData) {
+        await putMemberInfo({ memberId, data: modifyData, successFn, errFn });
+      }
+    };
+    modifyInfo();
+  }, [modifyData]);
+
+  const [successModal, setSuccessModal] = useState(false);
+  const [errModal, setErrModal] = useState(false);
+  const successFn = res => {
+    setSuccessModal(true);
+  };
+  const OkBt = () => {
+    setSuccessModal(false);
+    setErrModal(false);
+  };
+
+  const [errMessage, setErrMessage] = useState("");
+  const errFn = res => {
+    setErrModal(true);
+    {
+      res.response.data.errorMessage
+        ? setErrMessage(res.response.data.errorMessage)
+        : setErrMessage(res.response.data);
+    }
+  };
 
   // 비밀번호 보이기/감추기
   const [showPassword, setShowPassword] = useState(false);
@@ -94,6 +118,21 @@ const MyInfoPage = () => {
 
   return (
     <>
+      {successModal && (
+        <>
+          <Modal_Bt1
+            txt="회원정보가 성공적으로 업데이트되었습니다."
+            onConfirm={OkBt}
+          ></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
+      {errModal && (
+        <>
+          <Modal_Bt1 txt={errMessage} onConfirm={OkBt}></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
       <InfoStyle>
         <h1>내 정보</h1>
         <InfoForm>
@@ -149,11 +188,6 @@ const MyInfoPage = () => {
                 )}
               </ShowPasswordBt>
             </PasswordInput>
-            {passwordConfirm && password != passwordConfirm ? (
-              <p>비밀번호가 일치하지 않습니다.</p>
-            ) : (
-              <p></p>
-            )}
           </div>
 
           <div className="bundle">
@@ -172,7 +206,6 @@ const MyInfoPage = () => {
           <div className="bundle">
             <p>닉네임</p>
             <input
-              className="input5"
               type="text"
               minLength={2}
               maxLength={15}
@@ -180,23 +213,22 @@ const MyInfoPage = () => {
               value={nickname}
               onChange={handleNicknameChange}
             />
-            <CheckButton>중복확인</CheckButton>
           </div>
 
           <div className="bundle">
             <p>연락처</p>
             <input
-              className="input6"
               type="text"
               placeholder="예) 010-0000-0000"
               name="phoneNumber"
               value={phoneNumber}
               onChange={handlePhoneNumberChange}
             />
-            <CheckButton>중복확인</CheckButton>
           </div>
           <div className="join-button">
-            <JoinButton>수정하기</JoinButton>
+            <JoinButton onClick={handleModifyButtonClick} type="button">
+              수정하기
+            </JoinButton>
           </div>
         </InfoForm>
       </InfoStyle>
