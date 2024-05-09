@@ -56,6 +56,11 @@ export const MenuButtonWrap = styled.div`
     color: #572a01;
     text-align: center;
     cursor: pointer;
+    &.focus {
+    background-color: #ffd15a;
+    border: 1px solid #ffd15a;
+    color: #fff;
+    }
   }
 
   button:hover {
@@ -63,6 +68,7 @@ export const MenuButtonWrap = styled.div`
     border: 1px solid #ffd15a;
     color: #fff;
   }
+  
 `;
 
 export const MenuMainWrap = styled.div`

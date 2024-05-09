@@ -20,7 +20,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ShopModal from "../../components/shop/ShopModal"
+import ShopModal from "../../components/shop/ShopModal";
 // Import Swiper styles
 import "swiper/css";
 import { getProduct } from "../../api/main/main_api";
@@ -36,82 +36,102 @@ const btList = [
   { id: 6, title: "음료" },
 ];
 
+const CATEGORIES = {
+  all: {
+    value: "ALL",
+  },
+  set: {
+    value: "SET",
+  },
+  chicken: {
+    value: "CHICKEN",
+  },
+  side: {
+    value: "SIDE",
+  },
+  sauce: {
+    value: "SAUCE",
+  },
+  drink: {
+    value: "DRINK",
+  },
+};
 const menuData = [
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "원조 후라이드",
     price: "18,000원",
-    menuCategory: "ALL"
+    menuCategory: "ALL",
   },
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "제로콜라",
     price: "18,000원",
-    menuCategory: "DRINK"
+    menuCategory: "DRINK",
   },
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "원조 후라이드",
     price: "18,000원",
-    menuCategory: "CHICKEN"
+    menuCategory: "CHICKEN",
   },
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "원조 후라이드",
     price: "18,000원",
-    menuCategory: "CHICKEN"
+    menuCategory: "CHICKEN",
   },
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "양념소스",
     price: "18,000원",
-    menuCategory: "SAUCE"
+    menuCategory: "SAUCE",
   },
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "원조 후라이드",
     price: "18,000원",
-    menuCategory: "CHICKEN"
+    menuCategory: "CHICKEN",
   },
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "양념소스",
     price: "18,000원",
-    menuCategory: "SAUCE"
+    menuCategory: "SAUCE",
   },
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "감자튀김",
     price: "18,000원",
-    menuCategory: "SIDE"
+    menuCategory: "SIDE",
   },
   {
     menuImage: "../../images/main/chicken.svg",
     menuName: "감자튀김",
     price: "18,000원",
-    menuCategory: "SIDE"
+    menuCategory: "SIDE",
   },
 ];
 
 const data = [
   {
-    "id": 0,
-    "store": {
-      "id": 0,
-      "storeName": "string",
-      "address": "string",
-      "addressOld": "string",
-      "storePhone": "string",
-      "storeHours": "string",
-      "orderType": "DINE_IN"
+    id: 0,
+    store: {
+      id: 0,
+      storeName: "string",
+      address: "string",
+      addressOld: "string",
+      storePhone: "string",
+      storeHours: "string",
+      orderType: "DINE_IN",
     },
-    "stock": "string",
-    "price": 0,
-    "menuCategory": "ALL",
-    "menuName": "string",
-    "menuImage": "string"
-  }
-]
+    stock: "string",
+    price: 0,
+    menuCategory: "ALL",
+    menuName: "string",
+    menuImage: "string",
+  },
+];
 
 const MainPage = ({ id, data }) => {
   const navigate = useNavigate();
@@ -119,17 +139,18 @@ const MainPage = ({ id, data }) => {
   const { isLogin } = useCustomLogin();
   const [focus, setFocus] = useState(0);
 
-
   // 전달 받은 목록데이터
   const [productData, setProductData] = useState(data);
 
   // 버튼 클릭 이벤트 처리 함수
-  const handleCategoryClick = async () => {
-    try {
-      const res = await getProduct();
-      setProductData(res);
-    } catch (error) {
-      console.log(error);
+  const handleCategoryClick = async item => {
+    if (item.menuCategory === CATEGORIES.value) {
+      try {
+        const res = await getProduct(item.title);
+        setProductData(res);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -137,11 +158,16 @@ const MainPage = ({ id, data }) => {
     const url = `/menu/detail?cate=${id}`;
     navigate(url);
   };
-  
+
+  useEffect(() => {
+    // 페이지가 처음 로드될 때 첫 번째 버튼에 해당하는 카테고리 데이터를 가져옴
+    handleCategoryClick(btList[0]);
+  }, []);
+
   return (
     <>
       <Layout>
-      {isLogin === true && <ShopModal />}
+        {isLogin === true && <ShopModal />}
         <MainWrap>
           <MainWrapInner>
             <Banner>
@@ -203,9 +229,9 @@ const MainPage = ({ id, data }) => {
                     return (
                       <button
                         key={`menu-bt-${index}`}
-                        className={"bt-cate"}
+                        className={focus === index ? "focus" : ""}
                         onClick={() => {
-                          setFocus(productData.menuCategory("ALL"));
+                          setFocus(index);
                           handleCategoryClick(item);
                         }}
                       >
@@ -216,33 +242,33 @@ const MainPage = ({ id, data }) => {
                 </MenuButtonWrap>
               </MenuTop>
               <MenuMainWrap>
-                {productData && productData.slice(0, 6).map((item, index) => (
-                  <MenuMain key={index} btList={btList[index]}>
-                    <MenuImage>
-                      <img src={item.menuImage} alt="메뉴 이미지" />
-                    </MenuImage>
-                    <MenuDesc>
-                      <div className="menu-desc">
-                        <div className="menu-title">{item.menuName}</div>
-                        <div className="menu-price">{item.price}</div>
-                      </div>
-                      <div>
-                        <button
-                          onClick={() => handlePageChange()}
-                          className="menu-detail"
-                        >
-                          상세보기
-                        </button>
-                      </div>
-                    </MenuDesc>
-                  </MenuMain>
-                ))}
+                {productData &&
+                  productData.slice(0, 6).map((item, index) => (
+                    <MenuMain key={index} btList={btList[index]}>
+                      <MenuImage>
+                        <img src={item.menuImage} alt="메뉴 이미지" />
+                      </MenuImage>
+                      <MenuDesc>
+                        <div className="menu-desc">
+                          <div className="menu-title">{item.menuName}</div>
+                          <div className="menu-price">
+                            {item.price.toLocaleString()}원
+                          </div>
+                        </div>
+                        <div>
+                          <button
+                            onClick={() => handlePageChange()}
+                            className="menu-detail"
+                          >
+                            상세보기
+                          </button>
+                        </div>
+                      </MenuDesc>
+                    </MenuMain>
+                  ))}
               </MenuMainWrap>
               <MenuMoreButton>
-                <MoreButton 
-                categoryId={id}
-                pageNum={1}
-                >
+                <MoreButton menuCategory={focus + 1} pageNum={1}>
                   더보기
                 </MoreButton>
               </MenuMoreButton>

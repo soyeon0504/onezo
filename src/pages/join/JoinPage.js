@@ -1,3 +1,4 @@
+// 프론트 박소연 담당
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -32,7 +33,6 @@ const schema = yup
         "아이디는 대소문자와 숫자를 포함해야 합니다."
       )
       .required("아이디를 입력해 주세요."),
-
     password: yup
       .string()
       .min(4, "최소 4자 이상 작성해야 합니다.")
