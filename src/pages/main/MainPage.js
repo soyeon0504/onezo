@@ -26,6 +26,7 @@ import "swiper/css";
 import { getProduct } from "../../api/main/main_api";
 import MoreButton from "../../components/main/MoreButton";
 import useCustomLogin from "../../hooks/useCustomLogin";
+import { ModalBackground } from "../../styles/review/ReveiwStyle";
 
 const btList = [
   { id: 1, title: "전체" },
@@ -167,7 +168,12 @@ const MainPage = ({ id, data }) => {
   return (
     <>
       <Layout>
-        {isLogin === true && <ShopModal />}
+        {isLogin === true && (
+          <>
+            <ShopModal />
+            <ModalBackground></ModalBackground>
+          </>
+        )}
         <MainWrap>
           <MainWrapInner>
             <Banner>

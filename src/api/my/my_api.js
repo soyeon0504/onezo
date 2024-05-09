@@ -15,13 +15,15 @@ export const getMemberInfo = async (memberId) => {
 };
 
 // 회원 정보 수정
-export const putMemberInfo = async memberId => {
+export const putMemberInfo = async ({ memberId, data }) => {
   try {
     const url = `${SERVER_URL}/auth/update/${memberId}`;
 
-    const res = await jwtAxios.put(url);
+    const res = await jwtAxios.put(url, data);
+    alert("회원정보가 성공적으로 업데이트되었습니다.")
     return res;
   } catch (error) {
+    alert("회원 정보 수정 중 오류가 발생했습니다.")
     console.log(error);
   }
 };

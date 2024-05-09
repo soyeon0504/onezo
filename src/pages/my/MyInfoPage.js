@@ -8,7 +8,8 @@ import {
 } from "../../styles/my/MyInfoStyle";
 import { CheckButton, JoinButton } from "../../styles/join/JoinStyle";
 import { useSelector } from "react-redux";
-import { getMemberInfo } from "../../api/my/my_api";
+import { getMemberInfo, putMemberInfo } from "../../api/my/my_api";
+import { nickOverlapPost } from "../../api/join/join_api";
 
 const MyInfoData = {
   id: "onezo123",
@@ -69,17 +70,40 @@ const MyInfoPage = () => {
   };
 
   // 데이터 연동(회원 정보 수정)
-  const [modifyData, setModifyData] = useState({
-    password: "",
-    passwordCheck: "",
-    name: "",
-    nickname: "",
-    phone: "",
-  });
+  const [modifyData, setModifyData] = useState(null);
 
-  const handleModifyButtonClick = () => {
-    setModifyData({})
-  }
+  const handleModifyButtonClick = async () => {
+    setModifyData({
+      password: password,
+      passwordCheck: passwordConfirm,
+      name: name,
+      nickname: nickname,
+      phone: phoneNumber,
+    });
+  };
+  console.log(modifyData)
+
+  useEffect(() => {
+    const modifyInfo = async () => {
+      if (modifyData) {
+        await putMemberInfo({ memberId, data:modifyData });
+      }
+    };
+    modifyInfo();
+  }, [modifyData]);
+
+  // 데이터 연동(닉네임 중복확인)
+  const nickNameOverlapBt = async e => {
+    e.preventDefault();
+    const res = await nickOverlapPost({
+      nickname: nickname,
+    });
+    if (!res) {
+      alert("이미 사용 중인 닉네임입니다.");
+    } else if (res.status === 200) {
+      alert("사용 가능한 닉네임입니다.");
+    }
+  };
 
   // 비밀번호 보이기/감추기
   const [showPassword, setShowPassword] = useState(false);
@@ -180,23 +204,23 @@ const MyInfoPage = () => {
               value={nickname}
               onChange={handleNicknameChange}
             />
-            <CheckButton>중복확인</CheckButton>
+            <CheckButton onClick={nickNameOverlapBt} type="button">
+              중복확인
+            </CheckButton>
           </div>
 
           <div className="bundle">
             <p>연락처</p>
             <input
-              className="input6"
               type="text"
               placeholder="예) 010-0000-0000"
               name="phoneNumber"
               value={phoneNumber}
               onChange={handlePhoneNumberChange}
             />
-            <CheckButton>중복확인</CheckButton>
           </div>
           <div className="join-button">
-            <JoinButton>수정하기</JoinButton>
+            <JoinButton onClick={handleModifyButtonClick} type="button">수정하기</JoinButton>
           </div>
         </InfoForm>
       </InfoStyle>
