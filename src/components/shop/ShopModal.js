@@ -195,30 +195,70 @@ export const ShopModal = ({ onCloseModal }) => {
         drawMap();
     }
 
-    function takeAlert(take) {
-        if (take == "takeOut") {
+    function takeAlert(take, storeId) {
+        if (take === "takeOut") {
             Swal.fire({
                 title: "포장하시겠습니까?",
                 icon: "question"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    onCloseModal();
+                    const insertTakeOut = async () => {
+                        try {
+                            const response = await axios.post('/api/cart/insert',
+                                {
+                                    storeId,
+                                    takeInOut: 'TAKE_OUT'
+                                },
+                                {
+                                    headers: {
+                                        'Authorization': `Bearer ${authToken}`
+                                    }
+                                });
+                            console.log(response.data); // 성공적인 응답 처리
+                            onCloseModal();
+                        } catch (error) {
+                            console.error('Error:', error); // 오류 처리
+                        }
+                    };
+                    insertTakeOut();
                 }
+            }).catch((error) => {
+                console.error('Error:', error); // 오류 처리
             });
-        } else if (take == "takeIn") {
+        } else if (take === "takeIn") {
             Swal.fire({
                 title: "매장에서 식사하시겠습니까?",
                 icon: "question"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    onCloseModal();
+                    const insertDineIn = async () => {
+                        try {
+                            const response = await axios.post('/api/cart/insert',
+                                {
+                                    storeId,
+                                    takeInOut: 'DINE_IN'
+                                },
+                                {
+                                    headers: {
+                                        'Authorization': `Bearer ${authToken}`
+                                    }
+                                });
+                            console.log(response.data); // 성공적인 응답 처리
+                            onCloseModal();
+                        } catch (error) {
+                            console.error('Error:', error); // 오류 처리
+                        }
+                    };
+                    insertDineIn();
                 }
+            }).catch((error) => {
+                console.error('Error:', error); // 오류 처리
             });
         }
     }
 
+
     function goLocation(loc) {
-        console.log("위치 = " + JSON.stringify(loc));
         setLocation({
             location_x: loc.Ma,
             location_y: loc.La,
@@ -242,12 +282,12 @@ export const ShopModal = ({ onCloseModal }) => {
                         aroundMarker && aroundMarker.map((position, index) => (
                             <div className='store_list' key={index}>
                                 <img src="images/my/store.png" />
-                                <div style={{ width: "970px",cursor:"pointer" }} onClick={()=>{ goLocation(position.latlng); }}>
+                                <div style={{ width: "970px", cursor: "pointer" }} onClick={() => { goLocation(position.latlng); }}>
                                     <p>{position.storeName}</p>
                                     <h3>{position.address}</h3>
                                 </div>
-                                <button className='btn_choice' onClick={() => { takeAlert("takeOut") }}>포장</button>
-                                <button className='btn_choice' onClick={() => { takeAlert("takeIn") }}>매장</button>
+                                <button className='btn_choice' onClick={() => { takeAlert("takeOut", position.id) }}>포장</button>
+                                <button className='btn_choice' onClick={() => { takeAlert("takeIn", position.id) }}>매장</button>
                             </div>
                         ))
                     }
@@ -261,12 +301,12 @@ export const ShopModal = ({ onCloseModal }) => {
                         positions.map((position, index) => (
                             <div className='store_list' key={index}>
                                 <img src="images/my/store.png" />
-                                <div style={{ width: "970px",cursor:"pointer"}} onClick={()=>{ goLocation(position.latlng); }}>
+                                <div style={{ width: "970px", cursor: "pointer" }} onClick={() => { goLocation(position.latlng); }}>
                                     <p>{position.storeName}</p>
                                     <h3>{position.address}</h3>
                                 </div>
-                                <button className='btn_choice' onClick={() => { takeAlert("takeOut") }}>포장</button>
-                                <button className='btn_choice' onClick={() => { takeAlert("takeIn") }}>매장</button>
+                                <button className='btn_choice' onClick={() => { takeAlert("takeOut", position.id) }}>포장</button>
+                                <button className='btn_choice' onClick={() => { takeAlert("takeIn", position.id) }}>매장</button>
                             </div>
                         ))
                     }
