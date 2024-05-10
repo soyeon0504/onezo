@@ -31,11 +31,8 @@ export const Header = () => {
     sessionStorage.setItem("selectedItem", subItem);
   };
   // 로그인 & 로그아웃
-  // const loginState = useSelector(state => state.loginSlice);
-  // console.log(loginState);
   const { isLogin, moveToPath, doLogout } = useCustomLogin();
   // console.log(userAuth)
-
   // const dispatch = useDispatch();
   const handleLogout = () => {
     doLogout();
@@ -45,7 +42,7 @@ export const Header = () => {
   };
 
   const loginState = useSelector(state => state.loginSlice);
-  console.log(loginState);
+  // console.log(loginState);
 
   return (
     <Wrap>

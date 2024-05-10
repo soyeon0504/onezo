@@ -1,5 +1,5 @@
 // 프론트 박소연 담당
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import {
   MainWrap,
@@ -14,20 +14,38 @@ import {
   MenuWrap,
 } from "../../styles/menu/MenuStyle";
 import { useNavigate } from "react-router-dom";
-
-// Import Swiper styles
-import "swiper/css";
 import { PaginationOrange } from "../../styles/Pagination";
 import { getProduct } from "../../api/main/main_api";
 
 const btList = [
-  { id: 1, title: "전체" },
-  { id: 2, title: "세트" },
-  { id: 3, title: "치킨" },
-  { id: 4, title: "사이드" },
-  { id: 5, title: "소스" },
-  { id: 6, title: "음료" },
+  { id: 1, title: "전체", category: "ALL" },
+  { id: 2, title: "세트", category: "SET" },
+  { id: 3, title: "치킨", category: "CHICKEN" },
+  { id: 4, title: "사이드", category: "SIDE" },
+  { id: 5, title: "소스", category: "SAUCE" },
+  { id: 6, title: "음료", category: "DRINK" },
 ];
+
+const CATEGORIES = {
+  all: {
+    value: "ALL",
+  },
+  set: {
+    value: "SET",
+  },
+  chicken: {
+    value: "CHICKEN",
+  },
+  side: {
+    value: "SIDE",
+  },
+  sauce: {
+    value: "SAUCE",
+  },
+  drink: {
+    value: "DRINK",
+  },
+};
 
 const menuData = [
   {
@@ -100,7 +118,6 @@ const menuData = [
     title: "원조 후라이드",
     price: "18,000원",
   },
-
 ];
 
 const data = [
@@ -126,26 +143,31 @@ const data = [
 const MainPage = (id, data) => {
   const navigate = useNavigate(`/`);
   const [pageNum, setPageNum] = useState(1);
+  const [focus, setFocus] = useState("ALL");
   const pageSize = 9;
-  // const [totalPage, setTotalPage] = useState(null);
-  const [totalPage, setTotalPage] = useState(Math.ceil(menuData.length / pageSize));
-  const slicedMenuData = menuData.slice(
-    (pageNum - 1) * pageSize,
-    pageNum * pageSize
-  );
-
   // 전달 받은 목록데이터
-  const [productData, setProductData] = useState(data);
+  const [productData, setProductData] = useState([]);
+  // const [totalPage, setTotalPage] = useState(null);
+  const [totalPage, setTotalPage] = useState(
+    Math.ceil(productData.length / pageSize),
+  );
+  const slicedMenuData = productData.slice(
+    (pageNum - 1) * pageSize,
+    pageNum * pageSize,
+  );
 
   // 버튼 클릭 이벤트 처리 함수
   const handleCategoryClick = async item => {
-    try {
-      const res = await getProduct(item.title);
-      setProductData(res);
-    } catch (error) {
-      console.log(error);
+    if (item.menuCategory === CATEGORIES.value) {
+      try {
+        const res = await getProduct(item.title);
+        setProductData(res);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+
   const handlePageChange = () => {
     const url = `/menu/detail`;
     navigate(url);
@@ -153,8 +175,15 @@ const MainPage = (id, data) => {
 
   const handlePaginationChange = _tempPage => {
     setPageNum(_tempPage);
-    setTotalPage(Math.ceil(menuData.length / pageSize));
+    setTotalPage(Math.ceil(productData.length / pageSize));
   };
+
+
+  useEffect(() => {
+    // 페이지가 처음 로드될 때 첫 번째 버튼에 해당하는 카테고리 데이터를 가져옴
+    handleCategoryClick(btList[0]);
+    setTotalPage(Math.ceil(productData.length / pageSize));
+  }, [productData]);
 
   return (
     <>
@@ -168,12 +197,13 @@ const MainPage = (id, data) => {
                   <p>메뉴보기</p>
                 </MenuTitle>
                 <MenuButtonWrap>
-                {btList.map((item, index) => {
+                  {btList.map((item, index) => {
                     return (
                       <button
                         key={`menu-bt-${index}`}
-                        className={focus === index ? "focus" : ""}
+                        className={focus === item.category ? "focus" : ""}
                         onClick={() => {
+                          setFocus(item.category);
                           handleCategoryClick(item);
                         }}
                       >
@@ -185,36 +215,39 @@ const MainPage = (id, data) => {
               </MenuTop>
               {/* 메뉴.map */}
               <MenuMainWrap>
-                {productData && 
-                  productData.map((item, index) => (
-                  <MenuMain key={index} btList={btList[index]}>
-                    <MenuImage>
-                      <img src={item.menuImage} alt="메뉴 이미지" />
-                    </MenuImage>
-                    <MenuDesc>
-                      <div className="menu-desc">
-                        <div className="menu-title">{item.menuName}</div>
-                        <div className="menu-price">{item.price.toLocaleString()}원</div>
-                      </div>
-                      <div>
-                        <button
-                          onClick={() => handlePageChange()}
-                          className="menu-detail"
-                        >
-                          상세보기
-                        </button>
-                      </div>
-                    </MenuDesc>
-                  </MenuMain>
-                ))}
+                {slicedMenuData &&
+                  slicedMenuData
+                  .filter(item => focus === "ALL" || item.menuCategory === focus)
+                  .map((item, index) => (
+                    <MenuMain key={index} btList={btList[index]}>
+                      <MenuImage>
+                        <img src={item.menuImage} alt="메뉴 이미지" />
+                      </MenuImage>
+                      <MenuDesc>
+                        <div className="menu-desc">
+                          <div className="menu-title">{item.menuName}</div>
+                          <div className="menu-price">
+                            {item.price.toLocaleString()}원
+                          </div>
+                        </div>
+                        <div>
+                          <button
+                            onClick={() => handlePageChange()}
+                            className="menu-detail"
+                          >
+                            상세보기
+                          </button>
+                        </div>
+                      </MenuDesc>
+                    </MenuMain>
+                  ))}
               </MenuMainWrap>
             </MenuWrap>
             <div className="pagination-wrap">
-              <PaginationOrange 
-              current={pageNum}
-              onChange={handlePaginationChange}
-              total={totalPage}
-              // pageSize={9}
+              <PaginationOrange
+                current={pageNum}
+                onChange={handlePaginationChange}
+                total={totalPage}
               />
             </div>
           </MainWrapInner>
