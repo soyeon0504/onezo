@@ -29,12 +29,12 @@ import useCustomLogin from "../../hooks/useCustomLogin";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
 
 const btList = [
-  { id: 1, title: "전체" },
-  { id: 2, title: "세트" },
-  { id: 3, title: "치킨" },
-  { id: 4, title: "사이드" },
-  { id: 5, title: "소스" },
-  { id: 6, title: "음료" },
+  { id: 1, title: "전체", category: "ALL" },
+  { id: 2, title: "세트", category: "SET" },
+  { id: 3, title: "치킨", category: "CHICKEN" },
+  { id: 4, title: "사이드", category: "SIDE" },
+  { id: 5, title: "소스", category: "SAUCE" },
+  { id: 6, title: "음료", category: "DRINK" },
 ];
 
 const CATEGORIES = {
@@ -138,7 +138,7 @@ const MainPage = ({ id, data }) => {
   const navigate = useNavigate();
   const swiperRef = useRef();
   const { isLogin } = useCustomLogin();
-  const [focus, setFocus] = useState(0);
+  const [focus, setFocus] = useState("ALL");
 
   // 전달 받은 목록데이터
   const [productData, setProductData] = useState(data);
@@ -168,12 +168,12 @@ const MainPage = ({ id, data }) => {
   return (
     <>
       <Layout>
-        {isLogin === true && (
+        {/* {isLogin === true && (
           <>
             <ShopModal />
             <ModalBackground></ModalBackground>
           </>
-        )}
+        )} */}
         <MainWrap>
           <MainWrapInner>
             <Banner>
@@ -235,9 +235,9 @@ const MainPage = ({ id, data }) => {
                     return (
                       <button
                         key={`menu-bt-${index}`}
-                        className={focus === index ? "focus" : ""}
+                        className={focus === item.category ? "focus" : ""}
                         onClick={() => {
-                          setFocus(index);
+                          setFocus(item.category);
                           handleCategoryClick(item);
                         }}
                       >
@@ -249,32 +249,35 @@ const MainPage = ({ id, data }) => {
               </MenuTop>
               <MenuMainWrap>
                 {productData &&
-                  productData.slice(0, 6).map((item, index) => (
-                    <MenuMain key={index} btList={btList[index]}>
-                      <MenuImage>
-                        <img src={item.menuImage} alt="메뉴 이미지" />
-                      </MenuImage>
-                      <MenuDesc>
-                        <div className="menu-desc">
-                          <div className="menu-title">{item.menuName}</div>
-                          <div className="menu-price">
-                            {item.price.toLocaleString()}원
+                  productData
+                    .filter(item => focus === "ALL" || item.menuCategory === focus)
+                    .slice(0, 6)
+                    .map((item, index) => (
+                      <MenuMain key={index} btList={btList[index]}>
+                        <MenuImage>
+                          <img src={item.menuImage} alt="메뉴 이미지" />
+                        </MenuImage>
+                        <MenuDesc>
+                          <div className="menu-desc">
+                            <div className="menu-title">{item.menuName}</div>
+                            <div className="menu-price">
+                              {item.price.toLocaleString()}원
+                            </div>
                           </div>
-                        </div>
-                        <div>
-                          <button
-                            onClick={() => handlePageChange()}
-                            className="menu-detail"
-                          >
-                            상세보기
-                          </button>
-                        </div>
-                      </MenuDesc>
-                    </MenuMain>
-                  ))}
+                          <div>
+                            <button
+                              onClick={() => handlePageChange()}
+                              className="menu-detail"
+                            >
+                              상세보기
+                            </button>
+                          </div>
+                        </MenuDesc>
+                      </MenuMain>
+                    ))}
               </MenuMainWrap>
               <MenuMoreButton>
-                <MoreButton menuCategory={focus + 1} pageNum={1}>
+                <MoreButton menuCategory={focus} pageNum={1}>
                   더보기
                 </MoreButton>
               </MenuMoreButton>
