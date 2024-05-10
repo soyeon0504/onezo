@@ -13,7 +13,7 @@ const DetailPage = () => {
 
   useEffect(() => {
     const fetchMenuInfo = async () => {
-      const response = await axios.get("/menus/13");
+      const response = await axios.get("/menus/75");
       setMenuInfo(response.data);
       console.log(response.data);
     };
@@ -37,14 +37,14 @@ const DetailPage = () => {
         <div className="menu-container">
           <div className="menu-image">
             {menuInfo ? (
-              <img src={menuInfo.menu.menuImage}/>
+              <img src={menuInfo.menuInfo[0].menu.menuImage}/>
             ) : ""}
           </div>
           <div className="menu-details">
-            {menuInfo && <h1>{menuInfo.menu.menuName}</h1>}
+            {menuInfo && <h1>{menuInfo.menuName}</h1>}
             {menuInfo && (
               <p className="menu-price">
-                {numberWithCommas(menuInfo.menu.price)} 원
+                {numberWithCommas(menuInfo.price)} 원
               </p>
             )}
             <p className="menu-note">
@@ -71,11 +71,11 @@ const DetailPage = () => {
           <div className="infoContainer">
             <div className="origin-info">
               <h2>원산지</h2>
-              {menuInfo && menuInfo.menuInfos.length > 0 ? <p>닭고기 : {menuInfo.menuInfos[0].origin}</p> : ""}
+              {menuInfo && menuInfo.menuInfo.length > 0 ? <p>닭고기 : {menuInfo.menuInfo[0].origin}</p> : ""}
             </div>
             <div className="allergy-info">
               <h2>알레르기 정보</h2>
-              {menuInfo && menuInfo.menuInfos.length > 0 ? <p>{menuInfo.menuInfos[0].allergy}</p> : ""}
+              {menuInfo && menuInfo.menuInfo.length > 0 ? <p>{menuInfo.menuInfo[0].allergy}</p> : ""}
             </div>
           </div>
           <div className="nutrition-table">
@@ -91,23 +91,23 @@ const DetailPage = () => {
                 <tbody>
                   <tr>
                     <td>열량(Kcal) : </td>
-                    {menuInfo && menuInfo.nutrients.length > 0 ? <td>{menuInfo.nutrients[0].kcal}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].kcal}</td> : ""}
                   </tr>
                   <tr>
                     <td>나트륨(mg) : </td>
-                    {menuInfo && menuInfo.nutrients.length > 0 ? <td>{menuInfo.nutrients[0].na}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].na}</td> : ""}
                   </tr>
                   <tr>
                     <td>당류(g) : </td>
-                    {menuInfo && menuInfo.nutrients.length > 0 ? <td>{menuInfo.nutrients[0].sugar}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].sugar}</td> : ""}
                   </tr>
                   <tr>
                     <td>지방(g) : </td>
-                    {menuInfo && menuInfo.nutrients.length > 0 ? <td>{menuInfo.nutrients[0].fat}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].fat}</td> : ""}
                   </tr>
                   <tr>
                     <td>단백질(g) : </td>
-                    {menuInfo && menuInfo.nutrients.length > 0 ? <td>{menuInfo.nutrients[0].protein}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].protein}</td> : ""}
                   </tr>
                 </tbody>
               </table>
