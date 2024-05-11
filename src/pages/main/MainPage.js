@@ -20,7 +20,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ShopModal from "../../components/shop/ShopModal";
+import { ShopModal } from "../../components/shop/ShopModal";
 // Import Swiper styles
 import "swiper/css";
 import { getProduct } from "../../api/main/main_api";
@@ -134,6 +134,7 @@ const data = [
   },
 ];
 
+
 const MainPage = ({ id, data }) => {
   const navigate = useNavigate();
   const swiperRef = useRef();
@@ -160,6 +161,9 @@ const MainPage = ({ id, data }) => {
     navigate(url);
   };
 
+  const [shopModal, setShopModal] = useState(true);
+  const closeShopModal = () => setShopModal(false);
+
   useEffect(() => {
     // 페이지가 처음 로드될 때 첫 번째 버튼에 해당하는 카테고리 데이터를 가져옴
     handleCategoryClick(btList[0]);
@@ -168,12 +172,13 @@ const MainPage = ({ id, data }) => {
   return (
     <>
       <Layout>
-        {/* {isLogin === true && (
+        {isLogin === true && shopModal && (
+
           <>
-            <ShopModal />
+            <ShopModal onCloseModal={closeShopModal} />
             <ModalBackground></ModalBackground>
           </>
-        )} */}
+        )}
         <MainWrap>
           <MainWrapInner>
             <Banner>
