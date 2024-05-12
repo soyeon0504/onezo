@@ -106,7 +106,7 @@ const JoinPage = formState => {
   const onVerifiConfirm = async id => {
     try {
       let result;
-      result = await verificationGet(id);
+      result = await idOverlapPost(id);
 
       if (result) {
         setVerifiData(result);

@@ -18,17 +18,14 @@ export const getProduct = async () => {
   }
 };
 
-// export const getProduct = async (menuCategory) => {
-//   try {
-//     // API 호출 시 카테고리 정보 전달
-//     const res = await axios.get(`${SERVER_URL}/menuAll`, {
-//       params: {
-//         menuCategory: menuCategory
-//       }
-//     });
-//     return res.data;
-//   } catch (error) {
-//     console.log(error);
-//     failPostDatas("/");
-//   }
-// };
+export const getShopModal = async () => {
+  try {
+    const url = `${SERVER_URL}/api/store/checkMem`;
+    const res = await axios.get(url);
+    return res;
+  } catch (error) {
+    console.log(error);
+    failPostDatas("/");
+  }
+};
+

@@ -140,7 +140,7 @@ const data = [
   },
 ];
 
-const MainPage = (id, data) => {
+const MainPage = ({id, data}) => {
   const navigate = useNavigate(`/`);
   const [pageNum, setPageNum] = useState(1);
   const [focus, setFocus] = useState("ALL");
@@ -178,12 +178,16 @@ const MainPage = (id, data) => {
     setTotalPage(Math.ceil(productData.length / pageSize));
   };
 
+  
+// 페이지네이션 설정
+useEffect(() => {
+  setTotalPage(Math.ceil(productData.length / pageSize));
+}, [productData]);
 
-  useEffect(() => {
-    // 페이지가 처음 로드될 때 첫 번째 버튼에 해당하는 카테고리 데이터를 가져옴
-    handleCategoryClick(btList[0]);
-    setTotalPage(Math.ceil(productData.length / pageSize));
-  }, [productData]);
+// 첫 번째 카테고리 데이터 가져오기
+useEffect(() => {
+  handleCategoryClick(btList[0]);
+}, []);
 
   return (
     <>

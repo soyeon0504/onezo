@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import ShopModal from "../../components/shop/ShopModal";
 // Import Swiper styles
 import "swiper/css";
-import { getProduct } from "../../api/main/main_api";
+import { getProduct, getShopModal } from "../../api/main/main_api";
 import MoreButton from "../../components/main/MoreButton";
 import useCustomLogin from "../../hooks/useCustomLogin";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
@@ -159,7 +159,9 @@ const MainPage = ({ id, data }) => {
     const url = `/menu/detail?cate=${id}`;
     navigate(url);
   };
-
+  useEffect(() => {
+    getShopModal();
+  }, []);
   useEffect(() => {
     // 페이지가 처음 로드될 때 첫 번째 버튼에 해당하는 카테고리 데이터를 가져옴
     handleCategoryClick(btList[0]);
@@ -168,12 +170,12 @@ const MainPage = ({ id, data }) => {
   return (
     <>
       <Layout>
-        {/* {isLogin === true && (
+        {isLogin === true && (
           <>
             <ShopModal />
             <ModalBackground></ModalBackground>
           </>
-        )} */}
+        )}
         <MainWrap>
           <MainWrapInner>
             <Banner>
@@ -250,7 +252,9 @@ const MainPage = ({ id, data }) => {
               <MenuMainWrap>
                 {productData &&
                   productData
-                    .filter(item => focus === "ALL" || item.menuCategory === focus)
+                    .filter(
+                      item => focus === "ALL" || item.menuCategory === focus,
+                    )
                     .slice(0, 6)
                     .map((item, index) => (
                       <MenuMain key={index} btList={btList[index]}>
