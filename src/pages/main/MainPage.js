@@ -161,7 +161,7 @@ const MainPage = ({ data }) => {
   const handlePageChange = (id) => {
       // const url = `/menus/${id}`;
       navigate(`/menus/${id}`);
-      // console.log(item.id)
+      console.log(id)
   };
 
   useEffect(() => {
