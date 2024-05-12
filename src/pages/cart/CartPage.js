@@ -117,7 +117,7 @@ const CartPage = () => {
   const moveToMoreMenu = () => navigate(`/menu`);
   const moveToPatment = () =>
     navigate(
-      `/payment/checkout?add=${storeData.address}&menu=${cartListData[0].menu}&price=${cartListData[0].totalPrice}`,
+      `/payment/checkout?menu=${cartListData[0].menuName}&price=${totalPrice}`,
     );
 
   // 매장선택창 나오기
