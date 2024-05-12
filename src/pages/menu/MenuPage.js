@@ -219,9 +219,10 @@ useEffect(() => {
               </MenuTop>
               {/* 메뉴.map */}
               <MenuMainWrap>
-                {slicedMenuData &&
-                  slicedMenuData
+                {productData &&
+                  productData
                   .filter(item => focus === "ALL" || item.menuCategory === focus)
+                  .slice(0, 9)
                   .map((item, index) => (
                     <MenuMain key={index} btList={btList[index]}>
                       <MenuImage>

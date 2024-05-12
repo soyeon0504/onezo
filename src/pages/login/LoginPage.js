@@ -53,9 +53,12 @@ const LoginPage = () => {
     moveToPath("/");
   };
   const failFn = result => {
+    // alert("로그인에 실패하였습니다. 아이디와 비밀번호를 다시 확인해주세요.")
     console.log("실패", result);
   };
   const errorFn = result => {
+    alert("아이디와 비밀번호를 다시 확인해주세요.")
+    moveToPath("/login")
     console.log("서버 에러", result);
   };
 

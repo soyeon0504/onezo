@@ -19,7 +19,7 @@ import Layout from "../../layouts/Layout";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ShopModal } from "../../components/shop/ShopModal";
 // Import Swiper styles
 import "swiper/css";
@@ -134,12 +134,14 @@ const data = [
   },
 ];
 
-
-const MainPage = ({ id, data }) => {
+const MainPage = ({ data }) => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const swiperRef = useRef();
   const { isLogin } = useCustomLogin();
   const [focus, setFocus] = useState("ALL");
+  const [shopModal, setShopModal] = useState(false);
+  const closeShopModal = () => setShopModal(false);
 
   // 전달 받은 목록데이터
   const [productData, setProductData] = useState(data);
@@ -156,17 +158,27 @@ const MainPage = ({ id, data }) => {
     }
   };
 
-  const handlePageChange = () => {
-    const url = `/menu/detail?cate=${id}`;
-    navigate(url);
+  const handlePageChange = (id) => {
+      // const url = `/menus/${id}`;
+      navigate(`/menus/${id}`);
+      console.log(id)
   };
-  
+
   useEffect(() => {
-    getShopModal();
-  }, []);
+    const fetchShopModal = async() => {
+      if (isLogin) {
+        try {
+          const res = await getShopModal();
+          setShopModal(res);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    
+    fetchShopModal();
+  }, [isLogin]);
   
-  const [shopModal, setShopModal] = useState(true);
-  const closeShopModal = () => setShopModal(false);
 
   useEffect(() => {
     // 페이지가 처음 로드될 때 첫 번째 버튼에 해당하는 카테고리 데이터를 가져옴
@@ -276,7 +288,7 @@ const MainPage = ({ id, data }) => {
                           </div>
                           <div>
                             <button
-                              onClick={() => handlePageChange()}
+                              onClick={() => handlePageChange(item.id)}
                               className="menu-detail"
                             >
                               상세보기
