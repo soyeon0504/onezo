@@ -168,10 +168,11 @@ const MainPage = ({id, data}) => {
     }
   };
 
-  const handlePageChange = () => {
-    const url = `/menu/detail`;
-    navigate(url);
-  };
+  const handlePageChange = (id) => {
+    // const url = `/menus/${id}`;
+    navigate(`/menus/${id}`);
+    console.log(id)
+};
 
   const handlePaginationChange = _tempPage => {
     setPageNum(_tempPage);
@@ -237,7 +238,7 @@ useEffect(() => {
                         </div>
                         <div>
                           <button
-                            onClick={() => handlePageChange()}
+                            onClick={() => handlePageChange(item.id)}
                             className="menu-detail"
                           >
                             상세보기

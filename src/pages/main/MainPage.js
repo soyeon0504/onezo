@@ -135,7 +135,7 @@ const data = [
 ];
 
 const MainPage = ({ data }) => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const navigate = useNavigate();
   const swiperRef = useRef();
   const { isLogin } = useCustomLogin();
