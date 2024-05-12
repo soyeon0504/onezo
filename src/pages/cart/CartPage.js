@@ -17,15 +17,17 @@ import { ModalBackground } from "../../styles/review/ReveiwStyle";
 import {
   deleteCartItem,
   getCartItem,
+  getStore,
   putCartItem,
 } from "../../api/cart/cart_api";
+import { useSelector } from "react-redux";
 
 // 더미데이터
-const storeData = {
+const storeSampleData = {
   store: "대구동성로점",
   address: "대구 중구 동성로5길 89",
 };
-const cartData = [
+const cartSampleData = [
   {
     id: 1,
     menu: "원조간장통닭",
@@ -53,19 +55,53 @@ const cartData = [
 ];
 
 const CartPage = () => {
+  // 유저 memberId 값
+  const memberId = useSelector(state => state.loginSlice.memberId);
+
+  // 데이터 연동(매장)
+  const [storeData, setStoreData] = useState(null);
+
+  useEffect(() => {
+    const storeGetData = async () => {
+      try {
+        const res = await getStore(memberId);
+        setStoreData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    storeGetData();
+  }, [memberId]);
+
   // 데이터 연동(장바구니 조회)
-  const memberId = 1; // 로그인되면 userPk로 바꾸기
   const [cartListData, setCartListData] = useState(null);
 
-  const cartGetData = async () => {
-    await getCartItem({ memberId, setCartListData });
+  useEffect(() => {
+    const cartGetData = async () => {
+      try {
+        const res = await getCartItem(memberId);
+        setCartListData(res.data);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
 
-    useEffect(() => {
-      cartGetData();
-    }, []);
-  };
+    cartGetData();
+  }, [memberId]);
 
-  console.log(cartListData);
+  // 총 갯수
+  const totalQuantity = Array.isArray(cartListData)
+    ? cartListData.reduce((accumulator, currentItem) => {
+        return accumulator + currentItem.quantity;
+      }, 0)
+    : 0;
+  // 총 가격
+  const totalPrice = Array.isArray(cartListData)
+    ? cartListData.reduce((accumulator, currentItem) => {
+        return accumulator + currentItem.price;
+      }, 0)
+    : 0;
 
   // 데이터 연동(장바구니 삭제)
   const handleDeleteCartItem = async cartItemId => {
@@ -81,13 +117,10 @@ const CartPage = () => {
   const moveToMoreMenu = () => navigate(`/menu`);
   const moveToPatment = () =>
     navigate(
-      `/payment/checkout?add=${storeData.address}&menu=${cartData[0].menu}&price=${cartData[0].totalPrice}`,
+      `/payment/checkout?add=${storeData.address}&menu=${cartListData[0].menu}&price=${cartListData[0].totalPrice}`,
     );
-  // 결제창 나오기
-  const [payModal, setPayModal] = useState(false);
-  const handlePayModal = () => setPayModal(true);
-  const closePayModal = () => setPayModal(false);
 
+  // 매장선택창 나오기
   const [shopModal, setShopModal] = useState(false);
   const handleShopModal = () => setShopModal(true);
   const closeShopModal = () => setShopModal(false);
@@ -108,54 +141,62 @@ const CartPage = () => {
           <CartItem>
             <img src="images/my/store.png" />
             <div style={{ width: "970px" }}>
-              <p>{storeData.store}</p>
-              <h3>{storeData.address}</h3>
+              {storeData && storeData.length > 0 && (
+                <>
+                  <p>{storeData[0].storeName}</p>
+                  <h3>{storeData[0].address}</h3>
+                </>
+              )}
             </div>
             <button className="store_change" onClick={handleShopModal}>
               변경
             </button>
           </CartItem>
-          {cartListData?.map(item => {
-            const [quantity, setQuantity] = useState(item.quantity);
-            const [cartId, setCartId] = useState(null);
-            const handleIncrement = cartItemId => {
-              setQuantity(quantity + 1);
-              setCartId(cartItemId);
-            };
-            const handleDecrement = cartItemId => {
-              if (quantity > 1) {
-                setQuantity(quantity - 1);
-              }
-              setCartId(cartItemId);
-            };
-            // 데이터 연동 (장바구니 수량 변경)
-            const cartPutData = async () => {
-              await putCartItem({ cartId, quantity });
+          {cartListData?.map((item,index) => {
+            // const [quantity, setQuantity] = useState(item.quantity);
+            // const [cartId, setCartId] = useState(null);
+            // const handleIncrement = cartItemId => {
+            //   setQuantity(quantity + 1);
+            //   setCartId(cartItemId);
+            // };
+            // const handleDecrement = cartItemId => {
+            //   if (quantity > 1) {
+            //     setQuantity(quantity - 1);
+            //   }
+            //   setCartId(cartItemId);
+            // };
+            // // 데이터 연동 (장바구니 수량 변경)
+            // const cartPutData = async () => {
+            //   await putCartItem({ cartId, quantity });
 
-              useEffect(() => {
-                cartPutData();
-              }, [quantity]);
-            };
+            //   useEffect(() => {
+            //     cartPutData();
+            //   }, [quantity]);
+            // };
             return (
-              <CartItem key={item.cartItemId}>
-                {/* <img src={item.pic} /> */}
+              <CartItem key={index}>
+                <img src={item.menuImage} />
                 <div>
                   <CartMenu>
                     <span>{item.menuName}</span>
                     <button>삭제</button>
                   </CartMenu>
                   <CartCount>
-                    <div>
+                    {/* <div>
                       <button onClick={() => handleDecrement(item.cartItemId)}>
                         -
                       </button>
-                      <h2>{quantity}</h2>
+                      <h2>{item.quantity}</h2>
                       <button onClick={() => handleIncrement(item.cartItemId)}>
                         +
                       </button>
-                    </div>
+                    </div> */}
+                    <span>수량 : {item.quantity}</span>
                     <span>
-                      {new Intl.NumberFormat().format(item.price * quantity)}원
+                      {new Intl.NumberFormat().format(
+                        item.price * item.quantity,
+                      )}
+                      원
                     </span>
                   </CartCount>
                 </div>
@@ -166,10 +207,11 @@ const CartPage = () => {
             <img src="images/my/bt_plus.svg" />더 담으러 갈래요
           </CartMoreBt>
           <CartTotalPrice>
-            <p>총 결제금액</p>
+            <p>총 결제금액 (총 수량)</p>
             <div>
               <span>
-                {/* {new Intl.NumberFormat().format(cartData[0].totalPrice)}원 */}
+                {new Intl.NumberFormat().format(totalPrice)}원 ({totalQuantity}
+                개)
               </span>
               <button onClick={moveToPatment}>주문하기</button>
             </div>
