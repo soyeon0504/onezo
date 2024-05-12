@@ -4,6 +4,9 @@ import "../../styles/menu/MenuDetail.css";
 import axios from "axios";
 import MenuDivider from "antd/es/menu/MenuDivider";
 import { useParams } from "react-router-dom";
+import { postCartItem } from "../../api/cart/cart_api";
+import Modal_Bt1 from "../../components/modal/Modal_Bt1";
+import { ModalBackground } from "../../styles/review/ReveiwStyle";
 
 const DetailPage = () => {
   const { id } = useParams();
@@ -11,12 +14,13 @@ const DetailPage = () => {
   const [menuInfo, setMenuInfo] = useState();
   // const [loading, setLoding] = useState(true);
   // const [error, setError] = useState(null);
+  const [memuId, setMenuId] = useState(null);
 
   useEffect(() => {
     const fetchMenuInfo = async () => {
       const res = await axios.get(`/menus/${id}`);
       setMenuInfo(res.data);
-      console.log(res.data);
+      setMenuId(res.data.id);
     };
     fetchMenuInfo();
   }, [id]);
@@ -32,14 +36,61 @@ const DetailPage = () => {
     }
   };
 
+  // 데이터 연동(장바구니 담기)
+  const [postCartData, setPostCartData] = useState(null);
+  const handleClickCart = async () => {
+    setPostCartData({
+      menuId: memuId,
+      quentity: quantity,
+    });
+  };
+
+  useEffect(() => {
+    const postCart = async () => {
+      if (postCartData) {
+        await postCartItem({ data: postCartData, successFn, errFn });
+      }
+    };
+    postCart();
+  }, [postCartData]);
+
+  const [successModal, setSuccessModal] = useState(false);
+  const [errModal, setErrModal] = useState(false);
+  const successFn = () => {
+    setSuccessModal(true);
+  };
+  const errFn = () => {
+    setErrModal(true);
+  };
+  const OkBt = () => {
+    setSuccessModal(false);
+    setErrModal(false);
+  };
+
   return (
     <>
+      {successModal && (
+        <>
+          <Modal_Bt1
+            txt="선택하신 메뉴가 장바구니에 담겼습니다."
+            onConfirm={OkBt}
+          ></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
+      {errModal && (
+        <>
+          <Modal_Bt1
+            txt="서버에러로 장바구니 담기에 실패하였습니다."
+            onConfirm={OkBt}
+          ></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
       <Layout>
         <div className="menu-container">
           <div className="menu-image">
-            {menuInfo ? (
-              <img src={menuInfo.menuInfo[0].menu.menuImage}/>
-            ) : ""}
+            {menuInfo ? <img src={menuInfo.menuInfo[0].menu.menuImage} /> : ""}
           </div>
           <div className="menu-details">
             {menuInfo && <h1>{menuInfo.menuName}</h1>}
@@ -62,7 +113,9 @@ const DetailPage = () => {
               <span className="quantity">{quantity}</span>
               <button onClick={() => handleQuantityChange(1)}>+</button>
             </div>
-            <button className="order-button">주문하기</button>
+            <button className="order-button" onClick={handleClickCart}>
+              주문하기
+            </button>
           </div>
         </div>
         <div className="lineContainer">
@@ -72,11 +125,19 @@ const DetailPage = () => {
           <div className="infoContainer">
             <div className="origin-info">
               <h2>원산지</h2>
-              {menuInfo && menuInfo.menuInfo.length > 0 ? <p>닭고기 : {menuInfo.menuInfo[0].origin}</p> : ""}
+              {menuInfo && menuInfo.menuInfo.length > 0 ? (
+                <p>닭고기 : {menuInfo.menuInfo[0].origin}</p>
+              ) : (
+                ""
+              )}
             </div>
             <div className="allergy-info">
               <h2>알레르기 정보</h2>
-              {menuInfo && menuInfo.menuInfo.length > 0 ? <p>{menuInfo.menuInfo[0].allergy}</p> : ""}
+              {menuInfo && menuInfo.menuInfo.length > 0 ? (
+                <p>{menuInfo.menuInfo[0].allergy}</p>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="nutrition-table">
@@ -92,23 +153,43 @@ const DetailPage = () => {
                 <tbody>
                   <tr>
                     <td>열량(Kcal) : </td>
-                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].kcal}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? (
+                      <td>{menuInfo.nutrient[0].kcal}</td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                   <tr>
                     <td>나트륨(mg) : </td>
-                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].na}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? (
+                      <td>{menuInfo.nutrient[0].na}</td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                   <tr>
                     <td>당류(g) : </td>
-                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].sugar}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? (
+                      <td>{menuInfo.nutrient[0].sugar}</td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                   <tr>
                     <td>지방(g) : </td>
-                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].fat}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? (
+                      <td>{menuInfo.nutrient[0].fat}</td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                   <tr>
                     <td>단백질(g) : </td>
-                    {menuInfo && menuInfo.nutrient.length > 0 ? <td>{menuInfo.nutrient[0].protein}</td> : ""}
+                    {menuInfo && menuInfo.nutrient.length > 0 ? (
+                      <td>{menuInfo.nutrient[0].protein}</td>
+                    ) : (
+                      ""
+                    )}
                   </tr>
                 </tbody>
               </table>
