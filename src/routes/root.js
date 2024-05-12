@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     // children:menuRouter(),
   },
   {
-    path: "/menu/detail",
+    path: "/menus/:id",
     element: (
       <Suspense fallback={<Loading />}>
         <LazyDetailPage />

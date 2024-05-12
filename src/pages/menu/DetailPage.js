@@ -3,22 +3,23 @@ import Layout from "../../layouts/Layout";
 import "../../styles/menu/MenuDetail.css";
 import axios from "axios";
 import MenuDivider from "antd/es/menu/MenuDivider";
+import { useParams } from "react-router-dom";
 
 const DetailPage = () => {
+  const { id } = useParams();
   const [quantity, setQuantity] = useState(0);
-
-  const [menuInfo, setMenuInfo] = useState(null);
+  const [menuInfo, setMenuInfo] = useState();
   // const [loading, setLoding] = useState(true);
   // const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchMenuInfo = async () => {
-      const response = await axios.get("/menus/75");
-      setMenuInfo(response.data);
-      console.log(response.data);
+      const res = await axios.get(`/menus/${id}`);
+      setMenuInfo(res.data);
+      console.log(res.data);
     };
     fetchMenuInfo();
-  }, []);
+  }, [id]);
 
   const numberWithCommas = x => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

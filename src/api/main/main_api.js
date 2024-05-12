@@ -21,6 +21,11 @@ export const getProduct = async () => {
 export const getShopModal = async () => {
   try {
     const url = `${SERVER_URL}/api/store/checkMem`;
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`
+    //   }
+    // };
     const res = await axios.get(url);
     return res;
   } catch (error) {
@@ -28,4 +33,3 @@ export const getShopModal = async () => {
     failPostDatas("/");
   }
 };
-
