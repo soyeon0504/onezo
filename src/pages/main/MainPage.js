@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { ShopModal } from "../../components/shop/ShopModal";
 // Import Swiper styles
 import "swiper/css";
-import { getProduct } from "../../api/main/main_api";
+import { getProduct, getShopModal } from "../../api/main/main_api";
 import MoreButton from "../../components/main/MoreButton";
 import useCustomLogin from "../../hooks/useCustomLogin";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
@@ -160,7 +160,11 @@ const MainPage = ({ id, data }) => {
     const url = `/menu/detail?cate=${id}`;
     navigate(url);
   };
-
+  
+  useEffect(() => {
+    getShopModal();
+  }, []);
+  
   const [shopModal, setShopModal] = useState(true);
   const closeShopModal = () => setShopModal(false);
 
@@ -173,7 +177,6 @@ const MainPage = ({ id, data }) => {
     <>
       <Layout>
         {isLogin === true && shopModal && (
-
           <>
             <ShopModal onCloseModal={closeShopModal} />
             <ModalBackground></ModalBackground>
@@ -255,7 +258,9 @@ const MainPage = ({ id, data }) => {
               <MenuMainWrap>
                 {productData &&
                   productData
-                    .filter(item => focus === "ALL" || item.menuCategory === focus)
+                    .filter(
+                      item => focus === "ALL" || item.menuCategory === focus,
+                    )
                     .slice(0, 6)
                     .map((item, index) => (
                       <MenuMain key={index} btList={btList[index]}>
