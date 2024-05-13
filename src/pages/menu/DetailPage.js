@@ -3,10 +3,10 @@ import Layout from "../../layouts/Layout";
 import "../../styles/menu/MenuDetail.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { getCookie } from "../../util/cookieUtil";
 import { postCartItem } from "../../api/cart/cart_api";
 import Modal_Bt1 from "../../components/modal/Modal_Bt1";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
+import { jwtAxios } from "../../util/jwtUtil";
 
 
 const DetailPage = () => {
@@ -27,20 +27,13 @@ const DetailPage = () => {
     fetchMenuInfo();
   }, [id]);
 
-  const authToken = getCookie("accessToken");
-
   const orderMenuInfo = async () => {
     try {
-      const res = await axios.post(
+      const res = await jwtAxios.post(
         `/api/cart/add`,
         {
           menuId: id,
           quantity: quantity,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
         },
       );
     } catch (error) {
