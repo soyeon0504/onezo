@@ -2,28 +2,53 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import "../../styles/menu/MenuDetail.css";
 import axios from "axios";
-import MenuDivider from "antd/es/menu/MenuDivider";
 import { useParams } from "react-router-dom";
+import { getCookie } from "../../util/cookieUtil";
 import { postCartItem } from "../../api/cart/cart_api";
 import Modal_Bt1 from "../../components/modal/Modal_Bt1";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
+
 
 const DetailPage = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(0);
   const [menuInfo, setMenuInfo] = useState();
-  // const [loading, setLoding] = useState(true);
-  // const [error, setError] = useState(null);
-  const [memuId, setMenuId] = useState(null);
 
   useEffect(() => {
     const fetchMenuInfo = async () => {
-      const res = await axios.get(`/menus/${id}`);
-      setMenuInfo(res.data);
-      setMenuId(res.data.id);
+      try {
+        const res = await axios.get(`/menus/${id}`);
+        setMenuInfo(res.data);
+        console.log(res.data);
+      } catch (error) {
+        console.error("메뉴 불러오는데 실패함: ", error);
+      }
     };
     fetchMenuInfo();
   }, [id]);
+
+  const authToken = getCookie("accessToken");
+
+  const orderMenuInfo = async () => {
+    try {
+      const res = await axios.post(
+        `/api/cart/add`,
+        {
+          menuId: id,
+          quantity: quantity,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.error("장바구니 담는데 실패함: ", error);
+    }
+  };
+
+  useEffect(() => {}, [id, quantity]);
 
   const numberWithCommas = x => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -90,7 +115,11 @@ const DetailPage = () => {
       <Layout>
         <div className="menu-container">
           <div className="menu-image">
-            {menuInfo ? <img src={menuInfo.menuInfo[0].menu.menuImage} /> : ""}
+            {menuInfo && menuInfo.menuInfo.length > 0 ? (
+              <img src={menuInfo.menuInfo[0].menu.menuImage} />
+            ) : (
+              ""
+            )}
           </div>
           <div className="menu-details">
             {menuInfo && <h1>{menuInfo.menuName}</h1>}
@@ -113,8 +142,8 @@ const DetailPage = () => {
               <span className="quantity">{quantity}</span>
               <button onClick={() => handleQuantityChange(1)}>+</button>
             </div>
-            <button className="order-button" onClick={handleClickCart}>
-              주문하기
+            <button className="order-button" onClick={orderMenuInfo}>
+              장바구니 담기
             </button>
           </div>
         </div>
