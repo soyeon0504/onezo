@@ -2,46 +2,28 @@ import React, { useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import "../../styles/menu/MenuDetail.css";
 import axios from "axios";
+import MenuDivider from "antd/es/menu/MenuDivider";
 import { useParams } from "react-router-dom";
 import { postCartItem } from "../../api/cart/cart_api";
 import Modal_Bt1 from "../../components/modal/Modal_Bt1";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
-import { jwtAxios } from "../../util/jwtUtil";
-
 
 const DetailPage = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(0);
   const [menuInfo, setMenuInfo] = useState();
+  // const [loading, setLoding] = useState(true);
+  // const [error, setError] = useState(null);
+  const [memuId, setMenuId] = useState(null);
 
   useEffect(() => {
     const fetchMenuInfo = async () => {
-      try {
-        const res = await axios.get(`/menus/${id}`);
-        setMenuInfo(res.data);
-        console.log(res.data);
-      } catch (error) {
-        console.error("메뉴 불러오는데 실패함: ", error);
-      }
+      const res = await axios.get(`/menus/${id}`);
+      setMenuInfo(res.data);
+      setMenuId(res.data.id);
     };
     fetchMenuInfo();
   }, [id]);
-
-  const orderMenuInfo = async () => {
-    try {
-      const res = await jwtAxios.post(
-        `/api/cart/add`,
-        {
-          menuId: id,
-          quantity: quantity,
-        },
-      );
-    } catch (error) {
-      console.error("장바구니 담는데 실패함: ", error);
-    }
-  };
-
-  useEffect(() => {}, [id, quantity]);
 
   const numberWithCommas = x => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -135,7 +117,7 @@ const DetailPage = () => {
               <span className="quantity">{quantity}</span>
               <button onClick={() => handleQuantityChange(1)}>+</button>
             </div>
-            <button className="order-button" onClick={orderMenuInfo}>
+            <button className="order-button" onClick={handleClickCart}>
               장바구니 담기
             </button>
           </div>

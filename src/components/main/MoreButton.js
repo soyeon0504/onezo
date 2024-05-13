@@ -6,11 +6,11 @@ const MoreButton = ({menuCategory, pageNum}) => {
   const navigate = useNavigate();
 
   const handleMoreClick = () => {
-    navigate(`/menu/${menuCategory}/${pageNum}`);
+    navigate(`/menu?cate=${menuCategory}&page=${pageNum}`);
   };
   return (
     <MoreBtWrap>
-      <MoreBt 
+      <MoreBt yy
         onClick={handleMoreClick}
       >
         더보기
