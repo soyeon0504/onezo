@@ -179,7 +179,7 @@ const LoginPage = () => {
                     </>
                   )}
                   <hr />
-                  <a href="/join">회원가입</a>
+                  <a href="/joinTos">회원가입</a>
                 </LoginBottomWrap>
               </LoginFooter>
             </LoginInnerWrap>
