@@ -3,12 +3,14 @@ import Layout from "../../layouts/Layout";
 import "../../styles/menu/MenuDetail.css";
 import axios from "axios";
 import MenuDivider from "antd/es/menu/MenuDivider";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { postCartItem } from "../../api/cart/cart_api";
 import Modal_Bt1 from "../../components/modal/Modal_Bt1";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
 
 const DetailPage = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const [quantity, setQuantity] = useState(0);
   const [menuInfo, setMenuInfo] = useState();
@@ -62,10 +64,20 @@ const DetailPage = () => {
   const errFn = () => {
     setErrModal(true);
   };
-  const OkBt = () => {
+  const successOkBt = () => {
     setSuccessModal(false);
+    navigate(`/cart`);
+  };
+  const errOkBt = () => {
     setErrModal(false);
   };
+  const [zeroModal, setZeroModal] = useState(false);
+  const handleClickZero = () => {
+    setZeroModal(true)
+  }
+  const zeroOkBt = () => {
+    setZeroModal(false)
+  }
 
   return (
     <>
@@ -73,7 +85,7 @@ const DetailPage = () => {
         <>
           <Modal_Bt1
             txt="선택하신 메뉴가 장바구니에 담겼습니다."
-            onConfirm={OkBt}
+            onConfirm={successOkBt}
           ></Modal_Bt1>
           <ModalBackground></ModalBackground>
         </>
@@ -82,7 +94,16 @@ const DetailPage = () => {
         <>
           <Modal_Bt1
             txt="서버에러로 장바구니 담기에 실패하였습니다."
-            onConfirm={OkBt}
+            onConfirm={errOkBt}
+          ></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
+      {zeroModal && (
+        <>
+          <Modal_Bt1
+            txt="수량을 다시 확인해주세요."
+            onConfirm={zeroOkBt}
           ></Modal_Bt1>
           <ModalBackground></ModalBackground>
         </>
@@ -117,9 +138,15 @@ const DetailPage = () => {
               <span className="quantity">{quantity}</span>
               <button onClick={() => handleQuantityChange(1)}>+</button>
             </div>
-            <button className="order-button" onClick={handleClickCart}>
+            {quantity == 0 ? (
+              <button className="order-button" onClick={handleClickZero}>
               장바구니 담기
             </button>
+            ) : (
+              <button className="order-button" onClick={handleClickCart}>
+                장바구니 담기
+              </button>
+            )}
           </div>
         </div>
         <div className="lineContainer">
