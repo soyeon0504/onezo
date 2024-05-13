@@ -85,6 +85,9 @@ export const HeaderRightBottom = styled.div`
     padding-right: 20px;
   }
   .order {
+    font-size: 22px;
+    text-decoration-line: none;
+    color: black;
     padding-right: 10px;
   }
   a {

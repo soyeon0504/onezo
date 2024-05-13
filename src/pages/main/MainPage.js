@@ -157,8 +157,8 @@ const MainPage = ({ data }) => {
   };
 
   const handleMoreClick = () => {
-    navigate(`/menu?cate=${focus}&page=1`);
-  };
+    navigate(`/menu/${focus}/${1}`)
+  }
 
   const handlePageChange = id => {
     navigate(`/menus/${id}`);
