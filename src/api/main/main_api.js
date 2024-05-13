@@ -1,6 +1,7 @@
 import axios from "axios";
 import { SERVER_URL } from "../config";
 import { useNavigate } from "react-router-dom";
+import { jwtAxios } from "../../util/jwtUtil";
 
 const failPostDatas = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export const getShopModal = async () => {
     //     Authorization: `Bearer ${token}`
     //   }
     // };
-    const res = await axios.get(url);
+    const res = await jwtAxios.get(url);
     return res;
   } catch (error) {
     console.log(error);
