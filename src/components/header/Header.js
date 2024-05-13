@@ -25,7 +25,7 @@ export const Header = () => {
     navigate(`/login`);
   };
   const handleJoin = () => {
-    navigate(`/join`);
+    navigate(`/joinTos`);
   };
   const handleMy = subItem => {
     sessionStorage.setItem("selectedItem", subItem);
