@@ -89,6 +89,11 @@ export const HeaderRightBottom = styled.div`
     text-decoration-line: none;
     color: black;
     padding-right: 10px;
+    cursor: pointer;
+    &:hover {
+      color: #ff8b38;
+    font-weight: 500;
+    }
   }
   a {
     font-size: 22px;
