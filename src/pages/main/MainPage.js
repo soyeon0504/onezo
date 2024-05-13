@@ -169,8 +169,8 @@ const MainPage = ({ data }) => {
     const fetchShopModal = async () => {
       if (isLogin) {
         try {
-          const res = await getShopModal();
-          setShopModal(res);
+          const res = await getCheckMem();
+          setShopModal(res.data);
         } catch (error) {
           console.log(error);
         }
@@ -185,10 +185,12 @@ const MainPage = ({ data }) => {
     handleCategoryClick(btList[0]);
   }, []);
 
+  console.log(shopModal)
+
   return (
     <>
       <Layout>
-        {isLogin === true && shopModal && (
+        {shopModal && (
           <>
             <ShopModal onCloseModal={closeShopModal} />
             <ModalBackground></ModalBackground>
