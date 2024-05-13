@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout";
 import "../../styles/menu/MenuDetail.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { getCookie } from '../../util/cookieUtil';
+import { getCookie } from "../../util/cookieUtil";
 
 const DetailPage = () => {
   const { id } = useParams();
@@ -23,7 +23,7 @@ const DetailPage = () => {
     fetchMenuInfo();
   }, [id]);
 
-  const authToken = getCookie('accessToken');
+  const authToken = getCookie("accessToken");
 
   const orderMenuInfo = async () => {
     try {
@@ -62,7 +62,11 @@ const DetailPage = () => {
       <Layout>
         <div className="menu-container">
           <div className="menu-image">
-            {menuInfo ? <img src={menuInfo.menuInfo[0].menu.menuImage} /> : ""}
+            {menuInfo && menuInfo.menuInfo.length > 0 ? (
+              <img src={menuInfo.menuInfo[0].menu.menuImage} />
+            ) : (
+              ""
+            )}
           </div>
           <div className="menu-details">
             {menuInfo && <h1>{menuInfo.menuName}</h1>}
