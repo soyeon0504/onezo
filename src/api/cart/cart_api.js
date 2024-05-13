@@ -13,10 +13,23 @@ export const getStore = async memberId => {
   }
 };
 
+// 장바구니 담기
+export const postCartItem = async ({ data, successFn, errFn }) => {
+  try {
+    const url = `${SERVER_URL}/api/cart/add`;
+
+    const res = await jwtAxios.post(url, data);
+    successFn();
+    return res;
+  } catch (error) {
+    errFn(error);
+  }
+};
+
 // 장바구니 조회
 export const getCartItem = async memberId => {
   try {
-    const url = `${SERVER_URL}/api/cart/detail/${memberId}`;
+    const url = `${SERVER_URL}/api/cart/item/${memberId}`;
 
     const res = await jwtAxios.get(url);
     // setCartListData([...res.data]);
@@ -39,9 +52,9 @@ export const getCartItem = async memberId => {
 // };
 
 // 장바구니 삭제
-export const deleteCartItem = async cartItemId => {
+export const deleteCartItem = async cartDetailId => {
   try {
-    const url = `${SERVER_URL}/api/cart/delete/${cartItemId}`;
+    const url = `${SERVER_URL}/api/cart/delete/${cartDetailId}`;
 
     const res = await jwtAxios.delete(url);
     return res;

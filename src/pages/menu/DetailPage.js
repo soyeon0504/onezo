@@ -4,6 +4,10 @@ import "../../styles/menu/MenuDetail.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { getCookie } from "../../util/cookieUtil";
+import { postCartItem } from "../../api/cart/cart_api";
+import Modal_Bt1 from "../../components/modal/Modal_Bt1";
+import { ModalBackground } from "../../styles/review/ReveiwStyle";
+
 
 const DetailPage = () => {
   const { id } = useParams();
@@ -57,8 +61,57 @@ const DetailPage = () => {
     }
   };
 
+  // 데이터 연동(장바구니 담기)
+  const [postCartData, setPostCartData] = useState(null);
+  const handleClickCart = async () => {
+    setPostCartData({
+      menuId: memuId,
+      quentity: quantity,
+    });
+  };
+
+  useEffect(() => {
+    const postCart = async () => {
+      if (postCartData) {
+        await postCartItem({ data: postCartData, successFn, errFn });
+      }
+    };
+    postCart();
+  }, [postCartData]);
+
+  const [successModal, setSuccessModal] = useState(false);
+  const [errModal, setErrModal] = useState(false);
+  const successFn = () => {
+    setSuccessModal(true);
+  };
+  const errFn = () => {
+    setErrModal(true);
+  };
+  const OkBt = () => {
+    setSuccessModal(false);
+    setErrModal(false);
+  };
+
   return (
     <>
+      {successModal && (
+        <>
+          <Modal_Bt1
+            txt="선택하신 메뉴가 장바구니에 담겼습니다."
+            onConfirm={OkBt}
+          ></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
+      {errModal && (
+        <>
+          <Modal_Bt1
+            txt="서버에러로 장바구니 담기에 실패하였습니다."
+            onConfirm={OkBt}
+          ></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
       <Layout>
         <div className="menu-container">
           <div className="menu-image">
