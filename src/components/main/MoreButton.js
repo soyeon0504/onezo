@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useHistory } from "react-router-dom";
 import { MoreBt, MoreBtWrap } from "../../styles/main/MainPageStyle";
 
-const MoreButton = ({ menuCategory, pageNum, title }) => {
+const MoreButton = ({menuCategory, pageNum}) => {
   const navigate = useNavigate();
-  // console.log(title);
 
-  const handleClickMenu = () => {
-    navigate(`/menu?category=${menuCategory}&page=${pageNum}`, {
-      state: { title },
-    });
+  const handleMoreClick = () => {
+    navigate(`/menu/${menuCategory}/${pageNum}`);
   };
-
   return (
     <MoreBtWrap>
-      <MoreBt onClick={handleClickMenu}>
+      <MoreBt 
+        onClick={handleMoreClick}
+      >
         더보기
       </MoreBt>
     </MoreBtWrap>

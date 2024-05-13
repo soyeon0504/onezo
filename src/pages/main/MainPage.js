@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import {
   Banner,
   BannerSlide,
@@ -135,7 +134,6 @@ const data = [
 ];
 
 const MainPage = ({ data }) => {
-  // const { id } = useParams();
   const navigate = useNavigate();
   const swiperRef = useRef();
   const { isLogin } = useCustomLogin();
@@ -158,14 +156,17 @@ const MainPage = ({ data }) => {
     }
   };
 
-  const handlePageChange = (id) => {
-      // const url = `/menus/${id}`;
-      navigate(`/menus/${id}`);
-      console.log(id)
+  const handleMoreClick = () => {
+    navigate(`/menu/${focus}/${1}`)
+  }
+
+  const handlePageChange = id => {
+    navigate(`/menus/${id}`);
+    console.log(id);
   };
 
   useEffect(() => {
-    const fetchShopModal = async() => {
+    const fetchShopModal = async () => {
       if (isLogin) {
         try {
           const res = await getShopModal();
@@ -175,10 +176,9 @@ const MainPage = ({ data }) => {
         }
       }
     };
-    
+
     fetchShopModal();
   }, [isLogin]);
-  
 
   useEffect(() => {
     // 페이지가 처음 로드될 때 첫 번째 버튼에 해당하는 카테고리 데이터를 가져옴
@@ -299,7 +299,11 @@ const MainPage = ({ data }) => {
                     ))}
               </MenuMainWrap>
               <MenuMoreButton>
-                <MoreButton menuCategory={focus} pageNum={1}>
+                <MoreButton
+                  menuCategory={focus}
+                  pageNum={1}
+                  onMoreClick={handleMoreClick}
+                >
                   더보기
                 </MoreButton>
               </MenuMoreButton>

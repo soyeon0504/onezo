@@ -147,14 +147,14 @@ const MainPage = ({id, data}) => {
   const pageSize = 9;
   // 전달 받은 목록데이터
   const [productData, setProductData] = useState([]);
-  // const [totalPage, setTotalPage] = useState(null);
-  const [totalPage, setTotalPage] = useState(
-    Math.ceil(productData.length / pageSize),
-  );
-  const slicedMenuData = productData.slice(
-    (pageNum - 1) * pageSize,
-    pageNum * pageSize,
-  );
+  const [totalPage, setTotalPage] = useState(null);
+  // const [totalPage, setTotalPage] = useState(
+  //   Math.ceil(productData.length / pageSize),
+  // );
+  // const slicedMenuData = productData.slice(
+  //   (pageNum - 1) * pageSize,
+  //   pageNum * pageSize,
+  // );
 
   // 버튼 클릭 이벤트 처리 함수
   const handleCategoryClick = async item => {
@@ -176,8 +176,8 @@ const MainPage = ({id, data}) => {
 
   const handlePaginationChange = _tempPage => {
     setPageNum(_tempPage);
-    setTotalPage(Math.ceil(productData.length / pageSize));
   };
+
 
   
 // 페이지네이션 설정
@@ -189,6 +189,7 @@ useEffect(() => {
 useEffect(() => {
   handleCategoryClick(btList[0]);
 }, []);
+
 
   return (
     <>
