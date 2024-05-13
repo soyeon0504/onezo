@@ -140,11 +140,21 @@ const data = [
   },
 ];
 
-const MainPage = ({id, data}) => {
+const MainPage = ({ id, data }) => {
+  const [focus, setFocus] = useState("ALL");
+  // URL에서 매개변수 추출
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const cateParam = searchParams.get("cate");
+    if (cateParam) {
+      setFocus(cateParam);
+    }
+  }, [location]);
+
   const navigate = useNavigate(`/`);
   const [pageNum, setPageNum] = useState(1);
-  const [focus, setFocus] = useState("ALL");
   const pageSize = 9;
+
   // 전달 받은 목록데이터
   const [productData, setProductData] = useState([]);
   const [totalPage, setTotalPage] = useState(null);
@@ -168,28 +178,25 @@ const MainPage = ({id, data}) => {
     }
   };
 
-  const handlePageChange = (id) => {
+  const handlePageChange = id => {
     // const url = `/menus/${id}`;
     navigate(`/menus/${id}`);
-    console.log(id)
-};
+    console.log(id);
+  };
 
   const handlePaginationChange = _tempPage => {
     setPageNum(_tempPage);
   };
 
+  // 페이지네이션 설정
+  useEffect(() => {
+    setTotalPage(Math.ceil(productData.length / pageSize));
+  }, [productData]);
 
-  
-// 페이지네이션 설정
-useEffect(() => {
-  setTotalPage(Math.ceil(productData.length / pageSize));
-}, [productData]);
-
-// 첫 번째 카테고리 데이터 가져오기
-useEffect(() => {
-  handleCategoryClick(btList[0]);
-}, []);
-
+  // 첫 번째 카테고리 데이터 가져오기
+  useEffect(() => {
+    handleCategoryClick(btList[0]);
+  }, []);
 
   return (
     <>
@@ -223,31 +230,33 @@ useEffect(() => {
               <MenuMainWrap>
                 {productData &&
                   productData
-                  .filter(item => focus === "ALL" || item.menuCategory === focus)
-                  .slice(0, 9)
-                  .map((item, index) => (
-                    <MenuMain key={index} btList={btList[index]}>
-                      <MenuImage>
-                        <img src={item.menuImage} alt="메뉴 이미지" />
-                      </MenuImage>
-                      <MenuDesc>
-                        <div className="menu-desc">
-                          <div className="menu-title">{item.menuName}</div>
-                          <div className="menu-price">
-                            {item.price.toLocaleString()}원
+                    .filter(
+                      item => focus === "ALL" || item.menuCategory === focus,
+                    )
+                    .slice(0, 9)
+                    .map((item, index) => (
+                      <MenuMain key={index} btList={btList[index]}>
+                        <MenuImage>
+                          <img src={item.menuImage} alt="메뉴 이미지" />
+                        </MenuImage>
+                        <MenuDesc>
+                          <div className="menu-desc">
+                            <div className="menu-title">{item.menuName}</div>
+                            <div className="menu-price">
+                              {item.price.toLocaleString()}원
+                            </div>
                           </div>
-                        </div>
-                        <div>
-                          <button
-                            onClick={() => handlePageChange(item.id)}
-                            className="menu-detail"
-                          >
-                            상세보기
-                          </button>
-                        </div>
-                      </MenuDesc>
-                    </MenuMain>
-                  ))}
+                          <div>
+                            <button
+                              onClick={() => handlePageChange(item.id)}
+                              className="menu-detail"
+                            >
+                              상세보기
+                            </button>
+                          </div>
+                        </MenuDesc>
+                      </MenuMain>
+                    ))}
               </MenuMainWrap>
             </MenuWrap>
             <div className="pagination-wrap">

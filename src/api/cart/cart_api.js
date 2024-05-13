@@ -29,7 +29,7 @@ export const postCartItem = async ({ data, successFn, errFn }) => {
 // 장바구니 조회
 export const getCartItem = async memberId => {
   try {
-    const url = `${SERVER_URL}/api/cart/item/${memberId}`;
+    const url = `${SERVER_URL}/api/cart/detail/${memberId}`;
 
     const res = await jwtAxios.get(url);
     // setCartListData([...res.data]);

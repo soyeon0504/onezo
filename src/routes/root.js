@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   },
   // Menu Area
   {
-    path: "/menu/:category/:pageNum",
+    path: "/menu",
     element: (
       <Suspense fallback={<Loading />}>
         <LazyMenuPage />
