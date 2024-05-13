@@ -1,10 +1,7 @@
-import axios from 'axios';
 import '../../styles/shop/ShopModal.css';
 import React, { useEffect, useState } from "react";
-import { getCookie } from '../../util/cookieUtil';
 import Swal from 'sweetalert2';
-
-const authToken = getCookie('accessToken');
+import { jwtAxios } from '../../util/jwtUtil';
 
 const { kakao } = window;
 
@@ -16,11 +13,7 @@ export const ShopModal = ({ onCloseModal }) => {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await axios.get('/api/store/storeList', {
-                headers: {
-                    'Authorization': `Bearer ${authToken}`
-                }
-            });
+            const response = await jwtAxios.get('/api/store/storeList');
             setPositions(response.data);
         }
         getData();
@@ -204,15 +197,10 @@ export const ShopModal = ({ onCloseModal }) => {
                 if (result.isConfirmed) {
                     const insertTakeOut = async () => {
                         try {
-                            const response = await axios.post('/api/cart/insert',
+                            const response = await jwtAxios.post('/api/cart',
                                 {
                                     storeId,
                                     takeInOut: 'TAKE_OUT'
-                                },
-                                {
-                                    headers: {
-                                        'Authorization': `Bearer ${authToken}`
-                                    }
                                 });
                             console.log(response.data); // 성공적인 응답 처리
                             onCloseModal();
@@ -233,15 +221,10 @@ export const ShopModal = ({ onCloseModal }) => {
                 if (result.isConfirmed) {
                     const insertDineIn = async () => {
                         try {
-                            const response = await axios.post('/api/cart/insert',
+                            const response = await jwtAxios.post('/api/cart',
                                 {
                                     storeId,
                                     takeInOut: 'DINE_IN'
-                                },
-                                {
-                                    headers: {
-                                        'Authorization': `Bearer ${authToken}`
-                                    }
                                 });
                             console.log(response.data); // 성공적인 응답 처리
                             onCloseModal();
