@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import useCustomLogin from "../../hooks/useCustomLogin";
 import { getCookie, removeCookie } from "../../util/cookieUtil";
 import { logout } from "../../slices/loginSlice";
+import ShopModal from "../shop/ShopModal";
+import { ModalBackground } from "../../styles/review/ReveiwStyle";
 
 export const Header = () => {
   const navigate = useNavigate(`/`);
@@ -43,6 +45,11 @@ export const Header = () => {
 
   const loginState = useSelector(state => state.loginSlice);
   // console.log(loginState);
+
+  // 매장선택창 나오기
+  const [shopModal, setShopModal] = useState(false);
+  const handleShopModal = () => setShopModal(true);
+  const closeShopModal = () => setShopModal(false);
 
   return (
     <Wrap>
@@ -77,9 +84,15 @@ export const Header = () => {
             <a href="/menu" className="menu">
               메뉴
             </a>
-            <a href="/order" className="order">
+            <div onClick={handleShopModal} className="order">
               주문하기
-            </a>
+            </div>
+            {shopModal && (
+              <>
+                <ShopModal onCloseModal={closeShopModal} />
+                <ModalBackground></ModalBackground>
+              </>
+            )}
             <a href="/cart" className="cart">
               <img
                 src="../../images/header/shopping_cart.png"
