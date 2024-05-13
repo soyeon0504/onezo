@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { loadPaymentWidget } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
-import { PaymentBtSection, TossCheckoutHeader } from "../../styles/pay/CheckoutStyle";
+import {
+  PaymentBtSection,
+  TossCheckoutHeader,
+} from "../../styles/pay/CheckoutStyle";
+import { useSelector } from "react-redux";
+import { getCartItem, getStore } from "../../api/cart/cart_api";
 
 const selector = "#payment-widget"; //DOM 요소 선택지
 
@@ -10,18 +15,57 @@ const customerKey = nanoid(); // 고객 키
 
 const CheckoutPage = () => {
   // URL에서 매개변수 추출
-  const [address, setAddress] = useState("");
   const [menu, setMenu] = useState("");
   const [price, setPrice] = useState("");
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const addressParam = searchParams.get("add");
     const menuParam = searchParams.get("menu");
     const priceParam = searchParams.get("price");
-    setAddress(addressParam);
     setMenu(menuParam);
     setPrice(priceParam);
   }, [location]);
+
+  // 유저 memberId 값
+  const memberId = useSelector(state => state.loginSlice.memberId);
+
+  // 데이터 연동(매장)
+  const [storeData, setStoreData] = useState(null);
+
+  useEffect(() => {
+    const storeGetData = async () => {
+      try {
+        const res = await getStore(memberId);
+        setStoreData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    storeGetData();
+  }, [memberId]);
+
+  // 데이터 연동(장바구니 조회)
+  const [cartListData, setCartListData] = useState(null);
+
+  useEffect(() => {
+    const cartGetData = async () => {
+      try {
+        const res = await getCartItem(memberId);
+        setCartListData(res.data);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    cartGetData();
+  }, [memberId]);
+
+  // 총 갯수
+  const totalQuantity = Array.isArray(cartListData)
+    ? cartListData.reduce((accumulator, currentItem) => {
+        return accumulator + currentItem.quantity;
+      }, 0)
+    : 0;
 
   const [paymentWidget, setPaymentWidget] = useState(null); // 결제 위젯 인스턴스를 담을 상태
   const paymentMethodsWidgetRef = useRef(null); // 결제 방법 위젯의 참조를 저장하는 useRef 훅
@@ -76,14 +120,22 @@ const CheckoutPage = () => {
       <TossCheckoutHeader>
         <p>주문 정보</p>
         <div className="orderInfo">
-          <h1>가게주소</h1>
-          <h2>{address}</h2>
+          {storeData && storeData.length > 0 && (
+            <>
+              <h1>지점명(가게주소)</h1>
+              <h2>
+                {storeData[0].storeName} ({storeData[0].address})
+              </h2>
+            </>
+          )}
         </div>
 
         <div className="orderInfo">
           <h1>결제금액</h1>
           <div className="orderPrice">
-            <h2>{menu} 외 count개</h2>
+            <h2>
+              {menu} 외 {totalQuantity - 1}개
+            </h2>
             <p>총 {new Intl.NumberFormat().format(`${price}`)}원</p>
           </div>
         </div>
@@ -117,12 +169,12 @@ const CheckoutPage = () => {
               try {
                 await paymentWidget.requestPayment({
                   orderId: nanoid(),
-                  orderName: "토스 티셔츠 외 2건",
-                  customerName: "김토스",
-                  customerEmail: "customer123@gmail.com",
-                  customerMobilePhone: "01012341234",
-                  successUrl: `${window.location.origin}/success`,
-                  failUrl: `${window.location.origin}/fail`,
+                  orderName: "원조통닭",
+                  customerName: "원조통닭 이용자님",
+                  // customerEmail: "customer123@gmail.com",
+                  // customerMobilePhone: "01012341234",
+                  successUrl: `${window.location.origin}/payment/success`,
+                  failUrl: `${window.location.origin}/payment/fail`,
                 });
               } catch (error) {
                 console.error("Payment request error:", error);

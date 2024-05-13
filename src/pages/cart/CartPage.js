@@ -99,15 +99,15 @@ const CartPage = () => {
   // 총 가격
   const totalPrice = Array.isArray(cartListData)
     ? cartListData.reduce((accumulator, currentItem) => {
-        return accumulator + currentItem.price;
+        return accumulator + currentItem.quantity * currentItem.price;
       }, 0)
     : 0;
 
   // 데이터 연동(장바구니 삭제)
-  const handleDeleteCartItem = async cartItemId => {
+  const handleDeleteCartItem = async cartDetailId => {
     const confirmDelete = window.confirm("삭제하시겠습니까?");
     if (confirmDelete) {
-      await deleteCartItem(cartItemId);
+      await deleteCartItem(cartDetailId);
       window.location.reload();
     }
   };
@@ -117,7 +117,7 @@ const CartPage = () => {
   const moveToMoreMenu = () => navigate(`/menu`);
   const moveToPatment = () =>
     navigate(
-      `/payment/checkout?add=${storeData.address}&menu=${cartListData[0].menu}&price=${cartListData[0].totalPrice}`,
+      `/payment/checkout?menu=${cartListData[0].menuName}&price=${totalPrice}`,
     );
 
   // 매장선택창 나오기
@@ -152,7 +152,7 @@ const CartPage = () => {
               변경
             </button>
           </CartItem>
-          {cartListData?.map((item,index) => {
+          {cartListData?.map(item => {
             // const [quantity, setQuantity] = useState(item.quantity);
             // const [cartId, setCartId] = useState(null);
             // const handleIncrement = cartItemId => {
@@ -174,12 +174,18 @@ const CartPage = () => {
             //   }, [quantity]);
             // };
             return (
-              <CartItem key={index}>
+              <CartItem key={item.cartDetailId}>
                 <img src={item.menuImage} />
                 <div>
                   <CartMenu>
                     <span>{item.menuName}</span>
-                    <button>삭제</button>
+                    <button
+                      onClick={() => {
+                        handleDeleteCartItem(item.cartDetailId);
+                      }}
+                    >
+                      삭제
+                    </button>
                   </CartMenu>
                   <CartCount>
                     {/* <div>
