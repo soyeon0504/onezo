@@ -2,9 +2,9 @@ import { jwtAxios } from "../../util/jwtUtil";
 import { SERVER_URL } from "../config";
 
 // 회원 정보 조회
-export const getMemberInfo = async memberId => {
+export const getMemberInfo = async () => {
   try {
-    const url = `${SERVER_URL}/auth/info/${memberId}`;
+    const url = `${SERVER_URL}/auth/info`;
 
     const res = await jwtAxios.get(url);
     return res;
@@ -14,9 +14,9 @@ export const getMemberInfo = async memberId => {
 };
 
 // 회원 정보 수정
-export const putMemberInfo = async ({ memberId, data, successFn, errFn }) => {
+export const putMemberInfo = async ({ data, successFn, errFn }) => {
   try {
-    const url = `${SERVER_URL}/auth/update/${memberId}`;
+    const url = `${SERVER_URL}/auth/update`;
 
     const res = await jwtAxios.put(url, data);
     successFn();
@@ -28,13 +28,12 @@ export const putMemberInfo = async ({ memberId, data, successFn, errFn }) => {
 
 // 회원 탈퇴
 export const deleteMemberInfo = async ({
-  memberId,
   data,
   successFn,
   errFn,
 }) => {
   try {
-    const url = `${SERVER_URL}/auth/resign/${memberId}`;
+    const url = `${SERVER_URL}/auth/resign`;
 
     const res = await jwtAxios.put(url, data);
     successFn();

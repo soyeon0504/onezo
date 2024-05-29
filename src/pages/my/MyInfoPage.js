@@ -21,21 +21,18 @@ const MyInfoPage = () => {
   const [nickname, setNickname] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  // 유저 memberId 값
-  const memberId = useSelector(state => state.loginSlice.memberId);
-
   // 데이터 연동(회원 정보 조회)
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await getMemberInfo(memberId);
+        const res = await getMemberInfo();
         setData(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     getData();
-  }, [memberId]);
+  }, []);
 
   useEffect(() => {
     if (data) {
@@ -79,7 +76,7 @@ const MyInfoPage = () => {
   useEffect(() => {
     const modifyInfo = async () => {
       if (modifyData) {
-        await putMemberInfo({ memberId, data: modifyData, successFn, errFn });
+        await putMemberInfo({ data: modifyData, successFn, errFn });
       }
     };
     modifyInfo();
