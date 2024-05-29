@@ -1,9 +1,4 @@
 import React, { Children, useEffect, useState } from "react";
-import MyOrderListPage from "./MyOrderListPage";
-import MyOrderStatusPage from "./MyOrderStatusPage";
-import MyInterestPage from "./MyInterestPage";
-import MyInfoPage from "./MyInfoPage";
-import MyWithdrawPage from "./MyWithdrawPage";
 import styled from "@emotion/styled";
 import MyCategory from "../../components/my/MyCategory";
 import { Outlet, useNavigate } from "react-router-dom";

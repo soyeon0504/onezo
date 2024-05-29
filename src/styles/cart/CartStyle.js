@@ -45,6 +45,18 @@ export const CartItem = styled.div`
     font-size: 16px;
     font-weight: 600;
   }
+  .cart_delete{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #000;
+    margin-right: 20px;
+    cursor: pointer;
+
+    color: #000;
+    font-size: 20px;
+  }
   .store_change {
     width: 65px;
     height: 40px;

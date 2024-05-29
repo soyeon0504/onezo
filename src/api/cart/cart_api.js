@@ -2,9 +2,9 @@ import { jwtAxios } from "../../util/jwtUtil";
 import { SERVER_URL } from "../config";
 
 // 유저가 선택한 매장 조회
-export const getStore = async memberId => {
+export const getStore = async () => {
   try {
-    const url = `${SERVER_URL}/api/cart/${memberId}`;
+    const url = `${SERVER_URL}/api/cart/get`;
 
     const res = await jwtAxios.get(url);
     return res;
@@ -27,9 +27,9 @@ export const postCartItem = async ({ data, successFn, errFn }) => {
 };
 
 // 장바구니 조회
-export const getCartItem = async memberId => {
+export const getCartItem = async () => {
   try {
-    const url = `${SERVER_URL}/api/cart/detail/${memberId}`;
+    const url = `${SERVER_URL}/api/cart/get/detail`;
 
     const res = await jwtAxios.get(url);
     // setCartListData([...res.data]);
@@ -54,7 +54,7 @@ export const getCartItem = async memberId => {
 // 장바구니 삭제
 export const deleteCartItem = async cartDetailId => {
   try {
-    const url = `${SERVER_URL}/api/cart/delete/${cartDetailId}`;
+    const url = `${SERVER_URL}/api/cart/detail/delete/${cartDetailId}`;
 
     const res = await jwtAxios.delete(url);
     return res;
@@ -62,3 +62,16 @@ export const deleteCartItem = async cartDetailId => {
     console.log(error);
   }
 };
+
+// 장바구니 전체 삭제
+export const deleteAllCartItem = async() => {
+  try {
+    const url = `${SERVER_URL}/api/cart/delete`
+
+    const res = await jwtAxios.delete(url)
+    return res;
+  } catch (error) {
+    console.log(error)
+
+  }
+}

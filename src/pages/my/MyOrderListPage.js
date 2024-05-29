@@ -91,9 +91,11 @@ const MyOrderListPage = () => {
               <span>
                 [{item.store}] {item.menu}
               </span>
+              <br/>
               <p>
                 [{item.howto}] {item.menu}
               </p>
+              <br/>
               <button onClick={handleDetailModal}>주문 상세</button>
             </div>
             <div>
