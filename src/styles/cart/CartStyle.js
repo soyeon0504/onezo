@@ -45,6 +45,10 @@ export const CartItem = styled.div`
     font-size: 16px;
     font-weight: 600;
   }
+  h1 {
+    font-size: 24px;
+    margin-left: 10px;
+  }
   .cart_delete{
     width: 100px;
     height: 40px;

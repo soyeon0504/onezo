@@ -40,7 +40,7 @@ const SuccessStyle = styled.div`
     padding: 10px 20px;
     gap: 10px;
     background: #fff;
-    border: 2px solid #FF8B38;
+    border: 2px solid #ff8b38;
     border-radius: 10px;
 
     font-family: DAEAM_LEE_TAE_JOON;
@@ -53,15 +53,34 @@ const SuccessStyle = styled.div`
 
 const Success = () => {
   // URL에서 매개변수 추출
-  const [orderId, setOrderId] = useState("");
-  const [amount, setAmount] = useState("");
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const orderIdParam = searchParams.get("orderId");
-    const amountParam = searchParams.get("amount");
-    setOrderId(orderIdParam);
-    setAmount(amountParam);
-  }, [location]);
+  const urlParams = new URLSearchParams(window.location.search);
+  const paymentKey = urlParams.get("paymentKey");
+  const orderId = urlParams.get("orderId");
+  const amount = urlParams.get("amount");
+
+  async function confirm() {
+    const requestData = {
+      paymentKey: paymentKey,
+      orderId: orderId,
+      amount: amount,
+    };
+
+    const response = await fetch("/confirm", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      // 결제 실패 비즈니스 로직을 구현하세요.
+      console.log(json);
+      window.location.href = `/fail?message=${json.message}&code=${json.code}`;
+    }
+  }
 
   // 페이지 이동
   const navigate = useNavigate();

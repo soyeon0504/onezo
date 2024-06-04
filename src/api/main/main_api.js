@@ -18,32 +18,3 @@ export const getProduct = async () => {
     failPostDatas("/");
   }
 };
-
-export const getShopModal = async () => {
-  try {
-    const url = `${SERVER_URL}/api/store/checkMem`;
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`
-    //   }
-    // };
-    const res = await jwtAxios.get(url);
-    return res;
-  } catch (error) {
-    console.log(error);
-    failPostDatas("/");
-  }
-};
-
-// 매장 선택 유무
-export const getCheckMem = async() => {
-  try {
-    const url = `${SERVER_URL}/api/store/checkMem`
-
-    const res = await jwtAxios.get(url);
-    return res;
-    
-  } catch (error) {
-    console.log(error)
-  }
-}

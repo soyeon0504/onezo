@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "@emotion/styled";
 import {
   CartCount,
   CartHeader,
@@ -130,13 +129,20 @@ const CartPage = () => {
     navigate(
       `/payment/checkout?menu=${cartListData[0].menuName}&price=${totalPrice}`,
     );
-    const [zeroModal, setZeroModal] = useState(false);
-    const handleClickZero = () => {
-      setZeroModal(true)
-    }
-    const zeroOkBt = () => {
-      setZeroModal(false)
-    }
+  const [shopNoneModal, setShopNoneModal] = useState(false);
+  const handleShopNone = () => {
+    setShopNoneModal(true);
+  };
+  const NoneOkBt = () => {
+    setShopNoneModal(false);
+  };
+  const [zeroModal, setZeroModal] = useState(false);
+  const handleClickZero = () => {
+    setZeroModal(true);
+  };
+  const zeroOkBt = () => {
+    setZeroModal(false);
+  };
 
   // 매장선택창 나오기
   const [shopModal, setShopModal] = useState(false);
@@ -148,6 +154,15 @@ const CartPage = () => {
       {shopModal && (
         <>
           <ShopModal onCloseModal={closeShopModal} />
+          <ModalBackground></ModalBackground>
+        </>
+      )}
+      {shopNoneModal && (
+        <>
+          <Modal_Bt1
+            txt="주문하실 매장을 먼저 선택해주세요."
+            onConfirm={NoneOkBt}
+          ></Modal_Bt1>
           <ModalBackground></ModalBackground>
         </>
       )}
@@ -168,11 +183,15 @@ const CartPage = () => {
           <CartItem>
             <img src="images/my/store.png" />
             <div style={{ width: "970px" }}>
-              {storeData && (
+              {storeData ? (
                 <>
-                  <p>{storeData.storeName}</p>
+                  <p>
+                    {storeData.storeName} ({storeData.takeInOut})
+                  </p>
                   <h3>{storeData.address}</h3>
                 </>
+              ) : (
+                <h1>주문하실 매장을 선택해주세요.</h1>
               )}
             </div>
             <button className="cart_delete" onClick={handleDeleteAllCartItem}>
@@ -239,9 +258,16 @@ const CartPage = () => {
               </CartItem>
             );
           })}
-          <CartMoreBt onClick={moveToMoreMenu}>
-            <img src="images/my/bt_plus.svg" />더 담으러 갈래요
-          </CartMoreBt>
+          {storeData == null ? (
+            <CartMoreBt onClick={handleShopNone}>
+              <img src="images/my/bt_plus.svg" />더 담으러 갈래요
+            </CartMoreBt>
+          ) : (
+            <CartMoreBt onClick={moveToMoreMenu}>
+              <img src="images/my/bt_plus.svg" />더 담으러 갈래요
+            </CartMoreBt>
+          )}
+
           <CartTotalPrice>
             <p>총 결제금액 (총 수량)</p>
             <div>
