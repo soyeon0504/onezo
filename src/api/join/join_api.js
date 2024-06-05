@@ -2,16 +2,9 @@ import axios from "axios";
 import { SERVER_URL } from "../config";
 
 // 중복확인(닉네임)
-export const nickOverlapPost = async (
-  nickname
-  // nickPostFail,
-) => {
-  // try {
-  //   const res = await axios.post(`${SERVER_URL}/auth/checkNickname`, obj);
-  //   const resStatus = res.status.toString();
+export const nickOverlapPost = async (nickname) => {
     try {
       const url = `${SERVER_URL}/auth/checkNickname`
-  
       const res = await axios.post(url, nickname);
       return res;
     } catch (error) {
@@ -20,9 +13,9 @@ export const nickOverlapPost = async (
 };
 
 // 중복확인(아이디)
-export const idOverlapPost = async (userId) => {
+export const idOverlapPost = async (storeId, orderId) => {
   try {
-    const url = `${SERVER_URL}/auth/checkId`
+    const url = `${SERVER_URL}orders/accept/${storeId}/${orderId}`
     const res = await axios.post(url, userId);
     return res;
   } catch (error) {
