@@ -204,6 +204,7 @@ export const ShopModal = ({ onCloseModal }) => {
                                 });
                             console.log(response.data); // 성공적인 응답 처리
                             onCloseModal();
+                            window.location.reload();
                         } catch (error) {
                             console.error('Error:', error); // 오류 처리
                         }
@@ -228,6 +229,7 @@ export const ShopModal = ({ onCloseModal }) => {
                                 });
                             console.log(response.data); // 성공적인 응답 처리
                             onCloseModal();
+                            window.location.reload();
                         } catch (error) {
                             console.error('Error:', error); // 오류 처리
                         }

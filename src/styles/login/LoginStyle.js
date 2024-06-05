@@ -94,8 +94,8 @@ div {
     cursor: pointer;
 }
 hr {
-    width: 15px;
-    transform: rotate(90deg);
+    width: 2px;
+    height: 15px;
 }
 a {
     color: #A9A7A7;

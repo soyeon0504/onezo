@@ -33,6 +33,7 @@ const MyInterestPage = () => {
           <img src="/images/my/store.png" />
           <div>
             <span>{item.store}</span>
+              <br/>
             <p>{item.address}</p>
           </div>
           <button>삭제</button>

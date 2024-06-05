@@ -13,13 +13,10 @@ import {
 import IdFind from "../../components/login/IdFind";
 import PasswordFind from "../../components/login/PasswordFind";
 import Layout from "../../layouts/Layout";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import useCustomLogin from "../../hooks/useCustomLogin";
 import JoinPopUp from "../../components/joinpopup/JoinPopUp";
-import { loginPost } from "../../api/login/login_api";
-import { login, loginPostAsync } from "../../slices/loginSlice";
-import { setCookie } from "../../util/cookieUtil";
+import { getKakaoLoginLink } from "../../api/login/kakao_api";
 
 const initState = {
   userId: "",
@@ -37,16 +34,7 @@ const LoginPage = () => {
   // const dispatch = useDispatch();
   const handleClick = e => {
     doLogin({ loginParam, successFn, failFn, errorFn });
-    // dispatch(loginPostAsync({ loginParam, successFn, failFn, errorFn }));
   };
-  // const handleClick = async () => {
-  //   dispatch(loginPostAsync({ loginParam, successFn, failFn }));
-  //   try {
-  //     await doLogin({ loginParam, successFn, failFn });
-  //   } catch (error) {
-  //     console.log("login error");
-  //   }
-  // };
 
   const successFn = result => {
     console.log("성공", result);
@@ -57,29 +45,14 @@ const LoginPage = () => {
     console.log("실패", result);
   };
   const errorFn = result => {
-    alert("아이디와 비밀번호를 다시 확인해주세요.")
-    moveToPath("/login")
+    alert("아이디와 비밀번호를 다시 확인해주세요.");
+    moveToPath("/login");
     console.log("서버 에러", result);
   };
 
   const [idFail, setIdFail] = useState(false);
   const [pwFail, setPwFail] = useState(false);
   const [loginFail, setLoginFail] = useState(false);
-  // const errorFn = error => {
-  //   console.log("서버 에러입니다.", error);
-  //   if (error.response && error.response.status === 456) {
-  //     setPwFail(true);
-  //   }
-  //   if (error.response && error.response.status === 455) {
-  //     setIdFail(true);
-  //   }
-  //   if (error.response && error.response.status === 400) {
-  //     setLoginFail(true);
-  //   }
-  //   if (error.response && error.response.status === 494) {
-  //     setLoginFail(true);
-  //   }
-  // };
 
   // 아이디 찾기 버튼 클릭
   const [idFindModal, setIdFindModal] = useState(false);
@@ -97,10 +70,8 @@ const LoginPage = () => {
     setPasswordFindModal(false);
   };
 
-  const moveToMain = () => {
-    const url = "/";
-    navigate(url);
-  };
+  // 카카오 로그인
+  const kakaoLogin = getKakaoLoginLink();
 
   return (
     <>
@@ -163,6 +134,8 @@ const LoginPage = () => {
               <LoginFooter>
                 <LoginButton onClick={handleClick}>로그인</LoginButton>
                 <LoginBottomWrap>
+                  <Link to={kakaoLogin}>카카오 로그인</Link>
+                  <hr />
                   <div onClick={handleIdFind}>아이디 찾기</div>
                   {idFindModal && (
                     <>

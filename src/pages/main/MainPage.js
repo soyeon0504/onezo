@@ -22,10 +22,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ShopModal } from "../../components/shop/ShopModal";
 // Import Swiper styles
 import "swiper/css";
-import { getProduct, getShopModal } from "../../api/main/main_api";
+import { getProduct } from "../../api/main/main_api";
 import MoreButton from "../../components/main/MoreButton";
 import useCustomLogin from "../../hooks/useCustomLogin";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
+import { getStore } from "../../api/cart/cart_api";
 
 const btList = [
   { id: 1, title: "전체", category: "ALL" },
@@ -157,35 +158,42 @@ const MainPage = ({ data }) => {
   };
 
   const handleMoreClick = () => {
-    navigate(`/menu/${focus}/${1}`)
-  }
+    navigate(`/menu/${focus}/${1}`);
+  };
 
   const handlePageChange = id => {
     navigate(`/menus/${id}`);
     console.log(id);
   };
 
+  // 데이터 연동(매장)
+  const [storeData, setStoreData] = useState(null);
   useEffect(() => {
-    const fetchShopModal = async () => {
-      if (isLogin) {
-        try {
-          const res = await getCheckMem();
-          setShopModal(res.data);
-        } catch (error) {
-          console.log(error);
-        }
+    const storeGetData = async () => {
+      try {
+        const res = await getStore();
+        setStoreData(res.data);
+      } catch (error) {
+        console.log(error);
       }
     };
 
-    fetchShopModal();
-  }, [isLogin]);
+    storeGetData();
+  }, []);
+
+  useEffect(() => {
+    if (isLogin && storeData == null) {
+      setShopModal(true);
+    }
+    else if (isLogin && storeData !== null) {
+      setShopModal(false);
+    }
+  }, [storeData]);
 
   useEffect(() => {
     // 페이지가 처음 로드될 때 첫 번째 버튼에 해당하는 카테고리 데이터를 가져옴
     handleCategoryClick(btList[0]);
   }, []);
-
-  console.log(shopModal)
 
   return (
     <>

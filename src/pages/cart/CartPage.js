@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "@emotion/styled";
 import {
   CartCount,
   CartHeader,
@@ -15,12 +14,14 @@ import { useNavigate } from "react-router-dom";
 import { ShopModal } from "../../components/shop/ShopModal";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
 import {
+  deleteAllCartItem,
   deleteCartItem,
   getCartItem,
   getStore,
   putCartItem,
 } from "../../api/cart/cart_api";
 import { useSelector } from "react-redux";
+import Modal_Bt1 from "../../components/modal/Modal_Bt1";
 
 // 더미데이터
 const storeSampleData = {
@@ -64,7 +65,7 @@ const CartPage = () => {
   useEffect(() => {
     const storeGetData = async () => {
       try {
-        const res = await getStore(memberId);
+        const res = await getStore();
         setStoreData(res.data);
       } catch (error) {
         console.log(error);
@@ -72,7 +73,7 @@ const CartPage = () => {
     };
 
     storeGetData();
-  }, [memberId]);
+  }, []);
 
   // 데이터 연동(장바구니 조회)
   const [cartListData, setCartListData] = useState(null);
@@ -80,7 +81,7 @@ const CartPage = () => {
   useEffect(() => {
     const cartGetData = async () => {
       try {
-        const res = await getCartItem(memberId);
+        const res = await getCartItem();
         setCartListData(res.data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -88,7 +89,7 @@ const CartPage = () => {
     };
 
     cartGetData();
-  }, [memberId]);
+  }, []);
 
   // 총 갯수
   const totalQuantity = Array.isArray(cartListData)
@@ -112,6 +113,15 @@ const CartPage = () => {
     }
   };
 
+  // 데이터 연동(장바구니 전체 삭제)
+  const handleDeleteAllCartItem = async () => {
+    const confirmDelete = window.confirm("장바구니를 모두 삭제하시겠습니까?");
+    if (confirmDelete) {
+      await deleteAllCartItem();
+      window.location.reload();
+    }
+  };
+
   // 경로 이동
   const navigate = useNavigate();
   const moveToMoreMenu = () => navigate(`/menu`);
@@ -119,6 +129,20 @@ const CartPage = () => {
     navigate(
       `/payment/checkout?menu=${cartListData[0].menuName}&price=${totalPrice}`,
     );
+  const [shopNoneModal, setShopNoneModal] = useState(false);
+  const handleShopNone = () => {
+    setShopNoneModal(true);
+  };
+  const NoneOkBt = () => {
+    setShopNoneModal(false);
+  };
+  const [zeroModal, setZeroModal] = useState(false);
+  const handleClickZero = () => {
+    setZeroModal(true);
+  };
+  const zeroOkBt = () => {
+    setZeroModal(false);
+  };
 
   // 매장선택창 나오기
   const [shopModal, setShopModal] = useState(false);
@@ -133,6 +157,24 @@ const CartPage = () => {
           <ModalBackground></ModalBackground>
         </>
       )}
+      {shopNoneModal && (
+        <>
+          <Modal_Bt1
+            txt="주문하실 매장을 먼저 선택해주세요."
+            onConfirm={NoneOkBt}
+          ></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
+      {zeroModal && (
+        <>
+          <Modal_Bt1
+            txt="장바구니에 메뉴를 담아주세요."
+            onConfirm={zeroOkBt}
+          ></Modal_Bt1>
+          <ModalBackground></ModalBackground>
+        </>
+      )}
       <CartStyle>
         <CartHeader>
           <p>장바구니</p>
@@ -141,13 +183,20 @@ const CartPage = () => {
           <CartItem>
             <img src="images/my/store.png" />
             <div style={{ width: "970px" }}>
-              {storeData && storeData.length > 0 && (
+              {storeData ? (
                 <>
-                  <p>{storeData[0].storeName}</p>
-                  <h3>{storeData[0].address}</h3>
+                  <p>
+                    {storeData.storeName} ({storeData.takeInOut})
+                  </p>
+                  <h3>{storeData.address}</h3>
                 </>
+              ) : (
+                <h1>주문하실 매장을 선택해주세요.</h1>
               )}
             </div>
+            <button className="cart_delete" onClick={handleDeleteAllCartItem}>
+              전체 삭제
+            </button>
             <button className="store_change" onClick={handleShopModal}>
               변경
             </button>
@@ -209,9 +258,16 @@ const CartPage = () => {
               </CartItem>
             );
           })}
-          <CartMoreBt onClick={moveToMoreMenu}>
-            <img src="images/my/bt_plus.svg" />더 담으러 갈래요
-          </CartMoreBt>
+          {storeData == null ? (
+            <CartMoreBt onClick={handleShopNone}>
+              <img src="images/my/bt_plus.svg" />더 담으러 갈래요
+            </CartMoreBt>
+          ) : (
+            <CartMoreBt onClick={moveToMoreMenu}>
+              <img src="images/my/bt_plus.svg" />더 담으러 갈래요
+            </CartMoreBt>
+          )}
+
           <CartTotalPrice>
             <p>총 결제금액 (총 수량)</p>
             <div>
@@ -219,7 +275,11 @@ const CartPage = () => {
                 {new Intl.NumberFormat().format(totalPrice)}원 ({totalQuantity}
                 개)
               </span>
-              <button onClick={moveToPatment}>주문하기</button>
+              {cartListData == null ? (
+                <button onClick={handleClickZero}>주문하기</button>
+              ) : (
+                <button onClick={moveToPatment}>주문하기</button>
+              )}
             </div>
           </CartTotalPrice>
         </CartMain>

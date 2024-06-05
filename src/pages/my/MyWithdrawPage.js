@@ -14,8 +14,6 @@ import Modal_Bt2 from "../../components/modal/Modal_Bt2";
 import Modal_Bt1 from "../../components/modal/Modal_Bt1";
 
 const MyWithdrawPage = () => {
-  // 유저 memberId 값
-  const memberId = useSelector(state => state.loginSlice.memberId);
 
   const [data, setData] = useState(null);
   const [userId, setUserId] = useState("");
@@ -43,7 +41,7 @@ const MyWithdrawPage = () => {
   useEffect(() => {
     const deleteInfo = async () => {
       if (data) {
-        await deleteMemberInfo({ memberId, data, successFn, errFn });
+        await deleteMemberInfo({ data, successFn, errFn });
       }
     };
     deleteInfo();

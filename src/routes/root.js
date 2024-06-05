@@ -4,13 +4,14 @@ import Loading from "../components/loading/Loading";
 
 import myRouter from "./myRouter";
 import paymentRouter from "./paymentRouter";
-// import menuRouter from "./menuRouter";
 
 const LazyMainPage = lazy(() => import("../pages/main/MainPage"));
 const LazyMenuPage = lazy(() => import("../pages/menu/MenuPage"));
 const LazyDetailPage = lazy(() => import("../pages/menu/DetailPage"));
+const LazyShopDetailPage = lazy(() => import("../pages/shop/ShopDetailPage"));
 const LazyMyPage = lazy(() => import("../pages/my/MyPage"));
 const LazyLoginPage = lazy(() => import("../pages/login/LoginPage"));
+const LazyKaKaoPage = lazy(() => import("../pages/login/KakaoRedirectPage"));
 const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
 const LazyPaymentPage = lazy(() => import("../pages/pay/PaymentPage"));
 const LazyCartPage = lazy(() => import("../pages/cart/CartPage"));
@@ -33,7 +34,6 @@ const router = createBrowserRouter([
         <LazyMenuPage />
       </Suspense>
     ),
-    // children:menuRouter(),
   },
   {
     path: "/menus/:id",
@@ -42,9 +42,7 @@ const router = createBrowserRouter([
         <LazyDetailPage />
       </Suspense>
     ),
-    // children:menuRouter(),
   },
-  // My Area
   {
     path: "/my/",
     element: (
@@ -52,13 +50,21 @@ const router = createBrowserRouter([
         <LazyMyPage />
       </Suspense>
     ),
-    children:myRouter(),
+    children: myRouter(),
   },
   {
     path: "/login",
     element: (
       <Suspense fallback={<Loading />}>
         <LazyLoginPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/login/kakao",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyKaKaoPage />
       </Suspense>
     ),
   },
@@ -80,14 +86,14 @@ const router = createBrowserRouter([
     children: paymentRouter(),
   },
   // shop Area
-  // {
-  //   path: "/shop/",
-  //   element: (
-  //     <Suspense fallback={<Loading />}>
-  //       <LazyShopPage />
-  //     </Suspense>
-  //   ),
-  // },
+  {
+    path: "/shop/",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyShopDetailPage />
+      </Suspense>
+    ),
+  },
   {
     path: "/cart",
     element: (

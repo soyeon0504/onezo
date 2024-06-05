@@ -120,6 +120,7 @@
 
 .join-button.clickable {
   cursor: pointer;
+  border: none;
 }
 
 .scroll-y {
