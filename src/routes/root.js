@@ -11,6 +11,7 @@ const LazyMenuPage = lazy(() => import("../pages/menu/MenuPage"));
 const LazyDetailPage = lazy(() => import("../pages/menu/DetailPage"));
 const LazyMyPage = lazy(() => import("../pages/my/MyPage"));
 const LazyLoginPage = lazy(() => import("../pages/login/LoginPage"));
+const LazyKaKaoPage = lazy(() => import("../pages/login/KakaoRedirectPage"));
 const LazyJoinPage = lazy(() => import("../pages/join/JoinPage"));
 const LazyPaymentPage = lazy(() => import("../pages/pay/PaymentPage"));
 const LazyCartPage = lazy(() => import("../pages/cart/CartPage"));
@@ -52,13 +53,21 @@ const router = createBrowserRouter([
         <LazyMyPage />
       </Suspense>
     ),
-    children:myRouter(),
+    children: myRouter(),
   },
   {
     path: "/login",
     element: (
       <Suspense fallback={<Loading />}>
         <LazyLoginPage />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/login/kakao",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <LazyKaKaoPage />
       </Suspense>
     ),
   },
