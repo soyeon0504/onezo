@@ -75,5 +75,5 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2"
   },
-  "proxy": "http://two.hellomh.site/"
+  "proxy": "https://ede3-118-45-167-118.ngrok-free.app"
 }

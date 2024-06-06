@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   OrderListContent,
   OrderListItem,
@@ -8,6 +8,7 @@ import { PaginationOrange } from "../../styles/Pagination";
 import ReviewModal from "../../components/review/ReviewModal";
 import MyOrderDetailPage from "./MyOrderDetailPage";
 import { ModalBackground } from "../../styles/review/ReveiwStyle";
+import { getOrderList } from "../../api/my/order_api";
 
 const orderListData = [
   {
@@ -40,12 +41,20 @@ const orderListData = [
 ];
 
 const MyOrderListPage = () => {
-  // orderDetail로 이동
-  // const navigate = useNavigate();
-  // const moveToOrderDetail = () => {
-  //   navigate(`/my/orderDetail`);
-  // };
-
+  const [data, setData] = useState(null);
+  // 데이터 연동(주문 List 조회)
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await getOrderList();
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
+  
   // 리뷰창 나오기
   const [reviewModal, setReviewModal] = useState(false);
   const handleReviewModal = () => setReviewModal(true);
@@ -81,7 +90,6 @@ const MyOrderListPage = () => {
               <span>포장/식사 완료</span>
             </div>
             <div>
-              {/* <button>재주문</button> */}
               <button onClick={handleReviewModal}>별점</button>
             </div>
           </OrderListTitle>
@@ -91,11 +99,11 @@ const MyOrderListPage = () => {
               <span>
                 [{item.store}] {item.menu}
               </span>
-              <br/>
+              <br />
               <p>
                 [{item.howto}] {item.menu}
               </p>
-              <br/>
+              <br />
               <button onClick={handleDetailModal}>주문 상세</button>
             </div>
             <div>
