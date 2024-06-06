@@ -12,3 +12,16 @@ export const getOrderList = async () => {
     console.log(error);
   }
 };
+
+// 주문상세
+export const getOrderDetail = async(id) => {
+    try {
+        const url = `${SERVER_URL}/api/purchase/detail/${id}`
+
+        const res = await jwtAxios.get(url);
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
