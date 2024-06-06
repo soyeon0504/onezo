@@ -54,7 +54,7 @@ const MyOrderListPage = () => {
     };
     getData();
   }, []);
-  
+
   // 리뷰창 나오기
   const [reviewModal, setReviewModal] = useState(false);
   const handleReviewModal = () => setReviewModal(true);
@@ -70,6 +70,7 @@ const MyOrderListPage = () => {
       {reviewModal && (
         <>
           <ReviewModal
+            storeId={1}
             store={orderListData[0].store}
             onCloseModal={closeReviewModal}
           />

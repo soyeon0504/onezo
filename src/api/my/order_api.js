@@ -25,3 +25,14 @@ export const getOrderDetail = async(id) => {
     }
 }
 
+// 리뷰작성
+export const postReview = async() => {
+    try {
+        const url=`${SERVER_URL}/api/review/up`
+
+        const res = await jwtAxios.get(url,data)
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+}
