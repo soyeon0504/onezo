@@ -75,7 +75,7 @@ const ShopDetailPage = () => {
         <ShopDetailHeader>
           <div>
             <div
-              style={{ display: "flex", gap: "100px", alignItems: "center" }}
+              style={{ display: "flex", gap: "10px", alignItems: "center" }}
             >
               <h1>{data?.storeName}</h1>
               {like ? (
@@ -93,7 +93,7 @@ const ShopDetailPage = () => {
             <h2>주소 : {data?.address}</h2>
             <h2>전화번호 : {data?.storePhone}</h2>
           </div>
-          <div>
+          {/* <div>
             <button>
               <img src="images/shop/icon_takeout.svg" />
               <br />
@@ -104,7 +104,7 @@ const ShopDetailPage = () => {
               <br />
               매장
             </button>
-          </div>
+          </div> */}
         </ShopDetailHeader>
         <ShopMap x="35" y="127" />
         <ShopReviewZone>

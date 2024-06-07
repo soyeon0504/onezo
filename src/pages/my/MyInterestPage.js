@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import {
   InterestItem,
   InterestMoreBt,
   InterestPageStyle,
 } from "../../styles/my/MyInterestStyle";
+import { getInterestShop } from "../../api/shop/shop_api";
 
 const interestData = [
   {
@@ -20,26 +21,40 @@ const interestData = [
 ];
 
 const MyInterestPage = () => {
+  const [data, setData] = useState(null);
+  // 데이터 연동(관심매장 조회)
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await getInterestShop();
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
+
   return (
     <InterestPageStyle>
       <h1>즐겨찾는 매장</h1>
-      {interestData.map(item => (
-        <InterestItem key={item.id}>
+      {data?.map((item,index) => (
+        <InterestItem key={index}>
           <img src="/images/my/store.png" />
           <div>
-            <span>{item.store}</span>
-              <br/>
+            <span>{item.storeName}</span>
+            <br />
             <p>{item.address}</p>
           </div>
-          <button>삭제</button>
+          {/* <button>삭제</button> */}
         </InterestItem>
       ))}
-      {interestData.length < 3 && (
+      {/* {data.length < 3 && (
         <InterestMoreBt>
           <img src="/images/my/bt_plus.svg" />
           관심매장 추가
         </InterestMoreBt>
-      )}
+      )} */}
     </InterestPageStyle>
   );
 };

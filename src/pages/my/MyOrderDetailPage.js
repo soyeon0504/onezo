@@ -4,12 +4,13 @@ import Layout from "../../layouts/Layout";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { getOrderDetail } from "../../api/my/order_api";
 
 function MyOrderDetailPage() {
   const [data, setData] = useState(null);
 
   // 데이터 연동(주문상세)
-  const id = 1 // 나중에 수정하기
+  const id = 2 // 나중에 수정하기
   useEffect(() => {
     const getData = async () => {
       try {
@@ -20,7 +21,7 @@ function MyOrderDetailPage() {
       }
     };
     getData()
-  },[id]);
+  },[]);
 
   const navigate = useNavigate();
 
@@ -45,8 +46,7 @@ function MyOrderDetailPage() {
           <div className="order-info">
             <p>
               <span className="info-label">패밀리점</span>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;대구
-              동성로점
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{data?.storeMenuStoreName}
             </p>
             <p>
               <span className="info-label">주문상태</span>
@@ -68,19 +68,9 @@ function MyOrderDetailPage() {
           <h2>주문옵션</h2>
           <div className="order-options">
             <p>
-              <strong>1. 치킨</strong>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>20,000원</strong>
-            </p>
-            <p>
-              <strong>2. 감자튀김</strong>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>3,500원</strong>
-            </p>
-            <p>
-              <strong>3. 코카콜라</strong>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <strong>2,000원</strong>
+              <strong>1. {data?.menuMenuName}</strong>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <strong>{data?.menuPrice}원</strong>
             </p>
           </div>
         </div>
@@ -95,7 +85,7 @@ function MyOrderDetailPage() {
           </p> */}
             <p>
               <span className="info-label">총 결제금액</span>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20,500원
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{data?.menuPrice}원
             </p>
           </div>
         </div>

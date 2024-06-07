@@ -20,30 +20,14 @@ const ReviewModal = ({ storeId, store, onCloseModal }) => {
   };
 
   // 데이터 연동(리뷰작성)
-  const [reviewData, setReviewData] = useState(null);
-
   const clickReview = async () => {
-    setReviewData({
-      comment: comment,
-      storeId: storeId,
-      star: rating,
-    });
+    try {
+      await postReview({ comment, storeId, star: rating });
+      onCloseModal();
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  useEffect(() => {
-    const postData = async () => {
-      if (reviewData) {
-        try {
-          await postReview({ data: reviewData });
-          onCloseModal();
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-    postData();
-  }, [reviewData]);
-  console.log("reviewData: ", reviewData);
 
   return (
     <ReviewStyle>
@@ -78,7 +62,9 @@ const ReviewModal = ({ storeId, store, onCloseModal }) => {
         onChange={handleCommentChange}
       />
       <div style={{ textAlign: "center" }}>
-        <button onClick={clickReview}>저장</button>
+        <button onClick={clickReview}>
+          저장
+        </button>
       </div>
     </ReviewStyle>
   );

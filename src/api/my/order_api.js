@@ -14,25 +14,25 @@ export const getOrderList = async () => {
 };
 
 // 주문상세
-export const getOrderDetail = async(id) => {
-    try {
-        const url = `${SERVER_URL}/api/purchase/detail/${id}`
+export const getOrderDetail = async id => {
+  try {
+    const url = `${SERVER_URL}/api/purchase/detail/{id}?id=${id}`;
 
-        const res = await jwtAxios.get(url);
-        return res;
-    } catch (error) {
-        console.log(error)
-    }
-}
+    const res = await jwtAxios.get(url);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // 리뷰작성
-export const postReview = async() => {
-    try {
-        const url=`${SERVER_URL}/api/review/up`
+export const postReview = async ({ comment, storeId, star }) => {
+  try {
+    const url = `${SERVER_URL}/api/review/up`;
 
-        const res = await jwtAxios.get(url,data)
-        return res;
-    } catch (error) {
-        console.log(error)
-    }
-}
+    const res = await jwtAxios.post(url, { comment, storeId, star });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -14,8 +14,8 @@ export const ShopDetailHeader = styled.div`
     font-size: 30px;
   }
   .like {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
   }
   h2 {
     font-size: 20px;
