@@ -17,11 +17,6 @@ const interestData = [
     store: "대구경북대점",
     address: "대구 북구 대학로80길 8",
   },
-  // {
-  //   id: 3,
-  //   store: "대구경북대점",
-  //   address: "대구 북구 대학로80길 8",
-  // },
 ];
 
 const MyInterestPage = () => {

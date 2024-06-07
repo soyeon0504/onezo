@@ -25,5 +25,14 @@ export const postInterestShop = async storeId => {
   }
 };
 
-
 // 관심매장 조회
+export const getInterestShop = async () => {
+  try {
+    const url = `${SERVER_URL}/api/store/list`;
+
+    const res = await jwtAxios.get(url);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
