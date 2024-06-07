@@ -15,7 +15,7 @@ export const InterestPageStyle = styled.div`
 export const InterestItem = styled.div`
   display: flex;
   width: 900px;
-  justify-content: space-between;
+  gap: 30px;
   align-items: center;
   border: 1px solid #d9d9d9;
   padding: 10px;

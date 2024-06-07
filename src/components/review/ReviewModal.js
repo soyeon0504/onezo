@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ReviewCancelBt,
   ReviewOrder,
   ReviewStar,
   ReviewStyle,
 } from "../../styles/review/ReveiwStyle";
+import { postReview } from "../../api/my/order_api";
 
-const ReviewModal = ({ store, onCloseModal }) => {
+const ReviewModal = ({ storeId, store, onCloseModal }) => {
+  // 리뷰작성
+  const [comment, setComment] = useState("");
+  const handleCommentChange = e => {
+    setComment(e.target.value);
+  };
   // 별점 클릭 핸들러
   const [rating, setRating] = useState(0);
-  const handleRatingClick = (index) => {
+  const handleRatingClick = index => {
     setRating(index + 1);
+  };
+
+  // 데이터 연동(리뷰작성)
+  const clickReview = async () => {
+    try {
+      await postReview({ comment, storeId, star: rating });
+      onCloseModal();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -27,17 +43,28 @@ const ReviewModal = ({ store, onCloseModal }) => {
         </div>
       </ReviewOrder>
       <ReviewStar>
-      {[1, 2, 3, 4, 5].map((_, index) => (
-        <img
-          key={index}
-          src={index < rating ? '/images/my/star_full.png' : '/images/my/star_empty.png'}
-          onClick={() => handleRatingClick(index)}
-        />
-      ))}
-    </ReviewStar>
-      <textarea placeholder="후기를 남겨주세요." />
+        {[1, 2, 3, 4, 5].map((_, index) => (
+          <img
+            key={index}
+            src={
+              index < rating
+                ? "/images/my/star_full.png"
+                : "/images/my/star_empty.png"
+            }
+            onClick={() => handleRatingClick(index)}
+          />
+        ))}
+      </ReviewStar>
+      <textarea
+        placeholder="후기를 남겨주세요."
+        type="text"
+        value={comment}
+        onChange={handleCommentChange}
+      />
       <div style={{ textAlign: "center" }}>
-        <button>저장</button>
+        <button onClick={clickReview}>
+          저장
+        </button>
       </div>
     </ReviewStyle>
   );
