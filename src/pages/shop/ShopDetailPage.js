@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../layouts/Layout";
 import {
   ReviewItem,
@@ -7,6 +7,7 @@ import {
   ShopReviewZone,
 } from "../../styles/shop/ShopDetailStyle";
 import ShopMap from "../../components/shop/ShopMap";
+import { getShopInfo, postInterestShop } from "../../api/shop/shop_api";
 
 // 더미데이터
 const storeSampleData = {
@@ -43,15 +44,54 @@ const reviewData = [
 ];
 
 const ShopDetailPage = () => {
+  // URl 에서 storeId 추출
+  const searchParams = new URLSearchParams(location.search);
+  const storeId = parseInt(searchParams.get("store"));
+
+  // 데이터 연동(매장 상세조회)
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await getShopInfo(storeId);
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
+
+  // 데이터 연동(관심매장 등록)
+  const [like, setLike] = useState(false);
+  const handleClickLike = async () => {
+    await postInterestShop({ storeId });
+    setLike(true);
+  };
+
   return (
     <Layout>
       <ShopDetailStyle>
         <ShopDetailHeader>
           <div>
-            <h1>{storeSampleData.storeName}</h1>
-            <h2>매장 영업시간 : {storeSampleData.storeHours}</h2>
-            <h2>주소 : {storeSampleData.address}</h2>
-            <h2>전화번호 : {storeSampleData.storePhone}</h2>
+            <div
+              style={{ display: "flex", gap: "100px", alignItems: "center" }}
+            >
+              <h1>{data?.storeName}</h1>
+              {like ? (
+                <img className="like" src="images/shop/like_full.svg" />
+              ) : (
+                <img
+                  className="like"
+                  src="images/shop/like.svg"
+                  onClick={handleClickLike}
+                />
+              )}
+            </div>
+
+            <h2>매장 영업시간 : {data?.storeHours}</h2>
+            <h2>주소 : {data?.address}</h2>
+            <h2>전화번호 : {data?.storePhone}</h2>
           </div>
           <div>
             <button>

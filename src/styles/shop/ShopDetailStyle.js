@@ -13,6 +13,10 @@ export const ShopDetailHeader = styled.div`
   h1 {
     font-size: 30px;
   }
+  .like {
+    width: 50px;
+    height: 50px;
+  }
   h2 {
     font-size: 20px;
     color: #555;
@@ -53,21 +57,21 @@ export const ShopReviewZone = styled.div`
   }
 `;
 export const ReviewItem = styled.div`
-border-bottom: 1px solid rgba(87, 42, 1, 0.50);
-margin-top: 15px;
-div{
+  border-bottom: 1px solid rgba(87, 42, 1, 0.5);
+  margin-top: 15px;
+  div {
     display: flex;
     justify-content: space-between;
-}
+  }
   h2 {
     font-size: 16px;
     margin-bottom: 10px;
   }
-  p{
+  p {
     color: #777;
     font-size: 12px;
   }
-  h3{
+  h3 {
     color: #777;
     font-size: 12px;
     margin-bottom: 10px;
